@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/floralloLogo.png</file>
+        <file>img/profileIcon.png</file>
+        <file>img/profileIconHover.png</file>
+        <file>img/signOut.png</file>
+        <file>img/signOutHover.png</file>
+    </qresource>
+    <qresource prefix="/sound">
+        <file>sounds/household_trash_bag_full_throw_into_plastic_bin (1) (online-audio-converter.com) (1).mp3</file>
+    </qresource>
+</RCC>
