@@ -13,6 +13,10 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QSqlQueryModel>
+#include "smtp.h"
+#include <QtCharts>
+#include <QChartView>
+#include <QPieSeries>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -105,10 +109,24 @@ private slots:
 
     void on_logOutButton_20_clicked();
 
+    void on_logOutButton_22_clicked();
+
+    void on_cancelButton_4_clicked();
+
+    void on_options_clicked();
+
+    //mail functions
+
+     void mailSent(QString){};
+
+     void on_sendMailButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     bill b;
     order o;
+    Smtp* smtp ;
+    QString mail;
 
 
 };

@@ -23,6 +23,26 @@ MainWindow::MainWindow(QWidget *parent)
      connect(ui->orderListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
 
 
+     //pie chart
+
+     QPieSeries *series = new QPieSeries();
+
+     series->append("c++",80);
+     series->append("meriam",50);
+     series->append("bal",30);
+
+     QChart * chart=new  QChart();
+
+     chart->addSeries(series);
+     chart->setTitle("order statistics");
+
+
+     QChartView * chartView=new QChartView(chart);
+     chartView ->setParent(ui->horizontalFrame);
+
+
+
+
 
 
 }
@@ -310,7 +330,7 @@ void MainWindow::on_search_textChanged(const QString &arg1)
     ui->listView->setModel(b.searchList(s));
 }
 
-//Order menu
+//Order menu/////////////////////////////////////////////
 
 void MainWindow::viewOrder()
 {
@@ -359,10 +379,12 @@ else
 }
 
 }
-//*****************************************************************
+
 void MainWindow::sendMail()
 {
-   //
+
+    ui->stackedWidget->setCurrentIndex(3);
+    ui->tabWidget->setCurrentIndex(0);
 
 }
 
@@ -612,3 +634,50 @@ void MainWindow::on_logOutButton_20_clicked()
 {
     close();
 }
+
+void MainWindow::on_logOutButton_22_clicked()
+{
+    close();
+}
+
+void MainWindow::on_cancelButton_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+
+}
+
+void MainWindow::on_options_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+    ui->tabWidget->setCurrentIndex(1);
+
+}
+
+//mail sending
+
+void MainWindow::on_sendMailButton_clicked()
+{
+   smtp = new Smtp("recovery.mary2000@gmail.com" , "meriam.123", "smtp.gmail.com",465);
+   connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+   smtp->sendMail("recovery.mary2000@gmail.com","meriam.mhedhbi@esprit.tn",ui->subjectLineEdit->text(),ui->plainTextEdit->toPlainText());
+
+
+
+   // reintialisation
+   ui->subjectLineEdit->setText("");
+   ui->plainTextEdit->setPlainText("");
+
+
+   QMessageBox msg ;
+   msg.setIcon(QMessageBox::Information);
+    msg.setText("Mail sent");
+       msg.exec();
+
+       ui->stackedWidget->setCurrentIndex(1);
+
+
+}
+
+
+
