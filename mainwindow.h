@@ -36,19 +36,7 @@ private slots:
 
     void showContextMenu(const QPoint&);
 
-    void on_billButton_clicked();
 
-    void on_order_clicked();
-
-    void on_back_clicked();
-
-    void on_back_2_clicked();
-
-    void on_logout_clicked();
-
-    void on_logout_2_clicked();
-
-    void on_logOutButton_clicked();
 
     void deleteBill();
     void viewBill();
@@ -57,22 +45,8 @@ private slots:
     void deleteOrder();
     void viewOrder();
     void editOrder();
+    void sendMail();
 
-    void searchBill();
-
-    void on_cancelButton_clicked();
-
-    void on_addButton_clicked();
-
-    void on_addOrder_clicked();
-
-    void on_cancelButton_2_clicked();
-
-    void on_addBill_clicked();
-
-    void on_back_pressed();
-
-    void on_return_1_clicked();
 
 
 
@@ -84,19 +58,52 @@ private slots:
 
 
 
+
+
+    void on_sort_clicked();
+
+
+
+
+    void on_billButton_clicked();
+    void on_order_clicked();
+    void on_addOrder_clicked();
+    void on_back_pressed();
     void on_addButton_3_clicked();
+    void on_addButton_2_clicked();
+
+
+
+
+    void on_return_9_clicked();
+
+    void on_logOutButton_21_clicked();
+
+    void on_logOutButton_19_clicked();
+
+    void on_cancelButton_2_clicked();
+
+    void on_edit_clicked();
+
+    void on_cancelButton_22_clicked();
+
+    void on_back_clicked();
+
+    void on_addBill_clicked();
+
+    void on_back_2_clicked();
+
+    void on_search_textChanged(const QString &arg1);
+
+    void on_addBill_2_clicked();
+
+    void on_return_11_clicked();
+
+    void on_cancelButton_23_clicked();
 
     void on_cancelButton_3_clicked();
 
-    void on_return_3_clicked();
-
-    void on_addButton_2_clicked();
-
-    void on_editButton_clicked();
-
-    void on_cancelButton_10_clicked();
-
-    void on_sort_clicked();
+    void on_logOutButton_20_clicked();
 
 private:
     Ui::MainWindow *ui;
