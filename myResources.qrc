@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/projectSecond">
+        <file>projectSecond.pro</file>
+    </qresource>
+</RCC>
