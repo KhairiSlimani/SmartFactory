@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>floralloLogo.png</file>
+        <file>Supp photo.png</file>
+    </qresource>
+</RCC>
