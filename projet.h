@@ -43,8 +43,10 @@ public:
     Projet(QString,QString,QString,QString,QString,float,QString,QString);
 
     bool Ajouter();
-    QSqlQuery Afficher(QString);
+    QSqlQueryModel* Afficher(QString itemText);
+    bool Editer();
     QSqlQuery LoadData();
+    QSqlQueryModel* AfficherListe();
     bool Effacer(QString);
 };
 

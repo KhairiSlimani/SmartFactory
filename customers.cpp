@@ -12,8 +12,7 @@ Customers::Customers(QWidget *parent) :
     ui(new Ui::Customers)
 {
     ui->setupUi(this);
-
-
+    ui->listView->setModel(C.AfficherListe());
 
     //Time
     QTimer *timer=new QTimer(this);
@@ -138,60 +137,45 @@ void Customers::showContextMenu(const QPoint &pos)
 
 void Customers::DeleteItem()
 {
-        deleteconfirmation D;
-        D.setModal(true);
-        D.exec();
+    deleteconfirmation D;
+    D.setModal(true);
+    D.exec();
 
-        QModelIndex index = ui->listView->currentIndex();
-        QString itemText = index.data(Qt::DisplayRole).toString();
-        if(D.getConfirm()==1)
-         {
-        QSqlQuery query;
-        bool test=Ctmp.Effacer(itemText);
+    //Recuperation de l'indice du curseur
+    QModelIndex index = ui->listView->currentIndex();
+    //Recuperation de l'id du client sur lequel mon curseur est positionné
+    QString itemText = index.data(Qt::DisplayRole).toString();
 
-        if(test)
+    if(D.getConfirm()==1)
+    {
+        //supprimer l'objet C de la table client et on recupére la valeur de retour(query.exec()) dans la variable test
+        bool test=C.Effacer(itemText);
+
+        if(test)//if(test==true)->La requete est executée->QMessageBox::information
         {
-         QMessageBox::warning(this, tr("Client Edited"),tr("Done."), QMessageBox::Ok);
-         QSqlQueryModel *modal=new QSqlQueryModel();
-         QSqlQuery query=Ctmp.LoadData();
-         query.exec();
-         modal->setQuery(query);
-         ui->listView->setModel(modal);
-         qDebug()<<(modal->rowCount());
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Deletion of client is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView->setModel(C.AfficherListe());
+        }
+        else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Deletion of Client failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
         }
 
-        }
- }
+    }
+
+}
 
 
 void Customers::ViewItem()
 {
     QModelIndex index = ui->listView->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
-    QSqlQuery query;
-    query=Ctmp.Afficher(itemText);
-
-    if(query.exec())
-    {
-        while(query.next())
-        {
-            ui->lineEdit_CustomerIDOutPut->setText(query.value(0).toString());
-            ui->lineEdit_FirstNameCustomerOutPut->setText(query.value(1).toString());
-            ui->lineEdit_LastNameCustomerOutPut->setText(query.value(2).toString());
-            ui->lineEdit_CompanyCustomerOutPut->setText(query.value(3).toString());
-            ui->lineEdit_PhoneNumberCustomerOutPut->setText(query.value(4).toString());
-            ui->lineEdit_EmailCustomerOutPut->setText(query.value(5).toString());
-            ui->lineEdit_WebsiteCustomerOutPut->setText(query.value(6).toString());
-            ui->lineEdit_AdressCustomerOutPut->setText(query.value(7).toString());
-            ui->lineEdit_CityCustomerOutPut->setText(query.value(8).toString());
-            ui->lineEdit_ZipCodeCustomerOutPut->setText(query.value(9).toString());
-            ui->lineEdit_CountryCustomerOutPut->setText(query.value(10).toString());
-            ui->lineEdit_BankAccountCustomerOutPut->setText(query.value(11).toString());
-            ui->lineEdit_CreditLimitCustomerOutPut->setText(query.value(12).toString());
-
-        }
-    }
-
+    ui->tableView->setModel(C.Afficher(itemText));
+    ui->tableView->resizeColumnsToContents();
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -202,6 +186,10 @@ void Customers::EditItem()
 
 void Customers::SendEmailToItem()
 {
+    QStringList list;
+    QAbstractItemModel *model = ui->tableView->model();
+    QModelIndex index0 = model->index(0,5);
+    ui->lineEdit_Email->setText(index0.data().toString());
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -234,188 +222,364 @@ void Customers::on_pushButton_AddNewCustomer_clicked()
 
 void Customers::on_pushButton_SaveAddCustomer_clicked()
 {
-        if(ui->lineEdit_IDCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_IDCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_IDCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_IDCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-               ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_LastNameCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_LastNameCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_CompanyCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_CompanyCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_EmailCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                 ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_EmailCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_WebsiteCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                 ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_WebsiteCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_AdressCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                 ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_AdressCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_CityCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_CityCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-              ui->lineEdit_CityCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_CityCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_CountryCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_CountryCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
-            if(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())
-            {
-                ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 1px solid red");
-            }
-            else
-            {
-                ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 1px solid black");
-            }
+    if(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 1px solid black");
+    }
 
 
-            if((ui->lineEdit_IDCustomerInput->text().isEmpty())||(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())||(ui->lineEdit_LastNameCustomerInput->text().isEmpty())||(ui->lineEdit_CompanyCustomerInput->text().isEmpty())||(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())||(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())||(ui->lineEdit_CountryCustomerInput->text().isEmpty())||(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())||(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())||(ui->lineEdit_EmailCustomerInput->text().isEmpty())||(ui->lineEdit_CityCustomerInput->text().isEmpty()))
-            {
-                QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+    if((ui->lineEdit_IDCustomerInput->text().isEmpty())||(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())||(ui->lineEdit_LastNameCustomerInput->text().isEmpty())||(ui->lineEdit_CompanyCustomerInput->text().isEmpty())||(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())||(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())||(ui->lineEdit_CountryCustomerInput->text().isEmpty())||(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())||(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())||(ui->lineEdit_EmailCustomerInput->text().isEmpty())||(ui->lineEdit_CityCustomerInput->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
 
-            }
-            else
-            {
+    }
+    else
+    {
 
-            QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",QRegularExpression::CaseInsensitiveOption);ui->lineEdit_EmailCustomerInput->setValidator(new QRegularExpressionValidator(rx, this));
-            if(!ui->lineEdit_EmailCustomerInput->hasAcceptableInput())
-            {
-                    ui->lineEdit_EmailCustomerInput->setStyleSheet("QLineEdit { color: red;}");
-                    QMessageBox::warning(this, tr("Email verification"),tr("Email format is incorrect."), QMessageBox::Ok);
-            }
-            else
-             {
-        QString id=ui->lineEdit_IDCustomerInput->text();
-        QString FirstName=ui->lineEdit_FirstNameCustomerInput->text();
-        QString LastName=ui->lineEdit_LastNameCustomerInput->text();
-        QString CompanyName=ui->lineEdit_CompanyCustomerInput->text();
-        int PhoneNumber=ui->lineEdit_PhoneNumberCustomerInput->text().toInt();
-        QString Email=ui->lineEdit_EmailCustomerInput->text();
-        QString Website=ui->lineEdit_WebsiteCustomerInput->text();
-        QString Street=ui->lineEdit_AdressCustomerInput->text();
-        QString City=ui->lineEdit_CityCustomerInput->text();
-        int ZipCode=ui->lineEdit_ZipCodeCustomerInput->text().toInt();
-        QString Country=ui->lineEdit_CountryCustomerInput->text();
-        int BankAccountNumber=ui->lineEdit_BankAccountCustomerInput->text().toInt();
-        int CreditLimit=ui->lineEdit_CreditLimitCustomerInput->text().toInt();
-
-        client c(id,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
-        bool test=c.ajouter();
-        if(test)
+        QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",QRegularExpression::CaseInsensitiveOption);
+        ui->lineEdit_EmailCustomerInput->setValidator(new QRegularExpressionValidator(rx, this));
+        if(!ui->lineEdit_EmailCustomerInput->hasAcceptableInput())
         {
-            QMessageBox::warning(this, tr("Add New Client"),
-                                         tr("Client Added.\n"
-                                            "Click Cancel To Exit"), QMessageBox::Ok);
-
-           QSqlQueryModel *modal=new QSqlQueryModel();
-           QSqlQuery query=Ctmp.LoadData();
-           query.exec();
-           modal->setQuery(query);
-           ui->listView->setModel(modal);
-           qDebug()<<(modal->rowCount());
-
-           ui->stackedWidget->setCurrentIndex(0);
+            ui->lineEdit_EmailCustomerInput->setStyleSheet("QLineEdit { color: red;}");
+            QMessageBox::warning(this, tr("Email verification"),tr("Email format is incorrect."), QMessageBox::Ok);
         }
         else
         {
-            QMessageBox::warning(this, tr("Add New Client"),
-                                         tr("Client Not Added.\n"
-                                            "ID Already Exists"), QMessageBox::Ok);
-            ui->stackedWidget->setCurrentIndex(0);
-        }
+            //récuperations des informations saisies dans les lineEdits
+            QString id=ui->lineEdit_IDCustomerInput->text();
+            QString FirstName=ui->lineEdit_FirstNameCustomerInput->text();
+            QString LastName=ui->lineEdit_LastNameCustomerInput->text();
+            QString CompanyName=ui->lineEdit_CompanyCustomerInput->text();
+            int PhoneNumber=ui->lineEdit_PhoneNumberCustomerInput->text().toInt();//Conversion de la chaine saisie en un entier car PhoneNumber est de type int
+            QString Email=ui->lineEdit_EmailCustomerInput->text();
+            QString Website=ui->lineEdit_WebsiteCustomerInput->text();
+            QString Street=ui->lineEdit_AdressCustomerInput->text();
+            QString City=ui->lineEdit_CityCustomerInput->text();
+            int ZipCode=ui->lineEdit_ZipCodeCustomerInput->text().toInt();
+            QString Country=ui->lineEdit_CountryCustomerInput->text();
+            int BankAccountNumber=ui->lineEdit_BankAccountCustomerInput->text().toInt();//Conversion de la chaine saisie en un entier car BankAccountNumber est de type int
+            float CreditLimit=ui->lineEdit_CreditLimitCustomerInput->text().toFloat();//Conversion de la chaine saisie en un reel car CreditLimit est de type float
 
+
+            //Instantiation d'un objet de type client en utilisant les informations saisies dans l'interface graphique
+            client c(id,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
+
+            //Inserer l'objet C dans la table client et recuperer la valeur de retour de query.exec() dans la variable test.
+            bool test=c.ajouter();
+
+            if(test)//if (test==true)->la requete est executée->QMessageBox::information
+            {
+                QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                         QObject::tr("Addition of new Client is successful.\n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+
+                ui->listView->setModel(C.AfficherListe());
+                ui->stackedWidget->setCurrentIndex(0);
             }
+            else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+            {
+                QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                      QObject::tr("Addition of new Client failed.\n"
+                                                  "Click Cancel to exit."), QMessageBox::Cancel);
+                ui->stackedWidget->setCurrentIndex(0);
             }
+
+        }
+    }
 }
 
 void Customers::on_pushButton_SaveEditCustomer_clicked()
 {
+    if(ui->lineEdit_IDCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_FirstNameCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_LastNameCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_CompanyCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_PhoneNumberCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_EmailCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_WebsiteCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_AdressCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_CityCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_ZipCodeCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_CountryCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_BankAccountCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_CreditLimitCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 1px solid black");
+    }
 
 
+    if((ui->lineEdit_IDCustomerEdit->text().isEmpty())||(ui->lineEdit_FirstNameCustomerEdit->text().isEmpty())||(ui->lineEdit_LastNameCustomerEdit->text().isEmpty())||(ui->lineEdit_CompanyCustomerEdit->text().isEmpty())||(ui->lineEdit_PhoneNumberCustomerEdit->text().isEmpty())||(ui->lineEdit_ZipCodeCustomerEdit->text().isEmpty())||(ui->lineEdit_CountryCustomerEdit->text().isEmpty())||(ui->lineEdit_BankAccountCustomerEdit->text().isEmpty())||(ui->lineEdit_CreditLimitCustomerEdit->text().isEmpty())||(ui->lineEdit_EmailCustomerEdit->text().isEmpty())||(ui->lineEdit_CityCustomerEdit->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),
+                             tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
 
+    }
+    else
+    {
+
+        QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",
+                              QRegularExpression::CaseInsensitiveOption);
+        ui->lineEdit_EmailCustomerEdit->setValidator(new QRegularExpressionValidator(rx, this));
+        if(!ui->lineEdit_EmailCustomerEdit->hasAcceptableInput())
+        {
+            ui->lineEdit_EmailCustomerEdit->setStyleSheet("QLineEdit { color: red;}");
+            QMessageBox::warning(this, tr("Email verification"),
+                                 tr("Email format is incorrect."), QMessageBox::Ok);
+        }
+        else
+        {
+            //récuperations des informations saisies dans les lineEdits
+            QString id=ui->lineEdit_IDCustomerEdit->text();
+            QString FirstName=ui->lineEdit_FirstNameCustomerEdit->text();
+            QString LastName=ui->lineEdit_LastNameCustomerEdit->text();
+            QString CompanyName=ui->lineEdit_CompanyCustomerEdit->text();
+            int PhoneNumber=ui->lineEdit_PhoneNumberCustomerEdit->text().toInt();//Conversion de la chaine saisie en un entier car PhoneNumber est de type int
+            QString Email=ui->lineEdit_EmailCustomerEdit->text();
+            QString Website=ui->lineEdit_WebsiteCustomerEdit->text();
+            QString Street=ui->lineEdit_AdressCustomerEdit->text();
+            QString City=ui->lineEdit_CityCustomerEdit->text();
+            int ZipCode=ui->lineEdit_ZipCodeCustomerEdit->text().toInt();
+            QString Country=ui->lineEdit_CountryCustomerEdit->text();
+            int BankAccountNumber=ui->lineEdit_BankAccountCustomerEdit->text().toInt();//Conversion de la chaine saisie en un entier car BankAccountNumber est de type int
+            float CreditLimit=ui->lineEdit_CreditLimitCustomerEdit->text().toFloat();//Conversion de la chaine saisie en un reel car CreditLimit est de type float
+
+
+            //Instantiation d'un objet de type client en utilisant les informations saisies dans l'interface graphique
+            client C(id,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
+
+            //Inserer l'objet C dans la table client et recuperer la valeur de retour de query.exec() dans la variable test.
+            bool test=C.Editer();
+
+            if(test)//if (test==true)->la requete est executée->QMessageBox::information
+            {
+                QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                         QObject::tr("Edit of Client is successful.\n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+
+                ui->listView->setModel(C.AfficherListe());
+            }
+            else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+            {
+                QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                      QObject::tr("Edit of Client failed.\n"
+                                                  "Click Cancel to exit."), QMessageBox::Cancel);
+            }
+
+            ui->stackedWidget->setCurrentIndex(0);
+        }
+    }
 
 }
 
@@ -444,13 +608,87 @@ void Customers::on_signOut_5_clicked()
 {
     emit(HomeClicked());
 }
-
 void Customers::on_LoadData_clicked()
 {
-     QSqlQueryModel *modal=new QSqlQueryModel();
-     QSqlQuery query=Ctmp.LoadData();
-     query.exec();
-     modal->setQuery(query);
-     ui->listView->setModel(modal);
-     qDebug()<<(modal->rowCount());
+    ui->listView->setModel(C.AfficherListe());
+}
+
+void Customers::on_pushButton_Search_clicked()
+{
+    QString itemText=ui->lineEdit_SearchCustomer->text();
+    if(C.Chercher(itemText))
+    {
+        ui->tableView->setModel(C.Afficher(itemText));
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+    else
+    {
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+                              QObject::tr("Client Not Found.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+}
+
+
+
+
+void Customers::on_pushButton_Print_clicked()
+{
+    QStringList list;
+    QAbstractItemModel *model = ui->tableView->model();
+    QModelIndex index0 = model->index(0,0);
+    QModelIndex index1 = model->index(0,1);
+    QModelIndex index2 = model->index(0,2);
+    QModelIndex index3 = model->index(0,3);
+    QModelIndex index4 = model->index(0,4);
+    QModelIndex index5 = model->index(0,5);
+    QModelIndex index6 = model->index(0,6);
+    QModelIndex index7 = model->index(0,7);
+    QModelIndex index8 = model->index(0,8);
+    QModelIndex index9 = model->index(0,9);
+    QModelIndex index10 = model->index(0,10);
+    QModelIndex index11 = model->index(0,11);
+    QModelIndex index12 = model->index(0,12);
+
+    QPlainTextEdit text;
+    text.appendPlainText("ID: "+index0.data().toString()+"");
+    text.appendPlainText("First Name: "+index1.data().toString()+"");
+    text.appendPlainText("Last Name: "+index2.data().toString()+"");
+    text.appendPlainText("Company Name: "+index3.data().toString()+"");
+    text.appendPlainText("Phone Number: "+index4.data().toString()+"");
+    text.appendPlainText("Email: "+index5.data().toString()+"");
+    text.appendPlainText("Website: "+index6.data().toString()+"");
+    text.appendPlainText("Street: "+index7.data().toString()+"");
+    text.appendPlainText("City: "+index8.data().toString()+"");
+    text.appendPlainText("ZipCode: "+index9.data().toString()+"");
+    text.appendPlainText("Country: "+index10.data().toString()+"");
+    text.appendPlainText("Bank Account Number: "+index11.data().toString()+"");
+    text.appendPlainText("Credit Limit: "+index12.data().toString()+"");
+
+    QPrinter printer;
+    printer.setPrinterName("Print");
+    //printer.setOutputFormat(QPrinter::PdfFormat);
+    //printer.setOutputFileName("Information Of Employee "+ui->viewID->text()+"");
+    QPrintDialog dlg(&printer,this);
+    if (dlg.exec() == QDialog::Rejected)
+    {
+        return;
+    }
+    text.print(&printer);
+
+}
+
+void Customers::on_pushButton_clicked()
+{
+    smtp = new Smtp("rh.florallo@gmail.com" , "projetcpp", "smtp.gmail.com",465);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+    msg=ui->plainTextEdit->toPlainText();
+
+    smtp->sendMail("rh.florallo@gmail.com",mail,ui->lineEdit_Email->text(),msg);
+}
+
+void Customers::on_pushButton_SortCustomers_clicked()
+{
+    ui->listView->setModel(C.Trier());
 }

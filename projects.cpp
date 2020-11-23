@@ -107,21 +107,23 @@ void Projects::deleteProject()
     QModelIndex index = ui->listView->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
     if(D.getConfirm()==1)
-     {
-    QSqlQuery query;
-    Projet P;
-    bool test=P.Effacer(itemText);
-
-    if(test)
     {
-     QMessageBox::warning(this, tr("Client Edited"),tr("Done."), QMessageBox::Ok);
-     QSqlQueryModel *modal=new QSqlQueryModel();
-     QSqlQuery query=P.LoadData();
-     query.exec();
-     modal->setQuery(query);
-     ui->listView->setModel(modal);
-     qDebug()<<(modal->rowCount());
-    }
+        //supprimer l'objet P de la table projet et on recupére la valeur de retour(query.exec()) dans la variable test
+        bool test=P.Effacer(itemText);
+
+        if(test)//if(test==true)->La requete est executée->QMessageBox::information
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Deletion Project is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView->setModel(P.AfficherListe());
+        }
+        else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Deletion Project failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
 
     }
 
@@ -131,24 +133,7 @@ void Projects::viewProject()
 {
     QModelIndex index = ui->listView->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
-    QSqlQuery query;
-    Projet P;
-    query=P.Afficher(itemText);
-
-    if(query.exec())
-    {
-        while(query.next())
-        {
-            ui->lineEdit_IDProjectOutput->setText(query.value(0).toString());
-            ui->lineEdit_NameProjectOutPut->setText(query.value(1).toString());
-            ui->lineEdit_DescriptionProjectOutput->setText(query.value(2).toString());
-            ui->lineEdit_StartDateProjectOutput->setText(query.value(3).toString());
-            ui->lineEdit_FinishDateProjectOutput->setText(query.value(4).toString());
-            ui->lineEdit_BudgetProjectOutput->setText(query.value(5).toString());
-            ui->lineEdit_CustomerIDProjectOutput->setText(query.value(6).toString());
-            ui->lineEdit_OrderIDCustomerOutput->setText(query.value(7).toString());
-        }
-    }
+    ui->tableView->setModel(P.Afficher(itemText));
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -244,35 +229,40 @@ void Projects::on_pushButton_SaveAddProject_clicked()
     }
     else
     {
+        //récuperations des informations saisies dans les lineEdits
         QString ID=ui->lineEdit_IDProjectInput->text();
         QString Name=ui->lineEdit_NameProjectInput->text();
         QString Description=ui->lineEdit_DescriptionProjectInput->text();
         QString StartDate=ui->dateEdit_StartDateProjectInput->text();
         QString EndDate=ui->dateEdit_EndDateProjectInput->text();
-        float Budget=ui->lineEdit_BudgetProjectInput->text().toFloat();
-        QString CustomerID=ui->lineEdit_IDProjectInput->text();
+        float Budget=ui->lineEdit_BudgetProjectInput->text().toFloat();//Conversion de la chaine saisie en un reel car Budget est de type float
+        QString CustomerID=ui->lineEdit_CustomerIDProjectInput->text();
         QString OrderID=ui->lineEdit_OrderIDProjectInput->text();
 
+        //Instantiation d'un objet de type projet en utilisant les informations saisies dans l'interface graphique
+        Projet P(ID,Name,Description,StartDate,EndDate,Budget,CustomerID,OrderID);
 
-        Projet p(ID,Name,Description,StartDate,EndDate,Budget,CustomerID,OrderID);
-        bool test=p.Ajouter();
-        if(test)
+        //Inserer l'objet P dans la table projet et recuperer la valeur de retour de query.exec() dans la variable test.
+        bool test=P.Ajouter();
+
+        if(test)//Si la requete a ete executé convenablement
         {
-            QMessageBox::warning(this, tr("Add New Projet"),
-                                         tr("Project Added.\n"
-                                            "Click Cancel To Exit"), QMessageBox::Ok);
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Addition of new Project is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView->setModel(P.AfficherListe());
 
+        }
+        else
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Addition of new Project failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
 
-           QSqlQueryModel *modal=new QSqlQueryModel();
-           Projet P;
-           QSqlQuery query=P.LoadData();
-           query.exec();
-           modal->setQuery(query);
-           ui->listView->setModel(modal);
-           qDebug()<<(modal->rowCount());
-           ui->stackedWidget->setCurrentIndex(3);
+        ui->stackedWidget->setCurrentIndex(3);
     }
-}
+
 }
 
 void Projects::on_pushButton_CancelAddProject_clicked()
@@ -363,6 +353,37 @@ void Projects::on_pushButton_SaveEditProject_clicked()
     }
     else
     {
+        //récuperations des informations saisies dans les lineEdits
+        QString ID=ui->lineEdit_IDProjectEdit->text();
+        QString Name=ui->lineEdit_NameProjectEdit->text();
+        QString Description=ui->lineEdit_DescriptionProjectEdit->text();
+        QString StartDate=ui->dateEdit_StartDateProjectEdit->text();
+        QString EndDate=ui->dateEdit_EndDateProjectEdit->text();
+        float Budget=ui->lineEdit_BudgetProjectEdit->text().toFloat();//Conversion de la chaine saisie en un reel car Budget est de type float
+        QString CustomerID=ui->lineEdit_CustomerIDProjectEdit->text();
+        QString OrderID=ui->lineEdit_OrderIDProjectEdit->text();
+
+        //Instantiation d'un objet de type projet en utilisant les informations saisies dans l'interface graphique
+        Projet P(ID,Name,Description,StartDate,EndDate,Budget,CustomerID,OrderID);
+
+        //Inserer l'objet P dans la table projet et recuperer la valeur de retour de query.exec() dans la variable test.
+        bool test=P.Editer();
+
+        if(test)//Si la requete a ete executé convenablement
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Edit Project is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView->setModel(P.AfficherListe());
+
+        }
+        else
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Edit Project failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
+
         ui->stackedWidget->setCurrentIndex(3);
     }
 }
@@ -402,11 +423,5 @@ void Projects::on_signOut_7_clicked()
 
 void Projects::on_LoadData_clicked()
 {
-     QSqlQueryModel *modal=new QSqlQueryModel();
-     Projet P;
-     QSqlQuery query=P.LoadData();
-     query.exec();
-     modal->setQuery(query);
-     ui->listView->setModel(modal);
-     qDebug()<<(modal->rowCount());
+    ui->listView->setModel(P.AfficherListe());
 }

@@ -1,6 +1,6 @@
-QT       += core gui multimedia
+QT       += core gui multimedia sql printsupport widgets network
 
-QT       += core gui sql
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,7 +25,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     projects.cpp \
-    projet.cpp
+    projet.cpp \
+    smtp.cpp
 
 HEADERS += \
     client.h \
@@ -34,7 +35,8 @@ HEADERS += \
     deleteconfirmation.h \
     mainwindow.h \
     projects.h \
-    projet.h
+    projet.h \
+    smtp.h
 
 FORMS += \
     customers.ui \

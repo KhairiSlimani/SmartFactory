@@ -19,12 +19,12 @@ private:
     int ZipCode;
     QString Country;
     int BankAccountNumber;
-    int CreditLimit;
+    float CreditLimit;
 
 
 public:
     client();
-    client(QString,QString,QString,QString,int,QString,QString,QString,QString,int,QString,int,int);
+    client(QString,QString,QString,QString,int,QString,QString,QString,QString,int,QString,int,float);
 
     QString getID(){return id;}
     QString getFirstName(){return FirstName;}
@@ -38,7 +38,7 @@ public:
     int getZipCode(){return ZipCode;}
     QString getCountry(){return Country;}
     int getBankAccountNumber(){return BankAccountNumber;}
-    int getCreditLimit(){return CreditLimit;}
+    float getCreditLimit(){return CreditLimit;}
 
 
     void setID(QString id){this->id=id;}
@@ -53,13 +53,18 @@ public:
     void setZipCode(int ZipCode){this->ZipCode=ZipCode;}
     void setCountry(QString Country){this->Country=Country;}
     void setBankAccountNumber(int BankAccountNumber){this->BankAccountNumber=BankAccountNumber;}
-    void setCreditLimit(int CreditLimit){this->CreditLimit=CreditLimit;}
+    void setCreditLimit(float CreditLimit){this->CreditLimit=CreditLimit;}
 
 
     bool ajouter();
-    QSqlQuery Afficher(QString);
+    bool Editer();
+    QSqlQueryModel* Afficher(QString);
     QSqlQuery LoadData();
+    QSqlQueryModel* AfficherListe();
     bool Effacer(QString);
+    bool Chercher(QString itemText);
+    QSqlQueryModel* Trier();
+
 
 
 };

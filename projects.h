@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include "deleteconfirmation.h"
 #include <QPropertyAnimation>
+#include "projet.h"
 
 namespace Ui {
 class Projects;
@@ -27,6 +28,7 @@ private slots:
 private:
     Ui::Projects *ui;
     QPropertyAnimation *animation;
+    Projet P;
 
 signals:
     void HomeClicked();

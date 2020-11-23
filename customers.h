@@ -7,6 +7,11 @@
 #include "deleteconfirmation.h"
 #include <QPropertyAnimation>
 #include "client.h"
+#include <QSortFilterProxyModel>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPlainTextEdit>
+#include "smtp.h"
 
 
 namespace Ui {
@@ -24,8 +29,11 @@ public:
 private:
     Ui::Customers *ui;
     QPropertyAnimation *animation;
-    client Ctmp;
-     QStringList  stringList;
+    client C;//On ajoute un attribut a la classe Customers qui correspond a un objet de la classe client pour pouvoir faire appel aux methodes de la classe client
+    QStringList  stringList;
+    Smtp* smtp ;
+    QString msg;
+    QString mail;
 
 signals:
     void HomeClicked();
@@ -51,6 +59,10 @@ private slots:
     void on_signOut_4_clicked();
     void on_signOut_5_clicked();
     void on_LoadData_clicked();
+    void on_pushButton_Search_clicked();
+    void on_pushButton_Print_clicked();
+    void on_pushButton_clicked();
+    void on_pushButton_SortCustomers_clicked();
 };
 
 #endif // CUSTOMERS_H
