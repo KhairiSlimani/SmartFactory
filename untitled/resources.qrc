@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/floralloLogo.png</file>
+        <file>img/profileIcon.png</file>
+        <file>img/profileIconHover.png</file>
+        <file>img/signOut.png</file>
+        <file>img/signOutHover.png</file>
+    </qresource>
+</RCC>
