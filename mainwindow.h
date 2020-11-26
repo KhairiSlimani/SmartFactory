@@ -30,7 +30,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
+    void statistique();
 
 
 private slots:
@@ -120,6 +120,8 @@ private slots:
      void mailSent(QString){};
 
      void on_sendMailButton_clicked();
+
+     void on_cancelButton_5_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -1,12 +1,15 @@
 #ifndef ORDER_H
 #define ORDER_H
 #include "cnx.h"
+#include <QtCharts>
+#include <QPieSeries>
 #include <QMessageBox>
 #include <QDebug>
 #include <QSqlQueryModel>
 #include <QDate>
 #include <QSqlQuery>
 #include <QMessageBox>
+
 
 class order
 {
@@ -23,6 +26,7 @@ public:
     QSqlQueryModel * afficherList();
     bool supprimer(int id);
     bool edit(int id);
+    QChart* stat();
 
 
 

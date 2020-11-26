@@ -12,13 +12,13 @@
 class bill
 {
 private:
-    QString shipperName,payMethod,billNumber,customerID,orderID;
+    QString shipperName,payMethod,billNumber,orderID;
     QDate releaseDate;
     int shipperNumber;
     double totalAmount;
 public:
     bill();
-    bill(QString,QString,QString,QString,QString,int,double,QDate);
+    bill(QString,QString,QString,QString,int,double,QDate);
     bool ajouter();
     QSqlQueryModel* afficher(int i);
     QSqlQueryModel * afficherList();
@@ -32,7 +32,6 @@ public:
      void setShipperName(QString ch) {shipperName=ch;};
      void setPayMethod(QString ch) {payMethod=ch;};
       void setBillNumber(QString  x) {billNumber=x;};
-      void setCustomerID(QString  x) {customerID=x;};
       void setOrderID(QString  x) {orderID=x;};
       void setShipperNumber(int x) {shipperNumber=x;};
       void setTotalAmount(double  x) {totalAmount=x;};
@@ -43,7 +42,6 @@ public:
        QString getShipperName() {return shipperName;};
        QString getPayMethod() {return payMethod;};
        QString  getBillNumber() {return billNumber;};
-        QString  getCustomerID() {return customerID;};
         QString  getOrderID() {return orderID;};
         int  getShipperNumber() {return shipperNumber;};
         double  getTotalAmount() {return totalAmount;};

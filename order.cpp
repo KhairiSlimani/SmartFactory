@@ -145,8 +145,23 @@ order::order()
         return qry.exec();
     }
 
+//statestique ///////////////////////
+ QChart* order::stat()
+   {
+    QPieSeries *series = new QPieSeries();
+    QSqlQuery query("SELECT ORDERNUMBER, QUANTITYORDERED FROM ORDERTAB;");
+    while(query.next())
+    {
+        series->append(query.value(0).toString(),query.value(1).toInt());
+    }
 
+    QChart * chart=new  QChart();
+    chart->addSeries(series);
+    chart->setTitle("order statistics");
 
+      return   chart;
+
+    }
 
 
 

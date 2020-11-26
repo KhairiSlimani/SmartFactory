@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->stackedWidget->setCurrentIndex(0);
     //afficher
     //Time
     QTimer *timer=new QTimer(this);
@@ -22,29 +23,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->orderListView->setContextMenuPolicy(Qt::CustomContextMenu);
      connect(ui->orderListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
 
+    statistique();
+}
 
-     //pie chart
+/// statistics ///
 
-     QPieSeries *series = new QPieSeries();
+void MainWindow::statistique()
+{
+    //pie chart
 
-     series->append("c++",80);
-     series->append("meriam",50);
-     series->append("bal",30);
-
-     QChart * chart=new  QChart();
-
-     chart->addSeries(series);
-     chart->setTitle("order statistics");
-
-
-     QChartView * chartView=new QChartView(chart);
-     chartView ->setParent(ui->horizontalFrame);
-
-
-
-
-
-
+    QChartView * chartView=new QChartView(o.stat());
+    chartView ->setParent(ui->horizontalFrame);
 }
 
 MainWindow::~MainWindow()
@@ -61,18 +50,26 @@ void MainWindow::showTime()
     ui->time->setText(time_text);
     ui->time_2->setText(time_text);
     ui->time_3->setText(time_text);
-  /*  ui->time_4->setText(time_text);
+    ui->time_4->setText(time_text);
     ui->time_5->setText(time_text);
-     ui->time_6->setText(time_text);*/
+    ui->time_6->setText(time_text);
+    ui->time_7->setText(time_text);
+    ui->time_8->setText(time_text);
+    ui->time_9->setText(time_text);
+    ui->time_10->setText(time_text);
 
     QDateTime dateTime = QDateTime::currentDateTime();
     QString datetimetext = dateTime.toString();
-   /* ui->date->setText(datetimetext);
+    ui->date->setText(datetimetext);
+    ui->date_1->setText(datetimetext);
     ui->date_2->setText(datetimetext);
     ui->date_3->setText(datetimetext);
     ui->date_4->setText(datetimetext);
     ui->date_5->setText(datetimetext);
-    ui->date_6->setText(datetimetext);*/
+    ui->date_6->setText(datetimetext);
+    ui->date_7->setText(datetimetext);
+    ui->date_8->setText(datetimetext);
+    ui->date_9->setText(datetimetext);
 }
 //choose bill button from menu
 void MainWindow::on_billButton_clicked()
@@ -200,7 +197,7 @@ void MainWindow::on_addBill_2_clicked()
     QMessageBox msg;
 
 
-      if((ui->shipperPhone->text().length()==0) || (ui->billNumber->text().length()==0) || (ui->customerID->text().length()==0) || (ui->orderID->text().length()==0)|| (ui->shipperName->text().length()==0)  )
+      if((ui->shipperPhone->text().length()==0) || (ui->billNumber->text().length()==0)  || (ui->orderID->text().length()==0)|| (ui->shipperName->text().length()==0)  )
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -217,7 +214,6 @@ void MainWindow::on_addBill_2_clicked()
             b.setBillNumber(ui->billNumber->text());
             b.setOrderID(ui->orderID->text());
             b.setPayMethod(ui->paymentMethod->currentText());
-            b.setCustomerID(ui->customerID->text());
             b.setShipperNumber(ui->shipperPhone->text().toInt());
             b.setTotalAmount(ui->doubleSpinBox->text().toFloat());
 
@@ -241,7 +237,6 @@ void MainWindow::on_addBill_2_clicked()
                  ui->billNumber->setText("");
                  ui->orderID->setText("");
                  ui->paymentMethod->setCurrentIndex(0);
-                 ui->customerID->setText("");
                  ui->shipperPhone->setText(0);
                  ui->doubleSpinBox->setValue(0);
 
@@ -274,7 +269,6 @@ void MainWindow::on_addButton_3_clicked()
     b.setBillNumber(ui->billNumber_2->text());
     b.setOrderID(ui->orderID_2->text());
     b.setPayMethod(ui->paymentMethod_2->currentText());
-    b.setCustomerID(ui->customerID_3->text());
     b.setShipperNumber(ui->shipperPhone_2->text().toInt());
     b.setTotalAmount(ui->doubleSpinBox_2->text().toFloat());
     //implementing edit function
@@ -423,7 +417,7 @@ void MainWindow::on_addButton_2_clicked()
     QMessageBox msg;
 
 
-      if((ui->orderNumber->text().length()==0) || (ui->productCode->text().length()==0) || (ui->customerID_2->text().length()==0) || (ui->comments->text().length()==0)|| (ui->discount->text().length()==0)  )
+      if((ui->orderNumber->text().length()==0) || (ui->productCode->text().length()==0) || (ui->customerID_2->text().length()==0) || (ui->comments->text().length()==0)|| (ui->discount->text().length()==0)|| (ui->quantity->text().length()==0) ||  (ui->unitPrice->text().length()==0) ||  (ui->extendedPrice->text().length()==0) )
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -511,6 +505,11 @@ void MainWindow::on_edit_clicked()
           msgBox.exec();
 
       }
+      else if ((ui->orderNumber_10->text()))
+      {
+
+      }
+
       else
       {
 
@@ -622,12 +621,12 @@ void MainWindow::on_return_11_clicked()
 
 void MainWindow::on_cancelButton_23_clicked()
 {
-    ui->tabWidget_2->setCurrentIndex(0);
+   ui->tabWidget_3->setCurrentIndex(0);
 }
 
 void MainWindow::on_cancelButton_3_clicked()
 {
-    ui->tabWidget_2->setCurrentIndex(0);
+    ui->tabWidget_3->setCurrentIndex(0);
 }
 
 void MainWindow::on_logOutButton_20_clicked()
@@ -648,6 +647,7 @@ void MainWindow::on_cancelButton_4_clicked()
 
 void MainWindow::on_options_clicked()
 {
+    statistique();
     ui->stackedWidget->setCurrentIndex(3);
     ui->tabWidget->setCurrentIndex(1);
 
@@ -675,9 +675,12 @@ void MainWindow::on_sendMailButton_clicked()
        msg.exec();
 
        ui->stackedWidget->setCurrentIndex(1);
-
-
 }
 
 
 
+
+void MainWindow::on_cancelButton_5_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}

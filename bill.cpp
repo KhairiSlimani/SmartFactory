@@ -6,19 +6,17 @@ bill::bill()
     shipperName="";
     payMethod="";
     billNumber="";
-    customerID="";
     orderID="";
     shipperNumber=0;
     totalAmount=0;
 }
 
-bill::bill(QString shipperName,QString billNumber,QString orderID,QString payMethod,QString customerID,int shipperNumber,double totalAmount,QDate releaseDate)
+bill::bill(QString shipperName,QString billNumber,QString orderID,QString payMethod,int shipperNumber,double totalAmount,QDate releaseDate)
 {
     this->shipperName=shipperName;
     this->billNumber=billNumber;
     this->orderID=orderID;
     this->payMethod=payMethod;
-    this->customerID=customerID;
     this->shipperNumber=shipperNumber;
     this->totalAmount=totalAmount;
     this->releaseDate=releaseDate;
@@ -34,17 +32,15 @@ bool bill::ajouter()
       QSqlQuery qry;
        qry.prepare("insert into BILL ("
                    "BILLNUMBER, "
-                   "CUSTOMERID,"
                    "ORDERID,"
                    "PAYMENTMETHOD,"
                    "RELEASEDATE,"
                    "TOTALAMOUNT,"
                    "SHIPPERNAME,"
                    "SHIPPERPHONE) "
-                   "values(?,?,?,?,?,?,?,?)");
+                   "values(?,?,?,?,?,?,?)");
 
        qry.addBindValue(getBillNumber());
-       qry.addBindValue(getCustomerID());
        qry.addBindValue(getOrderID());
        qry.addBindValue(getPayMethod());
        qry.addBindValue(getReleaseDate());
@@ -114,10 +110,9 @@ bool bill::supprimer(int id)
 
 bool bill::edit(int id)
 { QSqlQuery qry ;
-    qry.prepare("update BILL set BILLNUMBER=:billNumber,CUSTOMERID=:customerId,ORDERID=:orderId,PAYMENTMETHOD=:paymentMethod,RELEASEDATE=:releaseDate,TOTALAMOUNT=:totalAmount,SHIPPERNAME=:shipperName,SHIPPERPHONE=:shipperPhone WHERE BILLNUMBER=:billNumber") ;
+    qry.prepare("update BILL set BILLNUMBER=:billNumber,ORDERID=:orderId,PAYMENTMETHOD=:paymentMethod,RELEASEDATE=:releaseDate,TOTALAMOUNT=:totalAmount,SHIPPERNAME=:shipperName,SHIPPERPHONE=:shipperPhone WHERE BILLNUMBER=:billNumber") ;
 
     qry.bindValue(":billNumber",id);
-    qry.bindValue(":customerId",getCustomerID());
     qry.bindValue(":orderId",getOrderID());
     qry.bindValue(":paymentMethod",getPayMethod());
     qry.bindValue(":releaseDate",getReleaseDate());

@@ -72,8 +72,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>20</y>
+     <x>140</x>
+     <y>10</y>
      <width>391</width>
      <height>41</height>
     </rect>
@@ -87,7 +87,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Are You Sure You Want To Delete This Employee?</string>
+    <string>Are you sure ?</string>
    </property>
   </widget>
  </widget>
