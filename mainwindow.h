@@ -17,6 +17,10 @@
 #include <QtCharts>
 #include <QChartView>
 #include <QPieSeries>
+#include <QPropertyAnimation>
+#include <QSound>
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -51,33 +55,15 @@ private slots:
     void editOrder();
     void sendMail();
 
-
-
-
-
     int on_listView_doubleClicked(const QModelIndex &index);
 
-
-
-
-
-
-
-
     void on_sort_clicked();
-
-
-
 
     void on_billButton_clicked();
     void on_order_clicked();
     void on_addOrder_clicked();
-    void on_back_pressed();
     void on_addButton_3_clicked();
     void on_addButton_2_clicked();
-
-
-
 
     void on_return_9_clicked();
 
@@ -123,13 +109,15 @@ private slots:
 
      void on_cancelButton_5_clicked();
 
+
 private:
     Ui::MainWindow *ui;
     bill b;
     order o;
     Smtp* smtp ;
     QString mail;
-
+    QPropertyAnimation *animation;
+    QSound *coinSound;
 
 };
 #endif // MAINWINDOW_H

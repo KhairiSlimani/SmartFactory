@@ -22,5 +22,7 @@ void Delete::on_cancelButton_clicked()
 void Delete::on_confrimButton_clicked()
 {
   confirmDelete=1;
+  trash=new QSound(":/sounds/trash.wav");
+  trash->play();
   close();
 }

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QPropertyAnimation>
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -8,8 +8,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //affichage de mainwindow
     ui->stackedWidget->setCurrentIndex(0);
-    //afficher
+    ui->tabWidget_2->setCurrentIndex(0);
+    ui->tabWidget_3->setCurrentIndex(0);
+
+
+    //Place Holder
+    ui->search->setPlaceholderText("  Enter bill ID...");
+    ui->searchLineEdit->setPlaceholderText("  Enter order ID...");
+
     //Time
     QTimer *timer=new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
@@ -24,6 +32,25 @@ MainWindow::MainWindow(QWidget *parent)
      connect(ui->orderListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
 
     statistique();
+
+    //animation
+
+    animation=new QPropertyAnimation(ui->billButton,"geometry");
+    animation->setDuration(5000);
+    animation->setStartValue(ui->billButton->geometry());
+    animation->setEndValue(ui->order->geometry());
+    animation->start();
+
+    animation=new QPropertyAnimation(ui->order,"geometry");
+    animation->setDuration(5000);
+    animation->setStartValue(ui->order->geometry());
+    animation->setEndValue(ui->billButton->geometry());
+    animation->start();
+
+    //sound ///
+
+    coinSound=new QSound(":/sounds/coin.wav");
+
 }
 
 /// statistics ///
@@ -42,7 +69,7 @@ MainWindow::~MainWindow()
 }
 
 
-
+//time function ///////////
 void MainWindow::showTime()
 {
     QTime time=QTime::currentTime();
@@ -71,9 +98,14 @@ void MainWindow::showTime()
     ui->date_8->setText(datetimetext);
     ui->date_9->setText(datetimetext);
 }
+
 //choose bill button from menu
 void MainWindow::on_billButton_clicked()
 {
+
+    coinSound->play();
+
+    ////////////////
     ui->listView->setModel(b.afficherList());
     ui->stackedWidget->setCurrentIndex(2);
 }
@@ -182,12 +214,11 @@ int MainWindow::on_listView_doubleClicked(const QModelIndex &index)
     ui->billinfo_2->setModel(b.afficher(id));
     ui->tabWidget_3->setCurrentIndex(2);
   int i = index.data().toInt();
-  //ui->billinfo->selectRow(find(i));
 
 return i;
 }
 
-//add bill
+//add bill///
 
 void MainWindow::on_addBill_2_clicked()
 {
@@ -195,15 +226,44 @@ void MainWindow::on_addBill_2_clicked()
     qDebug() << "bouton: « add bill » appuyé";
     //qDebug() <<ui->dateEdit->text();
     QMessageBox msg;
+    QIntValidator v(0,100000,this);
+    int pos=0;
+    QString shipperPhone=ui->shipperPhone->text(),billNumber=ui->billNumber->text(),orderID=ui->orderID->text(),shipperName=ui->shipperName->text();
 
 
-      if((ui->shipperPhone->text().length()==0) || (ui->billNumber->text().length()==0)  || (ui->orderID->text().length()==0)|| (ui->shipperName->text().length()==0)  )
+    QRegularExpression regex("[A-Za-z]+");
+    QValidator *validator = new QRegularExpressionValidator(regex, this);
+
+
+      if((ui->shipperPhone->text().length()==0) || (ui->billNumber->text().length()==0)  || (ui->orderID->text().length()==0)|| (ui->shipperName->text().length()==0) || (ui->doubleSpinBox->value()==0)  )
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
           msgBox.setText("no empty fields.");
           msgBox.setStandardButtons(QMessageBox::Ok);
           msgBox.exec();
+
+      }
+      else if(!(v.validate(shipperPhone,pos)) || !(v.validate(billNumber,pos)) || !(v.validate(orderID,pos))  )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("shipperPhone,billNumber & orderID are numbers .");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
+      }
+      else if (ui->shipperName->text().size()>20 || ui->shipperName->text().size()<5 )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("the size of the shipper Name is between 5 and 20 !");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
+      }
+       else if (!(validator->validate(shipperName,pos)) )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("shipperName contain only letters !");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
 
       }
       else
@@ -261,6 +321,53 @@ ui->tabWidget_3->setCurrentIndex(0);
 
 void MainWindow::on_addButton_3_clicked()
 {
+
+
+    qDebug() << "bouton: « edit bill » appuyé";
+
+    QMessageBox msg;
+    QIntValidator v(0,100000,this);
+    int pos=0;
+    QString shipperPhone=ui->shipperPhone_2->text(),billNumber=ui->billNumber_2->text(),orderID=ui->orderID_2->text(),shipperName=ui->shipperName_2->text();
+
+
+    QRegularExpression regex("[A-Za-z]+");
+    QValidator *validator = new QRegularExpressionValidator(regex, this);
+
+
+      if((ui->shipperPhone_2->text().length()==0) || (ui->billNumber_2->text().length()==0)  || (ui->orderID_2->text().length()==0)|| (ui->shipperName_2->text().length()==0) || (ui->doubleSpinBox_2->value()==0)  )
+      {
+          QMessageBox msgBox;
+          msgBox.setIcon(QMessageBox::Critical);
+          msgBox.setText("no empty fields.");
+          msgBox.setStandardButtons(QMessageBox::Ok);
+          msgBox.exec();
+
+      }
+      else if(!(v.validate(shipperPhone,pos)) || !(v.validate(billNumber,pos)) || !(v.validate(orderID,pos))  )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("shipperPhone,billNumber & orderID are numbers .");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
+      }
+      else if (ui->shipperName_2->text().size()>20 || ui->shipperName_2->text().size()<5 )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("the size of the shipper Name is between 5 and 20 !");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
+      }
+       else if (!(validator->validate(shipperName,pos)) )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("shipperName contain only letters !");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
+
+      }
+    else
+    {
     //taking the billnumber selected in the listview
     int id = ui->listView->currentIndex().data().toInt();
 
@@ -288,7 +395,6 @@ void MainWindow::on_addButton_3_clicked()
             ui->billNumber_2->setText("");
             ui->orderID_2->setText("");
             ui->paymentMethod_2->setCurrentIndex(0);
-            ui->customerID_3->setText("");
             ui->shipperPhone_2->setText(0);
             ui->doubleSpinBox_2->setValue(0);
 
@@ -301,6 +407,7 @@ void MainWindow::on_addButton_3_clicked()
     }
 
       ui->tabWidget_3->setCurrentIndex(0);
+    }
 
 }
 
@@ -322,9 +429,12 @@ void MainWindow::on_search_textChanged(const QString &arg1)
 {
     int s =arg1.toInt();
     ui->listView->setModel(b.searchList(s));
+   if (arg1=="")
+        ui->listView->setModel(b.afficherList());
+
 }
 
-//Order menu/////////////////////////////////////////////
+//Order menu///
 
 void MainWindow::viewOrder()
 {
@@ -390,34 +500,18 @@ void MainWindow::on_addOrder_clicked()
 }
 
 
-
-//animation
-void MainWindow::on_back_pressed()
-{
-
-   ui->back->show();
-
-    QPropertyAnimation animation(ui->back, "geometry");
-    animation.setDuration(10000);
-    animation.setStartValue(QRect(0, 0, 100, 30));
-    animation.setEndValue(QRect(250, 250, 100, 30));
-    animation.start();
-
-}
-
-
-
-
-//add order button
+//add order button////
 
 void MainWindow::on_addButton_2_clicked()
 {
     qDebug() << "bouton: « add order » appuyé";
 
     QMessageBox msg;
+    QIntValidator v(0,100000,this);
+    int pos=0;
+    QString orderNumber=ui->orderNumber->text(),productCode=ui->productCode->text(),customerID=ui->customerID_2->text(),discount=ui->discount->text();
 
-
-      if((ui->orderNumber->text().length()==0) || (ui->productCode->text().length()==0) || (ui->customerID_2->text().length()==0) || (ui->comments->text().length()==0)|| (ui->discount->text().length()==0)|| (ui->quantity->text().length()==0) ||  (ui->unitPrice->text().length()==0) ||  (ui->extendedPrice->text().length()==0) )
+      if((ui->orderNumber->text().length()==0) || (ui->productCode->text().length()==0) || (ui->customerID_2->text().length()==0) || (ui->comments->text().length()==0)|| (ui->discount->text().length()==0)|| (ui->quantity->value()==0) ||  (ui->unitPrice->value()==0) ||  (ui->extendedPrice->value()==0) )
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -425,6 +519,20 @@ void MainWindow::on_addButton_2_clicked()
           msgBox.setStandardButtons(QMessageBox::Ok);
           msgBox.exec();
 
+      }
+      else if(!(v.validate(orderNumber,pos)) || !(v.validate(productCode,pos)) || !(v.validate(customerID,pos)) || !(v.validate(discount,pos)) )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("orderNumber,productCode,customerID & discount are numbers .");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
+      }
+      else if (ui->comments->text().size()>20 || ui->comments->text().size()<5 )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("the size of a comment is between 5 and 20 !");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
       }
       else
       {
@@ -491,12 +599,14 @@ ui->tabWidget_2->setCurrentIndex(0);
 //edit order
 void MainWindow::on_edit_clicked()
 {
-    qDebug() << "bouton: « add order » appuyé";
-
+    qDebug() << "bouton: « edit order » appuyé";
+    QIntValidator v(0,100000,this);
+    int pos=0;
+    QString orderNumber=ui->orderNumber_10->text(),productCode=ui->productCode_10->text(),customerID=ui->customerID_10->text(),discount=ui->discount_10->text();
     QMessageBox msg;
      int id = ui->orderListView->currentIndex().data().toInt();
 
-      if((ui->orderNumber_10->text().length()==0) || (ui->productCode_10->text().length()==0) || (ui->customerID_10->text().length()==0) || (ui->comments_10->text().length()==0)|| (ui->discount_10->text().length()==0)  )
+      if((ui->orderNumber_10->text().length()==0) || (ui->productCode_10->text().length()==0) || (ui->customerID_10->text().length()==0) || (ui->comments_10->text().length()==0)|| (ui->discount_10->text().length()==0) || (ui->quantity_10->value()==0) || (ui->unitPrice_10->value()==0) || (ui->extendedPrice_10->value()==0))
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -505,9 +615,20 @@ void MainWindow::on_edit_clicked()
           msgBox.exec();
 
       }
-      else if ((ui->orderNumber_10->text()))
+      else if(!(v.validate(orderNumber,pos)) || !(v.validate(productCode,pos)) || !(v.validate(customerID,pos)) || !(v.validate(discount,pos)) )
       {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("orderNumber,productCode,customerID & discount are numbers!");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
+      }
 
+      else if (ui->comments_10->text().size()>20 || ui->comments_10->text().size()<5 )
+      {
+          msg.setIcon(QMessageBox::Critical);
+          msg.setText("the size of a comment is between 5 and 20 !");
+          msg.setStandardButtons(QMessageBox::Ok);
+          msg.exec();
       }
 
       else
@@ -684,3 +805,5 @@ void MainWindow::on_cancelButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
+
+

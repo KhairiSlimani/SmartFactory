@@ -1,6 +1,6 @@
 #ifndef DELETE_H
 #define DELETE_H
-
+#include <QSound>
 #include <QDialog>
 
 namespace Ui {
@@ -25,6 +25,7 @@ private slots:
 private:
     Ui::Delete *ui;
     int confirmDelete;
+    QSound *trash;
 };
 
 #endif // DELETE_H

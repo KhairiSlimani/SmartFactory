@@ -2,4 +2,8 @@
     <qresource prefix="/projectSecond">
         <file>projectSecond.pro</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>coin.wav</file>
+        <file>trash.wav</file>
+    </qresource>
 </RCC>

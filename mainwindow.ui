@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_18">
@@ -273,7 +273,7 @@ border-image:url(:/images/floralloLogo.png);</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="orderList">
        <attribute name="title">
@@ -1767,7 +1767,7 @@ border-image:url(:/images/floralloLogo.png);</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="BillList">
        <attribute name="title">
@@ -2667,24 +2667,11 @@ border-radius:10px;</string>
           <string>EDIT</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="customerID_3">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>50</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
-         </property>
-        </widget>
         <widget class="QLabel" name="label_48">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>90</y>
+           <y>70</y>
            <width>81</width>
            <height>21</height>
           </rect>
@@ -2783,26 +2770,6 @@ border-radius:10px;</string>
           </rect>
          </property>
         </widget>
-        <widget class="QLabel" name="label_52">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>50</y>
-           <width>81</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>customer ID :</string>
-         </property>
-        </widget>
         <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
          <property name="geometry">
           <rect>
@@ -2817,7 +2784,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>100</x>
-           <y>90</y>
+           <y>70</y>
            <width>113</width>
            <height>20</height>
           </rect>
