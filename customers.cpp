@@ -110,6 +110,7 @@ void Customers::showTime()
     ui->time2->setText(time_text);
     ui->time3->setText(time_text);
     ui->time4->setText(time_text);
+    ui->time5->setText(time_text);
 
     QDateTime dateTime = QDateTime::currentDateTime();
     QString datetimetext = dateTime.toString();
@@ -117,6 +118,7 @@ void Customers::showTime()
     ui->date2->setText(datetimetext);
     ui->date3->setText(datetimetext);
     ui->date4->setText(datetimetext);
+    ui->date5->setText(datetimetext);
 }
 
 void Customers::showContextMenu(const QPoint &pos)
@@ -174,8 +176,26 @@ void Customers::ViewItem()
 {
     QModelIndex index = ui->listView->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
-    ui->tableView->setModel(C.Afficher(itemText));
-    ui->tableView->resizeColumnsToContents();
+    QSqlQuery view;
+    view=C.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_IDCustomerOutput->setText(view.value(0).toString());
+          ui->lineEdit_FirstNameCustomerOutput->setText(view.value(1).toString());
+          ui->lineEdit_LastNameCustomerOutput->setText(view.value(2).toString());
+          ui->lineEdit_CompanyNameCustomerOutput->setText(view.value(3).toString());
+          ui->lineEdit_PhoneCustomerOutput->setText(view.value(4).toString());
+          ui->lineEdit_EmailCustomerOutput->setText(view.value(5).toString());
+          ui->lineEdit_WebsiteCustomerOutput->setText(view.value(6).toString());
+          ui->lineEdit_StreetCustomerOutput->setText(view.value(7).toString());
+          ui->lineEdit_CityCustomerOutput->setText(view.value(8).toString());
+          ui->lineEdit_ZipCodeCustomerOutput->setText(view.value(9).toString());
+          ui->lineEdit_CountryCustomerOutput->setText(view.value(10).toString());
+          ui->lineEdit_BankAccountNumberOutput->setText(view.value(11).toString());
+          ui->lineEdit_CreditLimitCustomerOutput->setText(view.value(12).toString());
+    }
+
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -186,10 +206,16 @@ void Customers::EditItem()
 
 void Customers::SendEmailToItem()
 {
-    QStringList list;
-    QAbstractItemModel *model = ui->tableView->model();
-    QModelIndex index0 = model->index(0,5);
-    ui->lineEdit_Email->setText(index0.data().toString());
+    QModelIndex index = ui->listView->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=C.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_Email->setText(view.value(5).toString());
+    }
+
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -224,119 +250,171 @@ void Customers::on_pushButton_SaveAddCustomer_clicked()
 {
     if(ui->lineEdit_IDCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
     }
 
     if(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
     }
 
     if(ui->lineEdit_LastNameCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CompanyCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
 
     if(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
     }
 
     if(ui->lineEdit_EmailCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
 
     if(ui->lineEdit_WebsiteCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
 
     if(ui->lineEdit_AdressCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CityCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
     }
 
     if(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CountryCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
 
     if(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())
     {
-        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
     }
 
 
@@ -404,119 +482,171 @@ void Customers::on_pushButton_SaveEditCustomer_clicked()
 {
     if(ui->lineEdit_IDCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
     }
 
     if(ui->lineEdit_FirstNameCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
 
     if(ui->lineEdit_LastNameCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CompanyCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
 
     if(ui->lineEdit_PhoneNumberCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
 
     if(ui->lineEdit_EmailCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
     }
 
     if(ui->lineEdit_WebsiteCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
 
     if(ui->lineEdit_AdressCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CityCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
     }
 
     if(ui->lineEdit_ZipCodeCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CountryCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
 
     if(ui->lineEdit_BankAccountCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CreditLimitCustomerEdit->text().isEmpty())
     {
-        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
 
 
@@ -608,62 +738,39 @@ void Customers::on_signOut_5_clicked()
 {
     emit(HomeClicked());
 }
-void Customers::on_LoadData_clicked()
-{
-    ui->listView->setModel(C.AfficherListe());
-}
-
-void Customers::on_pushButton_Search_clicked()
-{
-    QString itemText=ui->lineEdit_SearchCustomer->text();
-    if(C.Chercher(itemText))
-    {
-        ui->tableView->setModel(C.Afficher(itemText));
-        ui->stackedWidget->setCurrentIndex(1);
-    }
-    else
-    {
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-                              QObject::tr("Client Not Found.\n"
-                                          "Click Cancel to exit."), QMessageBox::Cancel);
-    }
-}
-
-
 
 
 void Customers::on_pushButton_Print_clicked()
 {
     QStringList list;
-    QAbstractItemModel *model = ui->tableView->model();
-    QModelIndex index0 = model->index(0,0);
-    QModelIndex index1 = model->index(0,1);
-    QModelIndex index2 = model->index(0,2);
-    QModelIndex index3 = model->index(0,3);
-    QModelIndex index4 = model->index(0,4);
-    QModelIndex index5 = model->index(0,5);
-    QModelIndex index6 = model->index(0,6);
-    QModelIndex index7 = model->index(0,7);
-    QModelIndex index8 = model->index(0,8);
-    QModelIndex index9 = model->index(0,9);
-    QModelIndex index10 = model->index(0,10);
-    QModelIndex index11 = model->index(0,11);
-    QModelIndex index12 = model->index(0,12);
 
     QPlainTextEdit text;
-    text.appendPlainText("ID: "+index0.data().toString()+"");
-    text.appendPlainText("First Name: "+index1.data().toString()+"");
-    text.appendPlainText("Last Name: "+index2.data().toString()+"");
-    text.appendPlainText("Company Name: "+index3.data().toString()+"");
-    text.appendPlainText("Phone Number: "+index4.data().toString()+"");
-    text.appendPlainText("Email: "+index5.data().toString()+"");
-    text.appendPlainText("Website: "+index6.data().toString()+"");
-    text.appendPlainText("Street: "+index7.data().toString()+"");
-    text.appendPlainText("City: "+index8.data().toString()+"");
-    text.appendPlainText("ZipCode: "+index9.data().toString()+"");
-    text.appendPlainText("Country: "+index10.data().toString()+"");
-    text.appendPlainText("Bank Account Number: "+index11.data().toString()+"");
-    text.appendPlainText("Credit Limit: "+index12.data().toString()+"");
+    text.setStyleSheet("QPlainTextEdit{color: #ffff00; background-color: #303030;");
+    QTextDocument *doc = text.document();
+    QFont font = doc->defaultFont();
+    font.setBold(true);
+    font.setFamily("Arial");
+    font.setPixelSize(20);
+    doc->setDefaultFont(font);
+    text.appendPlainText("                                              Date: "+ui->date->text()+"");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("Information of Customer:");
+    text.appendPlainText("");
+    text.appendPlainText("ID:  "+ui->lineEdit_IDCustomerOutput->text()+"");
+    text.appendPlainText("First Name:  "+ui->lineEdit_FirstNameCustomerOutput->text()+"");
+    text.appendPlainText("Last Name:  "+ui->lineEdit_LastNameCustomerOutput->text()+"");
+    text.appendPlainText("Company Name:  "+ui->lineEdit_CompanyNameCustomerOutput->text()+"");
+    text.appendPlainText("Phone Number:  "+ui->lineEdit_PhoneCustomerOutput->text()+"");
+    text.appendPlainText("Email:  "+ui->lineEdit_EmailCustomerOutput->text()+"");
+    text.appendPlainText("Website:  "+ui->lineEdit_WebsiteCustomerOutput->text()+"");
+    text.appendPlainText("Street:  "+ui->lineEdit_StreetCustomerOutput->text()+"");
+    text.appendPlainText("City:  "+ui->lineEdit_CityCustomerOutput->text()+"");
+    text.appendPlainText("ZipCode:  "+ui->lineEdit_ZipCodeCustomerOutput->text()+"");
+    text.appendPlainText("Country:  "+ui->lineEdit_CountryCustomerOutput->text()+"");
+    text.appendPlainText("Bank Account Number:  "+ui->lineEdit_BankAccountNumberOutput->text()+"");
+    text.appendPlainText("Credit Limit:  "+ui->lineEdit_CreditLimitCustomerOutput->text()+"");
 
     QPrinter printer;
     printer.setPrinterName("Print");
@@ -675,20 +782,32 @@ void Customers::on_pushButton_Print_clicked()
         return;
     }
     text.print(&printer);
+    text.show();
 
 }
 
-void Customers::on_pushButton_clicked()
+void Customers::on_pushButton_Send_clicked()
 {
-    smtp = new Smtp("rh.florallo@gmail.com" , "projetcpp", "smtp.gmail.com",465);
-    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+     smtp = new Smtp("depot.florallo@gmail.com","esprit20","smtp.gmail.com",465);
+     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+     msg=ui->plainTextEdit->toPlainText();
+     smtp->sendMail("depot.florallo@gmail.com",ui->lineEdit_Email->text(),ui->lineEdit_Subject->text(),msg);
 
-    msg=ui->plainTextEdit->toPlainText();
-
-    smtp->sendMail("rh.florallo@gmail.com",mail,ui->lineEdit_Email->text(),msg);
 }
 
 void Customers::on_pushButton_SortCustomers_clicked()
 {
     ui->listView->setModel(C.Trier());
 }
+
+void Customers::on_lineEdit_SearchCustomer_textChanged(const QString &arg1)
+{
+     QString information =arg1;
+     ui->listView->setModel(C.chercher(information));
+     if(ui->lineEdit_SearchCustomer->text()=="")
+     {
+         ui->listView->setModel(C.AfficherListe());
+     }
+}
+
+

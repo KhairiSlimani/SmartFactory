@@ -68,20 +68,6 @@ bool Projet::Editer()
     return query.exec();
 }
 
-QSqlQueryModel* Projet::Afficher(QString itemText)
-{
-    QSqlQueryModel* model=new QSqlQueryModel();
-    model->setQuery("select * from projet WHERE id='"+itemText+"'");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("Project ID"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("Project Name"));
-    model->setHeaderData(2,Qt::Horizontal,QObject::tr("Description"));
-    model->setHeaderData(3,Qt::Horizontal,QObject::tr("Start Date"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("End Date"));
-    model->setHeaderData(5,Qt::Horizontal,QObject::tr("Budget"));
-    model->setHeaderData(6,Qt::Horizontal,QObject::tr("Customer ID"));
-    model->setHeaderData(7,Qt::Horizontal,QObject::tr("Order ID"));
-    return model;
-}
 
 QSqlQuery Projet::LoadData()
 {
@@ -105,4 +91,15 @@ bool Projet::Effacer(QString itemText)
     QSqlQuery query;
     query.prepare("Delete from projet where id='"+itemText+"'");
     return query.exec();
+}
+
+
+QSqlQuery Projet::Lire(QString itemText)
+{
+    QSqlQuery query;
+    query.prepare("select * from Projet where id='"+itemText+"'");
+    query.exec();
+
+    return query;
+
 }

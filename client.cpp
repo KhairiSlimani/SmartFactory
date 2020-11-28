@@ -139,18 +139,6 @@ bool client::Effacer(QString itemText)
     return query.exec();
 }
 
-bool client::Chercher(QString itemText)
-{
-    QSqlQuery query;
-    query.prepare("select * from client where id='"+itemText+"'");
-    query.exec();
-    if(query.next())
-    {
-        return true;
-    }
-
-    return false;
-}
 
 QSqlQueryModel* client::Trier()
 {
@@ -163,4 +151,22 @@ QSqlQueryModel* client::Trier()
     return model;
 }
 
+QSqlQuery client::Lire(QString itemText)
+{
+    QSqlQuery query;
+    query.prepare("select * from Client where id='"+itemText+"'");
+    query.exec();
 
+    return query;
+
+}
+
+QSqlQueryModel * client::chercher(QString information)
+{
+    QSqlQueryModel *model=new QSqlQueryModel();
+    QSqlQuery query;
+    query.prepare("select id from Client where id='"+information+"'");
+    query.exec();
+    model->setQuery(query);
+    return model;
+}

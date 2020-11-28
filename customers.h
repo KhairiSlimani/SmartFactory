@@ -58,11 +58,10 @@ private slots:
     void on_signOut_3_clicked();
     void on_signOut_4_clicked();
     void on_signOut_5_clicked();
-    void on_LoadData_clicked();
-    void on_pushButton_Search_clicked();
     void on_pushButton_Print_clicked();
-    void on_pushButton_clicked();
+    void on_pushButton_Send_clicked();
     void on_pushButton_SortCustomers_clicked();
+    void on_lineEdit_SearchCustomer_textChanged(const QString &arg1);
 };
 
 #endif // CUSTOMERS_H

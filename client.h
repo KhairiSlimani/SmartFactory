@@ -62,8 +62,9 @@ public:
     QSqlQuery LoadData();
     QSqlQueryModel* AfficherListe();
     bool Effacer(QString);
-    bool Chercher(QString itemText);
     QSqlQueryModel* Trier();
+    QSqlQuery Lire(QString itemText);
+    QSqlQueryModel *chercher(QString itemText);
 
 
 

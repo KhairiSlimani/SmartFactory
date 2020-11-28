@@ -8,6 +8,7 @@ Projects::Projects(QWidget *parent) :
     ui(new Ui::Projects)
 {
     ui->setupUi(this);
+    ui->listView->setModel(P.AfficherListe());
 
     //Time
     QTimer *timer=new QTimer(this);
@@ -133,7 +134,21 @@ void Projects::viewProject()
 {
     QModelIndex index = ui->listView->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
-    ui->tableView->setModel(P.Afficher(itemText));
+    QSqlQuery view;
+    view=P.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_IDProjectOutput->setText(view.value(0).toString());
+          ui->lineEdit_NameProjectOutput->setText(view.value(1).toString());
+          ui->lineEditlineEdit_DescriptionProjectOutput->setText(view.value(2).toString());
+          ui->lineEditlineEdit_StartDateProjectOutput->setText(view.value(3).toString());
+          ui->lineEdit_EndDateProjectOutput->setText(view.value(4).toString());
+          ui->lineEdit_BudgetProjectOutput->setText(view.value(5).toString());
+          ui->lineEdit_CustomerIDProjectOutput->setText(view.value(6).toString());
+          ui->lineEdit_OrderIDProjectOutput->setText(view.value(7).toString());
+    }
+
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -151,74 +166,130 @@ void Projects::on_pushButton_SaveAddProject_clicked()
 {
     if(ui->lineEdit_IDProjectInput->text().isEmpty())
     {
-        ui->lineEdit_IDProjectInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_IDProjectInput->setStyleSheet("border: 2px solid red;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_IDProjectInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_IDProjectInput->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
     }
 
     if(ui->lineEdit_NameProjectInput->text().isEmpty())
     {
-        ui->lineEdit_NameProjectInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_NameProjectInput->setStyleSheet("border: 2px solid red;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_NameProjectInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_NameProjectInput->setStyleSheet("border: 2px solid black;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
     }
 
     if(ui->lineEdit_DescriptionProjectInput->text().isEmpty())
     {
-        ui->lineEdit_DescriptionProjectInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_DescriptionProjectInput->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_DescriptionProjectInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_DescriptionProjectInput->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
     }
 
     if(ui->dateEdit_StartDateProjectInput->text().isEmpty())
     {
-        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 1px solid red");
+        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
     else
     {
-        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 1px solid black");
+        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
 
     if(ui->dateEdit_EndDateProjectInput->text().isEmpty())
     {
-        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 1px solid red");
+        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
     else
     {
-        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 1px solid black");
+        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
 
     if(ui->lineEdit_BudgetProjectInput->text().isEmpty())
     {
-        ui->lineEdit_BudgetProjectInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_BudgetProjectInput->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_BudgetProjectInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_BudgetProjectInput->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CustomerIDProjectInput->text().isEmpty())
     {
-        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 2px solid red;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 2px solid black;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
     }
 
     if(ui->lineEdit_OrderIDProjectInput->text().isEmpty())
     {
-        ui->lineEdit_OrderIDProjectInput->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_OrderIDProjectInput->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_OrderIDProjectInput->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_OrderIDProjectInput->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+
+    }
+
+    if(ui->dateEdit_StartDateProjectInput->text()=="01/01/2000")
+    {
+        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;");
+    }
+    else
+    {
+        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;");
+
+    }
+
+    if(ui->dateEdit_EndDateProjectInput->text()=="01/01/2000")
+    {
+        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;");
+    }
+    else
+    {
+        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;");
 
     }
 
@@ -275,74 +346,130 @@ void Projects::on_pushButton_SaveEditProject_clicked()
 
     if(ui->lineEdit_IDProjectEdit->text().isEmpty())
     {
-        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                  "padding: 1px;"
+                                                  "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                  "padding: 1px;"
+                                                  "border-radius: 10px;");
     }
 
     if(ui->lineEdit_NameProjectEdit->text().isEmpty())
     {
-        ui->lineEdit_NameProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_NameProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_NameProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_NameProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
     }
 
     if(ui->lineEdit_DescriptionProjectEdit->text().isEmpty())
     {
-        ui->lineEdit_DescriptionProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_DescriptionProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_DescriptionProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_DescriptionProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
     }
 
     if(ui->dateEdit_StartDateProjectEdit->text().isEmpty())
     {
-        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
     else
     {
-        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
     }
 
     if(ui->dateEdit_EndDateProjectEdit->text().isEmpty())
     {
-        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
     else
     {
-        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
 
     if(ui->lineEdit_BudgetProjectEdit->text().isEmpty())
     {
-        ui->lineEdit_BudgetProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_BudgetProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_BudgetProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_BudgetProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
     }
 
     if(ui->lineEdit_CustomerIDProjectEdit->text().isEmpty())
     {
-        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
     }
 
     if(ui->lineEdit_OrderIDProjectEdit->text().isEmpty())
     {
-        ui->lineEdit_OrderIDProjectEdit->setStyleSheet("border: 1px solid red");
+        ui->lineEdit_OrderIDProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
     }
     else
     {
-        ui->lineEdit_OrderIDProjectEdit->setStyleSheet("border: 1px solid black");
+        ui->lineEdit_OrderIDProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+
+    }
+
+    if(ui->dateEdit_StartDateProjectEdit->text()=="01/01/2000")
+    {
+        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;");
+    }
+    else
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;");
+
+    }
+
+    if(ui->dateEdit_EndDateProjectEdit->text()=="01/01/2000")
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;");
+    }
+    else
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;");
 
     }
 
@@ -421,7 +548,3 @@ void Projects::on_signOut_7_clicked()
     emit(HomeClicked());
 }
 
-void Projects::on_LoadData_clicked()
-{
-    ui->listView->setModel(P.AfficherListe());
-}

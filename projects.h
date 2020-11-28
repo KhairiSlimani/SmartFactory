@@ -44,13 +44,10 @@ private slots:
     void on_pushButton_SaveEditProject_clicked();
     void on_pushButton_CancelEditProject_clicked();
     void on_pushButton_Return_clicked();
-
     void on_signOut_8_clicked();
     void on_signOut_5_clicked();
     void on_signOut_6_clicked();
     void on_signOut_7_clicked();
-
-    void on_LoadData_clicked();
 };
 
 #endif // PROJECTS_H
