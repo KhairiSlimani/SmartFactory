@@ -8,12 +8,12 @@ produit::produit()
 {
   productCode="";
   productName="";
-  sellPrice=0;
-  quantityInStock=0;
+  sellPrice="";
+  quantityInStock="";
 
 }
 
-produit::produit(QString NVproductCode, QString NVproductName , int NVsellPrice, int NVquantityInStock)
+produit::produit(QString NVproductCode, QString NVproductName , QString NVsellPrice, QString NVquantityInStock)
 {
 
     this-> productCode=NVproductCode;
@@ -27,15 +27,15 @@ produit::produit(QString NVproductCode, QString NVproductName , int NVsellPrice,
 bool produit:: ajouter()
 {
     QSqlQuery query;
-    QString Pprice=QString::number(sellPrice);
-    QString QIS=QString::number(quantityInStock);
+   // QString Pprice=QString::number(sellPrice);
+    //QString QIS=QString::number(quantityInStock);
 
 //Prepare() prend la requete en parametre pour la prÃ©parer a l'execution
   query.prepare("INSERT INTO produit (productCode, productName,sellPrice,quantityInStock)" "VALUES (:productCode,:productName,:sellPrice,:quantityInStock)");
   query.bindValue(":productCode",productCode);
   query.bindValue(":productName",productName);
-  query.bindValue(":sellPrice",Pprice);
-  query.bindValue(":quantityInStock",QIS);
+  query.bindValue(":sellPrice",sellPrice);
+  query.bindValue(":quantityInStock",quantityInStock);
 
   //exec() envoie la requete pour l'executer
    return query.exec();
@@ -43,25 +43,24 @@ bool produit:: ajouter()
 }
 
 
+
+
 bool produit::Editer()
 {
     QSqlQuery query;
-    QString Pprice=QString::number(sellPrice);
-    QString QIS=QString::number(quantityInStock);
+    //Prepare() prend la requete en parametre pour la préparer a l'execution
+    query.prepare("update PRODUIT set productCode='"+productCode+"',productName='"+productName+"',SELLPRICE='"+sellPrice+"',QUANTITYINSTOCK='"+quantityInStock+"' where PRODUCTCODE='"+productCode+"'");
 
-
-    //Prepare() prend la requete en parametre pour la prÃ©parer a l'execution
-    query.prepare("update produit set productCode='"+productCode+"',productName='"+productName+"',sellPrice='"+sellPrice+"',quantityInStock='"+quantityInStock+"' where productCode='"+productCode+"'");
-
-    //Creation des variables liÃ©es
-    query.bindValue(":productCode",productCode);
-    query.bindValue(":productName",productName);
-    query.bindValue(":sellPrice",sellPrice);
-    query.bindValue(":quantityInStock",quantityInStock);
+    //Creation des variables liées
+    query.bindValue(":PRODUCTCODE",productCode);
+    query.bindValue(":PRODUCTNAME",productName);
+    query.bindValue(":SELLPRICE",sellPrice);
+    query.bindValue(":QUANTITYINSTOCK",quantityInStock);
 
     //exec() envoie la requete pour l'executer
     return query.exec();
 }
+
 
 QSqlQueryModel* produit::Afficher(QString itemText)
 {
@@ -110,3 +109,16 @@ bool produit::Chercher(QString itemText)
 
     return false;
 }
+
+QSqlQueryModel* produit::Trier()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery qry ;
+    qry.prepare(" SELECT PRODUCTCODE FROM PRODUIT ORDER BY SELLPRICE DESC");
+    qry.exec();
+
+    model->setQuery(qry);
+    return model;
+}
+
+

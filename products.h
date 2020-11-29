@@ -30,7 +30,7 @@ private:
     QPropertyAnimation *animation;
     produit P;//On ajoute un attribut a la classe Customers qui correspond a un objet de la classe client pour pouvoir faire appel aux methodes de la classe client
     QStringList  stringList;
-    Smtp* smtp ;
+    Smtp* smtp;
     QString msg;
     QString mail;
 
@@ -51,7 +51,6 @@ private slots:
     void on_pushButton_AddNewProduct_clicked();
     void on_pushButton_SaveAddProduct_clicked();
     void on_pushButton_SaveEditProduct_clicked();
-
     void on_signOut_1_clicked();
     void on_signOut_2_clicked();
     void on_signOut_3_clicked();
@@ -61,8 +60,7 @@ private slots:
     void on_pushButton_Search_clicked();
     void on_pushButton_Print_clicked();
     void on_pushButton_clicked();
-
-
+    void on_pushButton_SortProduct_clicked();
 };
 
 #endif // PRODUCTS_H

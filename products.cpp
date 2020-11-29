@@ -32,10 +32,10 @@ products::products(QWidget *parent) :
 
 
     //place Holder of edit Product Interface
-    ui->lineEdit_ProductCodeInput_2->setPlaceholderText(" Enter Product Code");
-    ui->lineEdit_ProductNameInput_2->setPlaceholderText("Enter Product Name");
-    ui->lineEdit_QuantityInStockInput_2->setPlaceholderText("Enter The Quantity In Stock");
-    ui->lineEdit_SellPriceInput_2->setPlaceholderText("Enter Sell Price /TND");
+    ui->lineEdit_ProductCodeEdit->setPlaceholderText(" Enter Product Code");
+    ui->lineEdit_ProductNameEdit->setPlaceholderText("Enter Product Name");
+    ui->lineEdit_QuantityInStockEdit->setPlaceholderText("Enter The Quantity In Stock");
+    ui->lineEdit_SellPriceEdit->setPlaceholderText("Enter Sell Price /TND");
 
     //controle de saisie du searchProduct
     ui->lineEdit_SearchCustomer->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
@@ -49,10 +49,10 @@ products::products(QWidget *parent) :
 
 
     //controle des Inputs de EditProduct
-    ui->lineEdit_ProductCodeInput_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
-    ui->lineEdit_ProductNameInput_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));//input must be an alphabet uppercase or lowercase
-    ui->lineEdit_QuantityInStockInput_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
-    ui->lineEdit_SellPriceInput_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+    ui->lineEdit_ProductCodeEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+    ui->lineEdit_ProductNameEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));//input must be an alphabet uppercase or lowercase
+    ui->lineEdit_QuantityInStockEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+    ui->lineEdit_SellPriceEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
 
 
 
@@ -141,15 +141,16 @@ void products::ViewItem()
 
 void products::EditItem()
 {
+
     ui->stackedWidget->setCurrentIndex(3);
 }
 
 void products::SendEmailToItem()
 {
-    QStringList list;
-    QAbstractItemModel *model = ui->tableView->model();
-    QModelIndex index0 = model->index(0,5);
-    ui->lineEdit_Email->setText(index0.data().toString());
+  //  QStringList list;
+   // QAbstractItemModel *model = ui->tableView->model();
+  //  QModelIndex index0 = model->index(0,5);
+   // ui->lineEdit_Email->setText(index0.data().toString());
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -230,8 +231,8 @@ void products::on_pushButton_SaveAddProduct_clicked()
 
                           QString productCode=ui->lineEdit_ProductCodeInput->text();
                           QString productName=ui->lineEdit_ProductNameInput->text();
-                          int sellPrice=ui->lineEdit_SellPriceInput->text().toUInt();
-                          int quantityInStock=ui->lineEdit_QuantityInStockInput->text().toUInt();
+                          QString sellPrice=ui->lineEdit_SellPriceInput->text();
+                          QString quantityInStock=ui->lineEdit_QuantityInStockInput->text();
 
              produit p(productCode,productName,sellPrice,quantityInStock);
              bool test=p.ajouter();
@@ -258,62 +259,14 @@ void products::on_pushButton_SaveAddProduct_clicked()
 
 void products::on_pushButton_SaveEditProduct_clicked()
 {
-    if(ui->lineEdit_ProductCodeInput->text().isEmpty())
-    {
-        ui->lineEdit_ProductCodeInput->setStyleSheet("border: 1px solid red");
-    }
-    else
-    {
-        ui->lineEdit_ProductCodeInput->setStyleSheet("border: 1px solid black");
-    }
 
-    if(ui->lineEdit_ProductNameInput->text().isEmpty())
-    {
-        ui->lineEdit_ProductNameInput->setStyleSheet("border: 1px solid red");
-    }
-    else
-    {
-       ui->lineEdit_ProductNameInput->setStyleSheet("border: 1px solid black");
-    }
+        QString productCode=ui->lineEdit_ProductCodeEdit->text();
+        QString productName=ui->lineEdit_ProductNameEdit->text();
+        QString sellPrice=ui->lineEdit_SellPriceEdit->text();
+        QString quantityInStock=ui->lineEdit_QuantityInStockEdit->text();
 
-    if(ui->lineEdit_QuantityInStockInput->text().isEmpty())
-    {
-        ui->lineEdit_QuantityInStockInput->setStyleSheet("border: 1px solid red");
-    }
-    else
-    {
-        ui->lineEdit_QuantityInStockInput->setStyleSheet("border: 1px solid black");
-    }
-
-    if(ui->lineEdit_SellPriceInput->text().isEmpty())
-    {
-        ui->lineEdit_SellPriceInput->setStyleSheet("border: 1px solid red");
-    }
-    else
-    {
-        ui->lineEdit_SellPriceInput->setStyleSheet("border: 1px solid black");
-    }
-
-
-
-
-
-
-    if((ui->lineEdit_ProductCodeInput->text().isEmpty())||(ui->lineEdit_ProductNameInput->text().isEmpty())||(ui->lineEdit_QuantityInStockInput->text().isEmpty())||(ui->lineEdit_SellPriceInput->text().isEmpty()))
-    {
-        QMessageBox::warning(this, tr("Warning"),
-        tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
-
-    }
-    else
-    {
-        QString productCode=ui->lineEdit_ProductCodeInput->text();
-        QString productName=ui->lineEdit_ProductNameInput->text();
-        int sellPrice=ui->lineEdit_SellPriceInput->text().toUInt();
-        int quantityInStock=ui->lineEdit_QuantityInStockInput->text().toUInt();
-
-produit p(productCode,productName,sellPrice,quantityInStock);
-bool test=p.Editer();
+produit PR(productCode,productName,sellPrice,quantityInStock);
+bool test=PR.Editer();
 
 if(test)//if (test==true)->la requete est executÃ©e->QMessageBox::information
            {
@@ -321,7 +274,7 @@ if(test)//if (test==true)->la requete est executÃ©e->QMessageBox::information
                                         QObject::tr("Edit of PRODUCT is successful.\n"
                                                     "Click Cancel to exit."), QMessageBox::Cancel);
 
-               ui->listView->setModel(p.AfficherListe());
+              ui->listView->setModel(PR.AfficherListe());
            }
            else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
            {
@@ -333,8 +286,6 @@ if(test)//if (test==true)->la requete est executÃ©e->QMessageBox::information
            ui->stackedWidget->setCurrentIndex(0);
        }
 
-
-}
 
 void products::on_signOut_1_clicked()
 {
@@ -389,31 +340,12 @@ void products::on_pushButton_Print_clicked()
     QModelIndex index1 = model->index(0,1);
     QModelIndex index2 = model->index(0,2);
     QModelIndex index3 = model->index(0,3);
-    QModelIndex index4 = model->index(0,4);
-    QModelIndex index5 = model->index(0,5);
-    QModelIndex index6 = model->index(0,6);
-    QModelIndex index7 = model->index(0,7);
-    QModelIndex index8 = model->index(0,8);
-    QModelIndex index9 = model->index(0,9);
-    QModelIndex index10 = model->index(0,10);
-    QModelIndex index11 = model->index(0,11);
-    QModelIndex index12 = model->index(0,12);
 
     QPlainTextEdit text;
-    text.appendPlainText("ID: "+index0.data().toString()+"");
-    text.appendPlainText("First Name: "+index1.data().toString()+"");
-    text.appendPlainText("Last Name: "+index2.data().toString()+"");
-    text.appendPlainText("Company Name: "+index3.data().toString()+"");
-    text.appendPlainText("Phone Number: "+index4.data().toString()+"");
-    text.appendPlainText("Email: "+index5.data().toString()+"");
-    text.appendPlainText("Website: "+index6.data().toString()+"");
-    text.appendPlainText("Street: "+index7.data().toString()+"");
-    text.appendPlainText("City: "+index8.data().toString()+"");
-    text.appendPlainText("ZipCode: "+index9.data().toString()+"");
-    text.appendPlainText("Country: "+index10.data().toString()+"");
-    text.appendPlainText("Bank Account Number: "+index11.data().toString()+"");
-    text.appendPlainText("Credit Limit: "+index12.data().toString()+"");
-
+    text.appendPlainText("Product Code: "+index0.data().toString()+"");
+    text.appendPlainText("Product Name: "+index1.data().toString()+"");
+    text.appendPlainText("Sell Price: "+index2.data().toString()+"");
+    text.appendPlainText("Quantity In Stock: "+index3.data().toString()+"");
     QPrinter printer;
     printer.setPrinterName("Print");
     //printer.setOutputFormat(QPrinter::PdfFormat);
@@ -429,17 +361,18 @@ void products::on_pushButton_Print_clicked()
 
 void products::on_pushButton_clicked()
 {
-    smtp = new Smtp("rh.florallo@gmail.com" , "projetcpp", "smtp.gmail.com",465);
+    smtp = new Smtp("depot.florallo@gmail.com" , "esprit20", "smtp.gmail.com",465);
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
     msg=ui->plainTextEdit->toPlainText();
 
-    smtp->sendMail("rh.florallo@gmail.com",ui->lineEdit_Email->text(),ui->lineEdit_Subject->text(),msg);
+    smtp->sendMail("depot.florallo@gmail.com",ui->lineEdit_Email->text(),ui->lineEdit_Subject->text(),msg);
+
 }
 
 
+void products::on_pushButton_SortProduct_clicked()
+{
+    ui->listView->setModel(P.Trier());
 
-
-
-
-
+}

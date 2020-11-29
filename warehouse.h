@@ -53,6 +53,9 @@ private slots:
 
     void on_LoadData_clicked();
 
+    void on_signOut_1_clicked();
+    void on_signOut_2_clicked();
+    void on_signOut_4_clicked();
 };
 
 #endif // WAREHOUSE_H

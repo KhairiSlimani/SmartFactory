@@ -11,17 +11,17 @@ class produit
 private:
     QString productCode;
     QString productName;
-    int sellPrice;
-    int quantityInStock;
+    QString sellPrice;
+    QString quantityInStock;
 
 
 public:
     produit();
-    produit(QString,QString,int,int);
+    produit(QString,QString,QString,QString);
     QString Get_productCode(){return productCode;}
     QString Get_productName(){return productName;}
-    int Get_sellPrice(){return sellPrice;}
-    int Get_quantityInStock(){return quantityInStock;}
+    QString Get_sellPrice(){return sellPrice;}
+    QString Get_quantityInStock(){return quantityInStock;}
 
 
     void set_productCode(QString productCode){this->productCode=productCode;}
@@ -35,6 +35,7 @@ public:
     QSqlQueryModel* AfficherListe();
     bool Effacer(QString);
     bool Chercher(QString itemText);
+    QSqlQueryModel* Trier();
 
 
 

@@ -65,7 +65,7 @@ QSqlQueryModel* depot::Afficher(QString itemText)
 QSqlQuery depot::LoadData()
 {
     QSqlQuery query;
-    query.prepare("select warehouseID from produit");
+    query.prepare("select warehouseID from depot");
     return query;
 }
 
@@ -81,7 +81,7 @@ QSqlQueryModel* depot::AfficherListe()
 bool depot::Effacer(QString itemText)
 {
     QSqlQuery query;
-    query.prepare("Delete from produit where warehouseID='"+itemText+"'");
+    query.prepare("Delete from depot where warehouseID='"+itemText+"'");
     return query.exec();
 }
 
