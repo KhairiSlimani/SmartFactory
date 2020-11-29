@@ -39,17 +39,17 @@ bool Employee::create()
     query.bindValue(":email",email);
 
     return query.exec();
-
 }
 
 QSqlQuery Employee::read(QString info)
 {
     QSqlQuery query;
     query.prepare("select * from Employee where id='"+info+"'");
-    if(query.exec())
-    {
-        return query;
-    }
+    query.exec();
+    query.next();
+
+    return query;
+
 }
 
 bool Employee::Delete(QString info)
@@ -95,15 +95,24 @@ bool Employee::Update()
     return query.exec();
 }
 
-bool Employee::search(QString info)
+QSqlQueryModel * Employee::search(QString info)
 {
+    QSqlQueryModel *model=new QSqlQueryModel();
     QSqlQuery query;
-    query.prepare("select * from Employee where id='"+info+"'");
+    query.prepare("select id from Employee where id='"+info+"'");
     query.exec();
-    if(query.next())
-    {
-        return true;
-    }
+    model->setQuery(query);
+    return model;
+}
 
-    return false;
+QSqlQueryModel * Employee :: sort()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery query ;
+    query.prepare("select id from Employee order by salary desc");
+    query.exec();
+
+    model->setQuery(query);
+
+    return model;
 }

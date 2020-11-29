@@ -12,10 +12,11 @@
 #include <QWidget>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
-#include "deleteconfirmation.h"
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QPlainTextEdit>
+#include <QString>
+#include "deleteconfirmation.h"
 #include "employee.h"
 #include "smtp.h"
 
@@ -43,7 +44,6 @@ private:
 
 private slots:
     void on_profileButton_clicked();
-    void on_searchButton_clicked();
     void on_addEmployeeButton_clicked();
     void on_addButton_clicked();
     void on_cancelButton_clicked();
@@ -69,7 +69,8 @@ private slots:
 
     };
 
-    void on_loadDataButton_clicked();
+    void on_sortButton_clicked();
+    void on_searchLineEdit_textChanged(const QString &arg1);
 };
 
 #endif // EMPLOYEES_H

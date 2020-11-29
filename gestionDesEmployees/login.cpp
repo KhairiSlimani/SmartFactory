@@ -18,9 +18,13 @@ Login::Login(QWidget *parent)
     ui->idLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->passwordLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
 
+    ui->newPasswordLineEdit->setPlaceholderText("  New Password");
+    ui->confirmPasswordLineEdit->setPlaceholderText("  Confirm Password");
+
+
     //Animation
     animation=new QPropertyAnimation(ui->loginTitle,"geometry");
-    animation->setDuration(2000);
+    animation->setDuration(2500);
     animation->setStartValue(ui->loginTitle->geometry());
     animation->setEndValue(QRect(340,90,291,61));
     animation->start();
@@ -84,8 +88,6 @@ void Login::on_signInButton_clicked()
         if(test2 == true)
         {
             QSqlQuery view = P.read(id);
-            view.next();
-            qDebug() << view.value(1).toString();
             if(view.value(1).toString() == ui->passwordLineEdit->text())
             {
                  ui->viewID->setText(view.value(0).toString());
@@ -142,16 +144,49 @@ void Login::on_SignUpButton_clicked()
 
          Profile P(id,password,jobTitle);
 
-         bool test2 = P.create();
-         if(test2)
+         bool test_2 = P.searchIDSignUp(id);
+         if(test_2)
          {
-             QMessageBox :: information(nullptr, QObject :: tr("Add Account"),
-                                        QObject::tr("Account Added :)"),QMessageBox::Cancel);
+             bool test_3=P.searchJobTitleSignUp(id,jobTitle);
+             if(test_3)
+             {
+                 bool test_4=P.search(id);
+                 if(test_4)
+                 {
+                     QMessageBox :: warning(nullptr, QObject :: tr("Create Account"),
+                                                QObject::tr("Error: This Account is Already Exist :("),QMessageBox::Cancel);
+
+                 }
+                 else
+                 {
+                     bool test_5 = P.create();
+                     if(test_5)
+                     {
+                         QMessageBox :: information(nullptr, QObject :: tr("Create Account"),
+                                                    QObject::tr("Account Created :)"),QMessageBox::Cancel);
+
+                     }
+                     else
+                     {
+                         QMessageBox :: warning(nullptr, QObject :: tr("Create Account"),
+                                                    QObject::tr("Error: Something Is Wrong :("),QMessageBox::Cancel);
+
+                     }
+                 }
+
+             }
+             else
+             {
+                 QMessageBox :: warning(nullptr, QObject :: tr("Create Account"),
+                                            QObject::tr("Error: Your Job Title Is Wrong :("),QMessageBox::Cancel);
+
+             }
+
          }
          else
          {
-             QMessageBox :: warning(nullptr, QObject :: tr("Add Account"),
-                                        QObject::tr("Error, Account Not Added :("),QMessageBox::Cancel);
+             QMessageBox :: warning(nullptr, QObject :: tr("Create Account"),
+                                        QObject::tr("Error: This ID Is Not Exist :("),QMessageBox::Cancel);
 
          }
 
@@ -170,17 +205,6 @@ void Login::on_goToSignInButton_clicked()
 
 void Login::on_changeInformationButton_clicked()
 {
-    QString info = ui->viewID->text();
-    QSqlQuery view;
-    Profile P;
-    view=P.read(info);
-
-    while(view.next())
-    {
-          ui->idLineEdit_3->setText(view.value(0).toString());
-          ui->passwordLineEdit_3->setText(view.value(1).toString());
-    }
-
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -198,7 +222,7 @@ void Login::on_deleteAccountButton_clicked()
 
         if(test)
         {
-             QMessageBox::information(this, tr("Employee Deleted"),tr("OK"), QMessageBox::Ok);
+             QMessageBox::information(this, tr("Delete Account"),tr("Account Deleted"), QMessageBox::Ok);
              ui->stackedWidget->setCurrentIndex(0);
         }
     }
@@ -233,48 +257,60 @@ void Login::on_saveButton_clicked()
 {
     bool test=true;
     QString id;
-    QString password;
     QString jobTitle;
+    QString newPassword;
+    QString confirmPassword;
 
-    if(ui->idLineEdit_3->text().isEmpty())
+    if(ui->newPasswordLineEdit->text().isEmpty())
     {
-        ui->idLineEdit_3->setStyleSheet("border: 2px solid red;");
+        ui->newPasswordLineEdit->setStyleSheet("border: 2px solid red;");
         test=false;
     }
 
-    if(ui->passwordLineEdit_3->text().isEmpty())
+    if(ui->confirmPasswordLineEdit->text().isEmpty())
     {
-        ui->passwordLineEdit_3->setStyleSheet("border: 2px solid red;");
+        ui->confirmPasswordLineEdit->setStyleSheet("border: 2px solid red;");
         test=false;
     }
 
     if(test)
     {
-        id = ui->idLineEdit_3->text();
-        password = ui->passwordLineEdit_3->text();
-        jobTitle = ui->jobTitleBox_2->currentText();
+        id = ui->viewID->text();
+        jobTitle = ui->viewJobTitle->text();
+        newPassword = ui->newPasswordLineEdit->text();
+        confirmPassword = ui->confirmPasswordLineEdit->text();
 
-        Profile P(id,password,jobTitle);
-
-        bool test2 = P.Update();
-        if(test2)
+        if(newPassword == confirmPassword)
         {
-            QMessageBox :: information(nullptr, QObject :: tr("Update Account Information"),
-                                       QObject::tr("Account Information Updated"),QMessageBox::Cancel);
+            Profile P(id,newPassword,jobTitle);
 
-            QSqlQuery view = P.read(id);
-            view.next();
-            ui->viewID->setText(view.value(0).toString());
-            ui->viewPassword->setText(view.value(1).toString());
-            ui->viewJobTitle->setText(view.value(2).toString());
-            ui->stackedWidget->setCurrentIndex(2);
+            bool test2 = P.Update();
+            if(test2)
+            {
+                QMessageBox :: information(nullptr, QObject :: tr("Change Password"),
+                                           QObject::tr("Password Updated :)"),QMessageBox::Cancel);
+
+                QSqlQuery view = P.read(id);
+                ui->viewID->setText(view.value(0).toString());
+                ui->viewPassword->setText(view.value(1).toString());
+                ui->viewJobTitle->setText(view.value(2).toString());
+                ui->stackedWidget->setCurrentIndex(2);
+            }
+            else
+            {
+                QMessageBox :: warning(nullptr, QObject :: tr("Change password"),
+                                           QObject::tr("Error: Password Not Updated :("),QMessageBox::Cancel);
+
+            }
+
         }
         else
         {
-            QMessageBox :: warning(nullptr, QObject :: tr("Update Account Information"),
-                                       QObject::tr("Error: Account Information Not Updated :("),QMessageBox::Cancel);
+            QMessageBox :: warning(nullptr, QObject :: tr("Change password"),
+                                       QObject::tr("Error: Those passwords didn't match. Try again. :("),QMessageBox::Cancel);
 
         }
+
 
     }
     else

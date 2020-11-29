@@ -36,7 +36,9 @@ public:
     QSqlQuery read(QString);
     bool Update();
     bool Delete(QString);
-    bool search(QString info);
+    bool search(QString);
+    bool searchIDSignUp(QString);
+    bool searchJobTitleSignUp(QString,QString);
 
 
 };

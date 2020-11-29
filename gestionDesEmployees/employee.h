@@ -52,7 +52,8 @@ public:
     bool Update();
     bool Delete(QString);
     QSqlQueryModel * loadData();
-    bool search(QString info);
+    QSqlQueryModel * search(QString);
+    QSqlQueryModel * sort();
 };
 
 #endif // EMPLOYEE_H

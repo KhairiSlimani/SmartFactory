@@ -6,6 +6,9 @@ DeleteConfirmation::DeleteConfirmation(QWidget *parent) :
     ui(new Ui::DeleteConfirmation)
 {
     ui->setupUi(this);
+    trashSound=new QMediaPlayer();
+    trashSound->setMedia(QUrl("qrc:/sounds/sounds/trashSound.mp3"));
+
 }
 
 DeleteConfirmation::~DeleteConfirmation()
@@ -16,6 +19,14 @@ DeleteConfirmation::~DeleteConfirmation()
 void DeleteConfirmation::on_confrimButton_clicked()
 {
     confirmDelete=1;
+    if(trashSound->state()==QMediaPlayer::PlayingState)
+    {
+        trashSound->setPosition(0);
+    }
+    else if(trashSound->state()==QMediaPlayer::StoppedState)
+    {
+        trashSound->play();
+    }
     close();
 }
 

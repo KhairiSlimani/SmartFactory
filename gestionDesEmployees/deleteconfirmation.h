@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QListWidgetItem>
+#include<QtMultimedia/QMediaPlayer>
 
 namespace Ui {
 class DeleteConfirmation;
@@ -26,6 +27,7 @@ private slots:
 private:
     Ui::DeleteConfirmation *ui;
     int confirmDelete;
+    QMediaPlayer *trashSound;
 };
 
 #endif // DELETECONFIRMATION_H

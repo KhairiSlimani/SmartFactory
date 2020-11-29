@@ -6,10 +6,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Login w;
     Connection c;
-
     bool test=c.openConnection();
+    Login w;
+
     if(test)
     {
         w.show();

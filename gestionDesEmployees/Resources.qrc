@@ -6,4 +6,7 @@
         <file>images/signOut.png</file>
         <file>images/signOutHover.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>sounds/trashSound.mp3</file>
+    </qresource>
 </RCC>

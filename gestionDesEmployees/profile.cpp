@@ -29,16 +29,9 @@ QSqlQuery Profile::read(QString info)
 {
     QSqlQuery query;
     query.prepare("select * from Profile where id='"+info+"'");
-    if(query.exec())
-    {
-        return query;
-    }
-    else
-    {
-        QSqlQuery err;
-        return err;
-    }
-
+    query.exec();
+    query.next();
+    return query;
 }
 
 bool Profile::Delete(QString info)
@@ -73,4 +66,32 @@ bool Profile::search(QString info)
 
     return false;
 }
+
+bool Profile::searchIDSignUp(QString info)
+{
+    QSqlQuery query;
+    query.prepare("select * from Employee where id='"+info+"'");
+    query.exec();
+    if(query.next())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Profile::searchJobTitleSignUp(QString id,QString jobTitle)
+{
+    QSqlQuery query;
+    query.prepare("select'"+id+"'from Employee where JobTitle='"+jobTitle+"'");
+    query.exec();
+    if(query.next())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+
 
