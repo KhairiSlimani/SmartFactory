@@ -20,9 +20,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>751</width>
+      <x>10</x>
+      <y>10</y>
+      <width>741</width>
       <height>461</height>
      </rect>
     </property>
@@ -41,14 +41,14 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="page_6">
      <widget class="QFrame" name="frame_7">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>20</y>
+        <y>10</y>
         <width>701</width>
         <height>351</height>
        </rect>
@@ -62,17 +62,18 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QPushButton" name="pushButton_menusupplier">
        <property name="geometry">
         <rect>
-         <x>100</x>
-         <y>110</y>
+         <x>110</x>
+         <y>140</y>
          <width>181</width>
          <height>81</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Arial Rounded MT Bold&quot;;
+        <string notr="true">font: 28pt &quot;Arial Rounded MT Bold&quot;;
+
 QPushButton
 {
 	border-radius:15px;
@@ -87,20 +88,21 @@ QPushButton:hover
 </string>
        </property>
        <property name="text">
-        <string>   Supplier</string>
+        <string>Supplier</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_2">
+      <widget class="QPushButton" name="pushButton_menuMaterial">
        <property name="geometry">
         <rect>
-         <x>420</x>
-         <y>110</y>
-         <width>191</width>
+         <x>410</x>
+         <y>140</y>
+         <width>171</width>
          <height>81</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Arial Rounded MT Bold&quot;;
+        <string notr="true">font: 28pt &quot;Arial Rounded MT Bold&quot;;
+
 QPushButton
 {
 	border-radius:15px;
@@ -115,7 +117,7 @@ QPushButton:hover
 </string>
        </property>
        <property name="text">
-        <string>    Material</string>
+        <string>Material</string>
        </property>
       </widget>
      </widget>
@@ -204,7 +206,7 @@ QPushButton:hover
         <string>Add New supplier</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEditSearch">
+      <widget class="QLineEdit" name="lineEditSearchSuppliers">
        <property name="geometry">
         <rect>
          <x>350</x>
@@ -252,7 +254,7 @@ QPushButton:hover
        <property name="geometry">
         <rect>
          <x>390</x>
-         <y>150</y>
+         <y>120</y>
          <width>91</width>
          <height>23</height>
         </rect>
@@ -278,7 +280,7 @@ QPushButton:hover
        <property name="geometry">
         <rect>
          <x>400</x>
-         <y>180</y>
+         <y>150</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -304,7 +306,7 @@ QPushButton:hover
        <property name="geometry">
         <rect>
          <x>400</x>
-         <y>210</y>
+         <y>180</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -326,21 +328,21 @@ QPushButton:hover
         <string>Delete</string>
        </property>
       </widget>
-      <widget class="QTableView" name="tableViewsupp">
+      <widget class="QListView" name="listViewSupplier">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>21</y>
-         <width>311</width>
+         <x>30</x>
+         <y>30</y>
+         <width>291</width>
          <height>281</height>
         </rect>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_SortSupplier">
+      <widget class="QPushButton" name="pushButton_6">
        <property name="geometry">
         <rect>
          <x>400</x>
-         <y>120</y>
+         <y>210</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -359,7 +361,7 @@ QPushButton:hover
 }</string>
        </property>
        <property name="text">
-        <string>Sort Supplier</string>
+        <string>Send Mail</string>
        </property>
       </widget>
      </widget>
@@ -1147,7 +1149,7 @@ padding-right: 5px;
 </string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_EditSave">
+      <widget class="QPushButton" name="pushButton_EditSaveSupplier">
        <property name="geometry">
         <rect>
          <x>390</x>
@@ -1262,7 +1264,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>610</x>
-        <y>40</y>
+        <y>46</y>
         <width>113</width>
         <height>20</height>
        </rect>
@@ -1639,6 +1641,20 @@ font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
          <height>20</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:15px;
+	background:rgb(85, 170, 255);
+font: 10pt &quot;Arial&quot;;
+
+background-color: rgb(85, 170, 255);
+border-width: 1.5px;
+border-color: blue;
+border-style: solid;
+border-radius: 7;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_deleteID">
        <property name="geometry">
@@ -1648,6 +1664,20 @@ font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
          <width>113</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:15px;
+	background:rgb(85, 170, 255);
+font: 10pt &quot;Arial&quot;;
+
+background-color: rgb(85, 170, 255);
+border-width: 1.5px;
+border-color: blue;
+border-style: solid;
+border-radius: 7;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_deletefax">
@@ -1659,6 +1689,20 @@ font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
          <height>20</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:15px;
+	background:rgb(85, 170, 255);
+font: 10pt &quot;Arial&quot;;
+
+background-color: rgb(85, 170, 255);
+border-width: 1.5px;
+border-color: blue;
+border-style: solid;
+border-radius: 7;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_faxdelete">
        <property name="geometry">
@@ -1668,6 +1712,20 @@ font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
          <width>113</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:15px;
+	background:rgb(85, 170, 255);
+font: 10pt &quot;Arial&quot;;
+
+background-color: rgb(85, 170, 255);
+border-width: 1.5px;
+border-color: blue;
+border-style: solid;
+border-radius: 7;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton_deletesupplier">
@@ -1794,6 +1852,167 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_12">
+     <widget class="QFrame" name="frame_13">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>-11</y>
+        <width>191</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:rgb(85, 170, 255);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditmail">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>89</y>
+        <width>511</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>130</y>
+        <width>511</width>
+        <height>201</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>350</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+      </property>
+      <property name="text">
+       <string>Send</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>350</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+      </property>
+      <property name="text">
+       <string>cancel</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_42">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>9</y>
+        <width>251</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 28pt &quot;Arial Rounded MT Bold&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Send Mail</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_43">
+      <property name="geometry">
+       <rect>
+        <x>546</x>
+        <y>13</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Time:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_44">
+      <property name="geometry">
+       <rect>
+        <x>546</x>
+        <y>53</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Date:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_Timesendmail">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>20</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_DateSendMail">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>60</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="page_7">
      <widget class="QFrame" name="frame_8">
       <property name="geometry">
@@ -1813,12 +2032,28 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="label_37">
+       <property name="geometry">
+        <rect>
+         <x>-90</x>
+         <y>30</y>
+         <width>281</width>
+         <height>281</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="picture.qrc">:/floralloLogo.png</pixmap>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="widget_5" native="true">
       <property name="geometry">
        <rect>
         <x>200</x>
-        <y>70</y>
+        <y>80</y>
         <width>501</width>
         <height>321</height>
        </rect>
@@ -1826,13 +2061,13 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
       <property name="styleSheet">
        <string notr="true">border:2px solid rgb(85, 170, 255);</string>
       </property>
-      <widget class="QLineEdit" name="lineEdit_5">
+      <widget class="QLineEdit" name="lineEdit_SearchMaterial">
        <property name="geometry">
         <rect>
-         <x>340</x>
+         <x>360</x>
          <y>40</y>
-         <width>113</width>
-         <height>20</height>
+         <width>131</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
@@ -1866,7 +2101,7 @@ QPushButton:hover
        <property name="geometry">
         <rect>
          <x>360</x>
-         <y>120</y>
+         <y>190</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -1892,7 +2127,7 @@ QPushButton:hover
        <property name="geometry">
         <rect>
          <x>360</x>
-         <y>150</y>
+         <y>230</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -1918,7 +2153,7 @@ QPushButton:hover
        <property name="geometry">
         <rect>
          <x>360</x>
-         <y>180</y>
+         <y>270</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -1940,14 +2175,92 @@ QPushButton:hover
         <string>Home</string>
        </property>
       </widget>
-      <widget class="QTableView" name="tableViewMaterial">
+      <widget class="QPushButton" name="pushButton_SearchMaterial">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>40</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+      <widget class="QListView" name="listViewMateriel">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>31</y>
+         <y>20</y>
          <width>256</width>
          <height>271</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_SortMaterial">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>130</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Sort Material</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_statMateriel">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>160</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Statistique</string>
        </property>
       </widget>
      </widget>
@@ -2039,6 +2352,22 @@ QPushButton:hover
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="label_38">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>151</width>
+         <height>281</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="picture.qrc">:/Supp photo.png</pixmap>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_18">
       <property name="geometry">
@@ -2340,32 +2669,6 @@ QPushButton:hover
         <string>Add</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_36">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>190</y>
-         <width>121</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Expirate Date</string>
-       </property>
-      </widget>
-      <widget class="QDateEdit" name="dateEdit_addExpiratMat">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>190</y>
-         <width>110</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="lineEditADDMaterialID">
        <property name="geometry">
         <rect>
@@ -2411,6 +2714,22 @@ padding-right: 5px;</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="label_39">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>131</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="picture.qrc">:/Supp photo.png</pixmap>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_24">
       <property name="geometry">
@@ -2584,7 +2903,7 @@ padding-left: 5px;
 padding-right: 5px;</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_12">
+      <widget class="QPushButton" name="pushButton_confirmMaterialEdit">
        <property name="geometry">
         <rect>
          <x>120</x>
@@ -2634,32 +2953,6 @@ QPushButton:hover
        </property>
        <property name="text">
         <string>Cancel</string>
-       </property>
-      </widget>
-      <widget class="QDateEdit" name="dateEdit">
-       <property name="geometry">
-        <rect>
-         <x>260</x>
-         <y>160</y>
-         <width>110</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_35">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>160</y>
-         <width>131</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Expirate Date</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_EditMaterialID">
@@ -2759,6 +3052,22 @@ padding-right: 5px;</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="label_40">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>131</width>
+         <height>261</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="picture.qrc">:/Supp photo.png</pixmap>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="widget_7" native="true">
       <property name="geometry">
@@ -2925,6 +3234,21 @@ padding-right: 5px;</string>
          <height>23</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">
+QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}
+</string>
+       </property>
        <property name="text">
         <string>Return</string>
        </property>
@@ -3042,6 +3366,22 @@ padding-right: 5px;</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="label_41">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>151</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="picture.qrc">:/Supp photo.png</pixmap>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="widget_8" native="true">
       <property name="geometry">
@@ -3208,6 +3548,21 @@ padding-right: 5px;</string>
          <height>23</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">
+QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}
+</string>
+       </property>
        <property name="text">
         <string>Confirm</string>
        </property>
@@ -3220,6 +3575,21 @@ padding-right: 5px;</string>
          <width>75</width>
          <height>23</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}
+</string>
        </property>
        <property name="text">
         <string>Cancel</string>
@@ -3317,6 +3687,19 @@ padding-right: 5px;</string>
         <height>16</height>
        </rect>
       </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_13">
+     <widget class="QFrame" name="horizontalFrame">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>691</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
      </widget>
     </widget>
    </widget>

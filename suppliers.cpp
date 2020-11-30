@@ -1,9 +1,10 @@
 #include "suppliers.h"
 #include<QtSql/QSqlQuery>
 #include<QtSql/QSqlQueryModel>
-#include "ui_mainwindow.h"
-#include "mainwindow.h"
-#include"qdebug.h"
+#include<qdebug.h>
+#include<QMessageBox>
+
+
 
 
 Suppliers::Suppliers()
@@ -33,10 +34,11 @@ Suppliers::Suppliers(QString id,QString campName,QString title,QString adress,QS
     this->fax=fax;
     this->pagacc=pagacc;
 }
-bool Suppliers::Addsupplier()
+////////////////////
+/*bool Suppliers::Addsupplier()
 {
  QSqlQuery query;
- query.prepare(" Insert into supplier ( id ,name,campName,title,adress,ville,pays,telephone,fax,pagacc)"" values (:id :name :campName :title :adress :ville :pays :telephone :fax :pagacc)");
+ query.prepare(" INSERT INTO FOURNISSEURS ( id ,name,campName,title,adress,ville,pays,telephone,fax,pagacc)"" VALUES (:id ,name :campName ,:title :adress ,:ville, :pays, :telephone, :fax, :pagacc)");
  query.bindValue("id",id);
 
  query.bindValue("campName",campName);
@@ -47,28 +49,94 @@ bool Suppliers::Addsupplier()
  query.bindValue("fax",fax);
  query.bindValue("pagacc",pagacc);
  return query.exec();
-}
-QSqlQueryModel * Suppliers :: Viewsupplier()
+}*/
+/////////////////////////////
+
+
+bool Suppliers::Addsupplier()
 {
-    QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select * from suppliers ");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("campName"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("adress"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ville"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("pays"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("telephone"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("fax"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("pagacc"));
-    return model;
+
+
+    bool test;
+    QMessageBox msg;
+
+      QSqlQuery qry;
+
+       qry.prepare("insert into material ("
+                   "id,"
+                   "campName, "
+                   "adress,"
+                   "ville,"
+                   "pays,"
+                   "telephone,"
+                   "fax,"
+                   "pagacc,"
+                   "title,"
+
+                   "values(?,?,?,?,?,?,?,?,?)");
+
+       qry.addBindValue(getid());
+       qry.addBindValue(getcampName());
+       qry.addBindValue(getadress());
+       qry.addBindValue(getville());
+       qry.addBindValue(getpays());
+       qry.addBindValue(getpagacc());
+       qry.addBindValue(gettelephone());
+       qry.addBindValue(getfax());
+       qry.addBindValue(gettitle());
+
+
+
+
+
+       if(qry.exec())
+       {
+
+
+          test= true;
+
+       }
+       else
+       {
+           qDebug()<<"not done";
+
+            test= false;
+
+       }
+
+
+
+return test;
+
+
 
 }
-bool Suppliers:: deletesupplier(int id)
+QSqlQuery Suppliers :: Viewsupplier(QString info)
 {
+
     QSqlQuery query;
-    QString sid= QString :: number(id);
-    query.prepare("delete from supplier where ID= :id");
-    query.bindValue(":id",sid);
-    return  query.exec();
+    query.prepare("select * from fournisseurs where id='"+info+"'");
+    query.exec();
+    return  query;
+
 
 }
+bool Suppliers:: deletesupplier(QString info)
+{
+
+    QSqlQuery query;
+    query.prepare("Delete from  fournisseurs where id='"+info+"'");
+    return query.exec();
+
+}
+ QSqlQueryModel * Suppliers ::afficherList2()
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry;
+qry.prepare("select id from fournisseurs");
+qry.exec();
+model->setQuery(qry);
+return  model ;
+}
+
+

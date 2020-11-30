@@ -1,23 +1,29 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
-#include<QString>
+#include<QtSql/QSqlQuery>
 #include"QtSql/QSqlQueryModel"
+#include <QString>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
+#include <QMessageBox>
+#include <QDebug>
+#include "smtp.h"
 
 class material
 {
 private:
-      QString id;
+    QString id;
     QString Name;
     QString Description;
     QString SupplierID;
     QString Quantity ;
     QString Unit;
-   QString price;
+    QString price;
     QString Currency;
-   QString Expiratdate;
+
       public:
      material();
- material( QString id,QString Name,QString Description,QString SupplierID,QString Quantity,QString Unit,QString price,QString Currency,QString Expiratdate );
+ material( QString id,QString Name,QString Description,QString SupplierID,QString Quantity,QString Unit,QString price,QString Currency );
        void setName(QString ID){id=ID;}
         void setid(QString nm){Name=nm;}
         void setdescription(QString des){Description=des;}
@@ -26,7 +32,7 @@ private:
         void setUnit(QString uni){Unit=uni;}
         void setprice(QString prc){price=prc;}
         void setCurrency(QString cur){Currency=cur;}
-        void setexpiratdate(QString exdat){Expiratdate=exdat;}
+
          QString getid(){return  id;}
         QString getName(){return  Name;}
         QString getDescription(){return  Description;}
@@ -35,10 +41,16 @@ private:
         QString getUnit(){return  Unit;}
         QString getprice(){return  price;}
         QString getcurrency(){return  Currency;}
-        QString getExpiratdate(){return  Expiratdate;}
+
         bool AddMaterial();
-        QSqlQueryModel * ViewMaterial();
-        bool deleteMaterial(int);
+        bool EditMaterial();
+
+        QSqlQuery ViewMaterial(QString);
+        bool deleteMaterial(QString info);
+         bool searchMaterial(QString info);
+         QSqlQueryModel * sortmaterial();
+         QSqlQuery statMat();
+         QSqlQueryModel* afficherList();
 
 };
 

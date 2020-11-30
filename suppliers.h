@@ -1,6 +1,6 @@
 #ifndef SUPPLIERS_H
 #define SUPPLIERS_H
-#include"QString"
+#include<QString>
 #include<QtSql/QSqlQuery>
 #include"QtSql/QSqlQueryModel"
 
@@ -42,8 +42,12 @@ public:
         QString getfax(){return  fax;}
         QString getpagacc(){return  pagacc;}
         bool Addsupplier();
-        QSqlQueryModel * Viewsupplier();
-        bool deletesupplier(int);
+        QSqlQuery Viewsupplier(QString info);
+        bool deletesupplier(QString info);
+        QSqlQueryModel* afficherList2();
+
+
+
 
 };
 

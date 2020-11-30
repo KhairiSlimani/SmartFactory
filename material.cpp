@@ -1,7 +1,7 @@
 #include "material.h"
-#include"material.h"
 #include<QtSql/QSqlQuery>
 #include<QtSql/QSqlQueryModel>
+
 
 
 material::material()
@@ -14,9 +14,9 @@ material::material()
     Unit="";
    price="";
     Currency="";
-    Expiratdate="";
+
 }
-material::material(QString id,QString Name,QString Description,QString SupplierID,QString Quantity,QString Unit,QString price,QString Currency,QString Expiratdate )
+material::material(QString id,QString Name,QString Description,QString SupplierID,QString Quantity,QString Unit,QString price,QString Currency )
 {
     this->id=id;
     this->Name=Name;
@@ -26,47 +26,136 @@ material::material(QString id,QString Name,QString Description,QString SupplierI
     this->Unit=Unit;
     this->price=price;
     this->Currency=Currency;
-    this->Expiratdate=Expiratdate;
+
 }
-bool  material::AddMaterial()
+
+bool material::AddMaterial()
 {
-    QSqlQuery query;
-    query.prepare(" Insert into material ( Name,Description,SupplierID,Quantity,Unit,price,Currency,Expiratdate)"" values (;Name;Description;SupplierID;Quantity;Unit;price;Currency;Expiratdate)");
-    query.bindValue("Name",Name);
-    query.bindValue("id",id);
+    bool test;
+    QMessageBox msg;
 
-    query.bindValue("Description",Description);
-    query.bindValue("SupplierID",SupplierID);
-    query.bindValue("Quantity",Quantity);
-    query.bindValue("Unit",Unit);
-    query.bindValue("price",price);
-    query.bindValue("Currency",Currency);
-    query.bindValue("Expiratdate",Expiratdate);
-    return query.exec();
+      QSqlQuery qry;
 
+       qry.prepare("insert into material ("
+                   "id, "
+                   "Name,"
+                   "Description,"
+                   "SupplierID,"
+                   "Quantity,"
+                   "Unit,"
+                   "price,"
+                   "Currency) "
+                   "values(?,?,?,?,?,?,?,?)");
+
+       qry.addBindValue(getid());
+       qry.addBindValue(getName());
+       qry.addBindValue(getDescription());
+       qry.addBindValue(getSupplierID());
+       qry.addBindValue(getQuantity());
+       qry.addBindValue(getUnit());
+       qry.addBindValue(getprice());
+       qry.addBindValue(getcurrency());
+
+
+
+
+
+       if(qry.exec())
+       {
+
+
+          test= true;
+
+       }
+       else
+       {
+           qDebug()<<"not done";
+            test= false;
+
+       }
+
+
+
+return test;
 }
- QSqlQueryModel * material :: ViewMaterial()
+
+ QSqlQuery material ::ViewMaterial(QString info)
  {
-     QSqlQueryModel * model=new QSqlQueryModel();
-     model->setQuery("select * from material ");
-     model->setHeaderData(0,Qt::Horizontal,QObject::tr("Name"));
-     model->setHeaderData(1,Qt::Horizontal,QObject::tr("Description"));
-     model->setHeaderData(2,Qt::Horizontal,QObject::tr("SupplierID"));
-     model->setHeaderData(3,Qt::Horizontal,QObject::tr("Quantity"));
-     model->setHeaderData(4,Qt::Horizontal,QObject::tr("Unit"));
-     model->setHeaderData(5,Qt::Horizontal,QObject::tr("Currency"));
-     model->setHeaderData(6,Qt::Horizontal,QObject::tr("Expiratdate"));
-      model->setHeaderData(8,Qt::Horizontal,QObject::tr("id"));
-     return model;
+     QSqlQuery query;
+     query.prepare("select * from material where id='"+info+"'");
+     query.exec();
+     return  query;
+
  }
- bool material::deleteMaterial(int)
+ bool material::deleteMaterial(QString info )
  {
+
 
      QSqlQuery query;
-     //QString mid=QString:: number(id);
-     query.prepare("delete from supplier where ID= :id");
-     //query.bindValue(":id",mid);
-     return  query.exec();
+     query.prepare("Delete from  material where id='"+info+"'");
+     return query.exec();
 
 
  }
+ bool material::EditMaterial()
+ {
+     QSqlQuery query;
+
+
+     query.prepare("Edit material set id='"+id+"',Name='"+Name+"',Description='"+Description+"',SupplierID='"+SupplierID+"',Quantity='"+Quantity+"',price='"+price+"',Currency='"+Currency+"'");
+
+     //Creation des variables liées
+     query.bindValue(":id",id);
+     query.bindValue(":Name",Name);
+     query.bindValue(":Description",Description);
+     query.bindValue(":SupplierID",SupplierID);
+     query.bindValue(":price",price);
+     query.bindValue(":currency",Currency);
+     query.bindValue(":Quantity",Quantity);
+
+
+     //exec() envoie la requete pour l'executer
+     return query.exec();
+
+ }
+ bool material::searchMaterial(QString info)
+{
+     QSqlQueryModel *model=new QSqlQueryModel();
+     QSqlQuery query;
+     query.prepare("select id from material where id='"+info+"'");
+     query.exec();
+     model->setQuery(query);
+     return model;
+
+ }
+   QSqlQueryModel * material :: sortmaterial()
+   {
+       QSqlQueryModel * model=new QSqlQueryModel();
+       QSqlQuery query ;
+       query.prepare("select id from material order by ID desc");
+       query.exec();
+
+       model->setQuery(query);
+
+       return model;
+   }
+
+   QSqlQueryModel * material::afficherList()
+   {
+   QSqlQueryModel * model=new QSqlQueryModel();
+   QSqlQuery qry;
+   qry.prepare("select id from material");
+   qry.exec();
+   model->setQuery(qry);
+   return  model ;
+   }
+
+
+   QSqlQuery material::statMat()
+   {
+       QSqlQuery query;
+       query.prepare("select * from material");
+       query.exec();
+       return query;
+
+   }
