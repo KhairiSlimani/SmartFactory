@@ -8,7 +8,7 @@ deleteconfirmation::deleteconfirmation(QWidget *parent) :
 {
     ui->setupUi(this);
     trashSound=new QMediaPlayer();
-    trashSound->setMedia(QUrl("qrc://img/household_trash_bag_full_throw_into_plastic_bin (1) (online-audio-converter.com) (1).mp3"));
+    trashSound->setMedia(QUrl("qrc:///sounds/household_trash_bag_full_throw_into_plastic_bin (1) (online-audio-converter.com) (1).mp3"));
 }
 
 deleteconfirmation::~deleteconfirmation()

@@ -55,9 +55,9 @@ QSqlQueryModel* depot::Afficher(QString itemText)
 {
     QSqlQueryModel* model=new QSqlQueryModel();
     model->setQuery("select * from depot WHERE warehouseID='"+itemText+"'");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("warehouseID"));
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("warehouse ID"));
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("type Of Product"));
-    model->setHeaderData(2,Qt::Horizontal,QObject::tr("name Of DepotManager"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("name Of Depot Manager"));
     return model;
 }
 
