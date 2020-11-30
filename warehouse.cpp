@@ -184,7 +184,7 @@ else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
 QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
                      QObject::tr("Addition of new warehouse failed.\n"
                                  "Click Cancel to exit."), QMessageBox::Cancel);
-ui->stackedWidget->setCurrentIndex(3);
+ui->stackedWidget->setCurrentIndex(0);
     }
 }
 }
@@ -193,6 +193,9 @@ void warehouse::on_pushButton_CancelAddWarehouse_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
+
+
+
 
 void warehouse::on_pushButton_SaveEditWarehouse_clicked()
 {

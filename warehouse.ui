@@ -48,7 +48,7 @@ subcontrol-origin:margin;
 </string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QFrame" name="frame">
@@ -558,9 +558,14 @@ background:rgb(85,170,255);
       <rect>
        <x>220</x>
        <y>200</y>
-       <width>591</width>
+       <width>611</width>
        <height>141</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/img/Webp.net-resizeimage.jpg);
+border-color: rgb(0, 170, 255);
+font: 9pt &quot;Imprint MT Shadow&quot;;</string>
      </property>
     </widget>
    </widget>

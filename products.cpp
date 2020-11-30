@@ -342,6 +342,21 @@ void products::on_pushButton_Print_clicked()
     QModelIndex index3 = model->index(0,3);
 
     QPlainTextEdit text;
+    text.setStyleSheet("QPlainTextEdit{color: #ffff00; background-color: #303030;");
+    QTextDocument *doc = text.document();
+    QFont font = doc->defaultFont();
+    font.setBold(true);
+    font.setFamily("Arial");
+    font.setPixelSize(30);
+    doc->setDefaultFont(font);
+    text.appendPlainText("                                              Date: "+ui->date->text()+"");
+    text.appendPlainText("");
+    text.appendPlainText("FLORALLO DEPOT");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("Information of PRODUCT:");
+    text.appendPlainText("");
+
     text.appendPlainText("Product Code: "+index0.data().toString()+"");
     text.appendPlainText("Product Name: "+index1.data().toString()+"");
     text.appendPlainText("Sell Price: "+index2.data().toString()+"");
@@ -358,6 +373,8 @@ void products::on_pushButton_Print_clicked()
     text.print(&printer);
 
 }
+
+
 
 void products::on_pushButton_clicked()
 {
