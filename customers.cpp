@@ -201,6 +201,28 @@ void Customers::ViewItem()
 
 void Customers::EditItem()
 {
+
+    QModelIndex index = ui->listView->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=C.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_IDCustomerEdit->setText(view.value(0).toString());
+          ui->lineEdit_FirstNameCustomerEdit->setText(view.value(1).toString());
+          ui->lineEdit_LastNameCustomerEdit->setText(view.value(2).toString());
+          ui->lineEdit_CompanyCustomerEdit->setText(view.value(3).toString());
+          ui->lineEdit_PhoneNumberCustomerEdit->setText(view.value(4).toString());
+          ui->lineEdit_EmailCustomerEdit->setText(view.value(5).toString());
+          ui->lineEdit_WebsiteCustomerEdit->setText(view.value(6).toString());
+          ui->lineEdit_AdressCustomerEdit->setText(view.value(7).toString());
+          ui->lineEdit_CityCustomerEdit->setText(view.value(8).toString());
+          ui->lineEdit_ZipCodeCustomerEdit->setText(view.value(9).toString());
+          ui->lineEdit_CountryCustomerEdit->setText(view.value(10).toString());
+          ui->lineEdit_BankAccountCustomerEdit->setText(view.value(11).toString());
+          ui->lineEdit_CreditLimitCustomerEdit->setText(view.value(12).toString());
+    }
     ui->stackedWidget->setCurrentIndex(3);
 }
 

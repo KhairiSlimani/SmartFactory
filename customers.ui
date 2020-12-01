@@ -5294,7 +5294,7 @@ background:rgb(85,170,255);
      <property name="geometry">
       <rect>
        <x>590</x>
-       <y>10</y>
+       <y>15</y>
        <width>151</width>
        <height>31</height>
       </rect>
@@ -5330,7 +5330,7 @@ background:rgb(85,170,255);
      <property name="geometry">
       <rect>
        <x>590</x>
-       <y>40</y>
+       <y>45</y>
        <width>91</width>
        <height>31</height>
       </rect>
