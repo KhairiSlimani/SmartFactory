@@ -152,3 +152,27 @@ model->setQuery(qry);
 
 return model;
 }
+
+void bill::editer(int i )
+{
+   QString ch = QVariant(i).toString();
+    QSqlQuery qry("select * from BILL where BILLNUMBER = "+ch+";");
+
+
+        while (qry.next())
+         {
+
+           billNumber=qry.value(0).toString();
+
+           orderID=qry.value(1).toString();
+           payMethod=qry.value(2).toString();
+           releaseDate=qry.value(3).toDate();
+           totalAmount=qry.value(4).toDouble();
+           shipperName=qry.value(5).toString();
+           shipperNumber=qry.value(6).toInt();
+
+           }
+         qDebug()<<billNumber;
+
+//qDebug()<<b.billNumber;
+}

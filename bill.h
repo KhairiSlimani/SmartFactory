@@ -26,6 +26,8 @@ public:
     bool edit(int id);
     QSqlQueryModel * afficherOrderedList();
     QSqlQueryModel * searchList(int id);
+    ////
+    void editer(int i );
 
 
     void setReleaseDate(QDate ch) {releaseDate=ch;};

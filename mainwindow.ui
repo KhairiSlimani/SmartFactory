@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_18">
@@ -273,7 +273,7 @@ border-image:url(:/images/floralloLogo.png);</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="orderList">
        <attribute name="title">
@@ -1767,7 +1767,7 @@ border-image:url(:/images/floralloLogo.png);</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="BillList">
        <attribute name="title">

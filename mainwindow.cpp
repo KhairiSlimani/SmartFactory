@@ -115,7 +115,6 @@ void MainWindow::on_order_clicked()
     //refresh affichage
     order o ;
     ui->orderListView->setModel(o.afficherList());
-
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -161,8 +160,17 @@ void MainWindow::viewBill()
 
 void MainWindow::editBill()
 {
-
+       int i = ui->listView->currentIndex().data().toInt();
       ui->tabWidget_3->setCurrentIndex(3);
+
+      b.editer(i);
+      ui->billNumber_2->setText(b.getBillNumber());
+      ui->orderID_2->setText(b.getOrderID());
+      ui->paymentMethod_2->setCurrentText(b.getPayMethod());
+      ui->dateEdit_2->setDate(b.getReleaseDate());
+      ui->doubleSpinBox_2->setValue(b.getTotalAmount());
+      ui->shipperName_2->setText(b.getShipperName());
+      ui->shipperPhone_2->setText( QVariant(b.getShipperNumber()).toString());
 }
 
 void MainWindow::deleteBill()
