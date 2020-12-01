@@ -105,12 +105,12 @@ void products::DeleteItem()
 
     //Recuperation de l'indice du curseur
     QModelIndex index = ui->listView->currentIndex();
-    //Recuperation de l'id du client sur lequel mon curseur est positionné
+    //Recuperation du code du produit sur lequel mon curseur est positionné
     QString itemText = index.data(Qt::DisplayRole).toString();
 
     if(D.getConfirm()==1)
     {
-        //supprimer l'objet C de la table client et on recupére la valeur de retour(query.exec()) dans la variable test
+        //supprimer l'objet P de la table client et on recupére la valeur de retour(query.exec()) dans la variable test
         bool test=P.Effacer(itemText);
 
         if(test)//if(test==true)->La requete est executée->QMessageBox::information
@@ -384,6 +384,11 @@ void products::on_pushButton_clicked()
     msg=ui->plainTextEdit->toPlainText();
 
     smtp->sendMail("depot.florallo@gmail.com",ui->lineEdit_Email->text(),ui->lineEdit_Subject->text(),msg);
+
+    QMessageBox::information(nullptr, QObject::tr("SENT"),
+                             QObject::tr("Email Sended Successfully.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+
 
 }
 

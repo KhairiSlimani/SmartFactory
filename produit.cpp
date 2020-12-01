@@ -27,8 +27,6 @@ produit::produit(QString NVproductCode, QString NVproductName , QString NVsellPr
 bool produit:: ajouter()
 {
     QSqlQuery query;
-   // QString Pprice=QString::number(sellPrice);
-    //QString QIS=QString::number(quantityInStock);
 
 //Prepare() prend la requete en parametre pour la prÃ©parer a l'execution
   query.prepare("INSERT INTO produit (productCode, productName,sellPrice,quantityInStock)" "VALUES (:productCode,:productName,:sellPrice,:quantityInStock)");
@@ -41,8 +39,6 @@ bool produit:: ajouter()
    return query.exec();
 
 }
-
-
 
 
 bool produit::Editer()
