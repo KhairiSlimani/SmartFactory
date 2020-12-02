@@ -85,22 +85,7 @@ order::order()
     return test;
     }
 
-    QSqlQueryModel * order::afficher(int i)
-    {
 
-        QString ch =QString::number(i);
-
-    QSqlQuery qry;
-    QSqlQueryModel * model=new QSqlQueryModel();
-    qry.prepare("select * from ORDERTAB where orderNumber=:id");
-    qry.bindValue(":id",i);
-    qry.exec();
-    model->setQuery(qry);
-
-    qDebug()<<i;
-    qDebug()<<"afficher done";
-    return model;
-    }
 
     QSqlQueryModel * order::afficherList()
     {
@@ -149,7 +134,7 @@ order::order()
  QChart* order::stat()
    {
     QPieSeries *series = new QPieSeries();
-    QSqlQuery query("SELECT ORDERNUMBER, QUANTITYORDERED FROM ORDERTAB;");
+    QSqlQuery query("SELECT PRODUCTCODE, QUANTITYORDERED FROM ORDERTAB;");
     while(query.next())
     {
         series->append(query.value(0).toString(),query.value(1).toInt());
@@ -163,5 +148,28 @@ order::order()
 
     }
 
+ void order::loadData(int i )
+ {
+    QString ch = QVariant(i).toString();
+     QSqlQuery qry("select * from ORDERTAB where ORDERNUMBER = "+ch+";");
 
+
+         while (qry.next())
+          {
+
+            orderNumber=qry.value(0).toString();
+            productCode =qry.value(1).toString();
+            quantityOrdered=qry.value(2).toInt();
+            status=qry.value(3).toString();
+            orderDate=qry.value(4).toDate();
+            unitPrice=qry.value(5).toDouble();
+            discount=qry.value(6).toString();
+            extendedPrice=qry.value(7).toDouble();
+            requiredDate=qry.value(8).toDate();
+            customerID=qry.value(9).toString();
+            comments=qry.value(10).toString();
+
+            }
+
+ }
 

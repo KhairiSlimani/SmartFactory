@@ -27,6 +27,7 @@ public:
     bool supprimer(int id);
     bool edit(int id);
     QChart* stat();
+    void loadData(int i );
 
 
 

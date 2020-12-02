@@ -70,22 +70,7 @@ bool bill::ajouter()
 return test;
 }
 
-QSqlQueryModel * bill::afficher(int i)
-{
 
-    QString ch =QString::number(i);
-
-QSqlQuery qry;
-QSqlQueryModel * model=new QSqlQueryModel();
-qry.prepare("select * from bill where billNumber=:id");
-qry.bindValue(":id",i);
-qry.exec();
-model->setQuery(qry);
-
-qDebug()<<i;
-qDebug()<<"afficher done";
-return model;
-}
 
 QSqlQueryModel * bill::afficherList()
 {
@@ -153,7 +138,7 @@ model->setQuery(qry);
 return model;
 }
 
-void bill::editer(int i )
+void bill::loadData(int i )
 {
    QString ch = QVariant(i).toString();
     QSqlQuery qry("select * from BILL where BILLNUMBER = "+ch+";");

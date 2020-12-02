@@ -35,6 +35,10 @@ public:
     ~MainWindow();
 
     void statistique();
+    void initEditBill();
+    void initAddBill();
+    void initEditOrder();
+    void initAddOrder();
 
 
 private slots:
@@ -62,7 +66,7 @@ private slots:
     void on_billButton_clicked();
     void on_order_clicked();
     void on_addOrder_clicked();
-    void on_addButton_3_clicked();
+    void on_editButton_clicked();
     void on_addButton_2_clicked();
 
     void on_return_9_clicked();
@@ -108,6 +112,8 @@ private slots:
      void on_sendMailButton_clicked();
 
      void on_cancelButton_5_clicked();
+
+
 
 
 private:

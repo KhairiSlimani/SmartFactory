@@ -68,6 +68,71 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/// refresh ///////////////
+void MainWindow::initAddBill()
+{
+    ui->shipperName->setText("");
+    QDate date = QDate::currentDate();
+    ui->dateEdit->setDate(date);
+    ui->billNumber->setText("");
+    ui->orderID->setText("");
+    ui->paymentMethod->setCurrentIndex(0);
+    ui->shipperPhone->setText(0);
+    ui->doubleSpinBox->setValue(0);
+}
+
+void MainWindow::initEditBill()
+{
+    ui->shipperName_2->setText("");
+    QDate date = QDate::currentDate();
+    ui->dateEdit_2->setDate(date);
+    ui->billNumber_2->setText("");
+    ui->orderID_2->setText("");
+    ui->paymentMethod_2->setCurrentIndex(0);
+    ui->shipperPhone_2->setText(0);
+    ui->doubleSpinBox_2->setValue(0);
+
+}
+void MainWindow::initEditOrder()
+{
+
+    ui->orderNumber_10->setText("");
+
+    QDate date = QDate::currentDate();
+    ui->orderDate_10->setDate(date);
+    ui->requiredDate_10->setDate(date);
+    ui->productCode_10->setText("");
+    ui->extendedPrice_10->setValue(0);
+    ui->status_10->setCurrentIndex(0);
+
+    ui->quantity_10->setValue(0);
+    ui->discount_10->setText("");
+    ui->comments_10->setText("");
+    ui->unitPrice_10->setValue(0);
+    ui->customerID_10->setText("");
+}
+
+void MainWindow::initAddOrder()
+{
+
+    ui->orderNumber->setText("");
+
+    QDate date = QDate::currentDate();
+    ui->orderDate->setDate(date);
+     ui->requiredDate->setDate(date);
+
+    ui->productCode->setText("");
+    ui->extendedPrice->setValue(0);
+    ui->status->setCurrentIndex(0);
+
+    ui->quantity->setValue(0);
+    ui->discount->setText("");
+    ui->comments->setText("");
+    ui->unitPrice->setValue(0);
+
+
+
+}
 
 //time function ///////////
 void MainWindow::showTime()
@@ -153,8 +218,17 @@ void MainWindow::showContextMenu(const QPoint &pos)
 void MainWindow::viewBill()
 {
    int i = ui->listView->currentIndex().data().toInt();
-    ui->billinfo_2->setModel(b.afficher(i));
+
    ui->tabWidget_3->setCurrentIndex(2);
+
+   b.loadData(i);
+   ui->viewBillNumber->setText(b.getBillNumber());
+   ui->viewOrderID->setText(b.getOrderID());
+   ui->viewPaymentMethod->setText(b.getPayMethod());
+   ui->viewreleaseDate->setText(QVariant(b.getReleaseDate()).toString());
+   ui->viewTotalAmount->setText(QVariant(b.getTotalAmount()).toString());
+   ui->viewShipperName->setText(b.getShipperName());
+   ui->viewShipperPhone->setText( QVariant(b.getShipperNumber()).toString());
 
 }
 
@@ -163,7 +237,7 @@ void MainWindow::editBill()
        int i = ui->listView->currentIndex().data().toInt();
       ui->tabWidget_3->setCurrentIndex(3);
 
-      b.editer(i);
+      b.loadData(i);
       ui->billNumber_2->setText(b.getBillNumber());
       ui->orderID_2->setText(b.getOrderID());
       ui->paymentMethod_2->setCurrentText(b.getPayMethod());
@@ -214,14 +288,20 @@ void MainWindow::on_addBill_clicked()
 ui->tabWidget_3->setCurrentIndex(1);
 }
 
-
-
+///view with double click
 int MainWindow::on_listView_doubleClicked(const QModelIndex &index)
 {
-    int id = ui->listView->currentIndex().data().toInt();
-    ui->billinfo_2->setModel(b.afficher(id));
+
     ui->tabWidget_3->setCurrentIndex(2);
-  int i = index.data().toInt();
+    int i = index.data().toInt();
+    b.loadData(i);
+    ui->viewBillNumber->setText(b.getBillNumber());
+    ui->viewOrderID->setText(b.getOrderID());
+    ui->viewPaymentMethod->setText(b.getPayMethod());
+    ui->viewreleaseDate->setText(QVariant(b.getReleaseDate()).toString());
+    ui->viewTotalAmount->setText(QVariant(b.getTotalAmount()).toString());
+    ui->viewShipperName->setText(b.getShipperName());
+    ui->viewShipperPhone->setText( QVariant(b.getShipperNumber()).toString());
 
 return i;
 }
@@ -276,7 +356,7 @@ void MainWindow::on_addBill_2_clicked()
       }
       else
       {
-            bill b;
+
             b.setShipperName (ui->shipperName->text());
             b.setReleaseDate(ui->dateEdit->date());
             b.setBillNumber(ui->billNumber->text());
@@ -299,14 +379,7 @@ void MainWindow::on_addBill_2_clicked()
                  msg.exec();
 
                   //reintialisation the add interface
-                 ui->shipperName->setText("");
-                 QDate date = QDate::currentDate();
-                 ui->dateEdit->setDate(date);
-                 ui->billNumber->setText("");
-                 ui->orderID->setText("");
-                 ui->paymentMethod->setCurrentIndex(0);
-                 ui->shipperPhone->setText(0);
-                 ui->doubleSpinBox->setValue(0);
+                  initAddBill();
 
          }
          else
@@ -327,7 +400,7 @@ ui->tabWidget_3->setCurrentIndex(0);
 
 //edit button bill
 
-void MainWindow::on_addButton_3_clicked()
+void MainWindow::on_editButton_clicked()
 {
 
 
@@ -396,16 +469,8 @@ void MainWindow::on_addButton_3_clicked()
          msg.setText("edited succesfully ");
             msg.exec();
 
-             //reintialisation the add interface
-            ui->shipperName_2->setText("");
-            QDate date = QDate::currentDate();
-            ui->dateEdit_2->setDate(date);
-            ui->billNumber_2->setText("");
-            ui->orderID_2->setText("");
-            ui->paymentMethod_2->setCurrentIndex(0);
-            ui->shipperPhone_2->setText(0);
-            ui->doubleSpinBox_2->setValue(0);
-
+             //reintialisation the edit interface
+             initEditBill();
     }
     else
       { qDebug()<<"error";
@@ -447,17 +512,43 @@ void MainWindow::on_search_textChanged(const QString &arg1)
 void MainWindow::viewOrder()
 {
    int i = ui->orderListView->currentIndex().data().toInt();
-    ui->orderinfo->setModel(o.afficher(i));
+    o.loadData(i);
+    ui->viewOrderNumber->setText(o.getOrderNumber());
+    ui->viewProductCode->setText(o.getProductCode());
+    ui->viewQuantityOrdered->setText(QVariant(o.getQuantityOrdered()).toString());
+    ui->viewStatus->setText(o.getStatus());
+    ui->viewOrderDate->setText(QVariant(o.getOrderDate()).toString());
+    ui->viewUnitPrice->setText(QVariant(o.getUnitPrice()).toString());
+    ui->viewDiscount->setText(o.getDiscount());
+    ui->viewExtendedPrice->setText(QVariant(o.getExtendedPrice()).toString());
+    ui->viewRequiredDate->setText(QVariant(o.getRequiredDate()).toString());
+    ui->viewCustomerID->setText(o.getCustomerID());
+    ui->viewComments->setText(o.getComments());
+
     ui->tabWidget_2->setCurrentIndex(2);
 
 }
 
 void MainWindow::editOrder()
 {
+    int i = ui->orderListView->currentIndex().data().toInt();
+     o.loadData(i);
+     ui->orderNumber_10->setText(o.getOrderNumber());
+     ui->productCode_10->setText(o.getProductCode());
+     ui->quantity_10->setValue (o.getQuantityOrdered());
+     ui->status_10->setCurrentText(o.getStatus());
+     ui->orderDate_10->setDate(o.getOrderDate());
+     ui->unitPrice_10->setValue(o.getUnitPrice());
+     ui->discount_10->setText(o.getDiscount());
+     ui->extendedPrice_10->setValue(o.getExtendedPrice());
+     ui->requiredDate_10->setDate(o.getRequiredDate());
+     ui->customerID_10->setText(o.getCustomerID());
+     ui->comments_10->setText(o.getComments());
+
 
      ui->tabWidget_2->setCurrentIndex(3);
 }
-
+///delete
 void MainWindow::deleteOrder()
 {
     Delete d;
@@ -483,10 +574,10 @@ if(d.getConfirmDelete()==1)
         }
 
 }
-else
+
 {
     msg.setIcon(QMessageBox::Critical);
-     msg.setText("error ");
+     msg.setText("order wasn't deleted ");
      msg.exec();
 }
 
@@ -573,21 +664,7 @@ void MainWindow::on_addButton_2_clicked()
                  msg.exec();
 
                   //reintialisation the add interface
-                 ui->orderNumber->setText("");
-
-                 QDate date = QDate::currentDate();
-                 ui->orderDate->setDate(date);
-                  ui->requiredDate->setDate(date);
-
-                 ui->productCode->setText("");
-                 ui->extendedPrice->setValue(0);
-                 ui->status->setCurrentIndex(0);
-
-                 ui->quantity->setValue(0);
-                 ui->discount->setText("");
-                 ui->comments->setText("");
-                 ui->unitPrice->setValue(0);
-
+                 initAddOrder();
 
 
          }
@@ -670,20 +747,7 @@ void MainWindow::on_edit_clicked()
                  msg.exec();
 
                   //reintialisation the add interface
-                 ui->orderNumber_10->setText("");
-
-                 QDate date = QDate::currentDate();
-                 ui->orderDate_10->setDate(date);
-                 ui->requiredDate_10->setDate(date);
-                 ui->productCode_10->setText("");
-                 ui->extendedPrice_10->setValue(0);
-                 ui->status_10->setCurrentIndex(0);
-
-                 ui->quantity_10->setValue(0);
-                 ui->discount_10->setText("");
-                 ui->comments_10->setText("");
-                 ui->unitPrice_10->setValue(0);
-                 ui->customerID_10->setText("");
+                 initEditOrder();
 
          }
          else
@@ -720,6 +784,7 @@ void MainWindow::on_logOutButton_19_clicked()
 
 void MainWindow::on_cancelButton_2_clicked()
 {
+    initAddOrder();
     ui->tabWidget_2->setCurrentIndex(0);
 }
 
@@ -728,6 +793,7 @@ void MainWindow::on_cancelButton_2_clicked()
 
 void MainWindow::on_cancelButton_22_clicked()
 {
+    initEditOrder();
     ui->tabWidget_2->setCurrentIndex(0);
 }
 
@@ -750,11 +816,14 @@ void MainWindow::on_return_11_clicked()
 
 void MainWindow::on_cancelButton_23_clicked()
 {
-   ui->tabWidget_3->setCurrentIndex(0);
+
+    initAddBill();
+    ui->tabWidget_3->setCurrentIndex(0);
 }
 
 void MainWindow::on_cancelButton_3_clicked()
 {
+    initEditBill();
     ui->tabWidget_3->setCurrentIndex(0);
 }
 
@@ -813,5 +882,7 @@ void MainWindow::on_cancelButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
+
+
 
 

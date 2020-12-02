@@ -20,14 +20,13 @@ public:
     bill();
     bill(QString,QString,QString,QString,int,double,QDate);
     bool ajouter();
-    QSqlQueryModel* afficher(int i);
     QSqlQueryModel * afficherList();
     bool supprimer(int id);
     bool edit(int id);
     QSqlQueryModel * afficherOrderedList();
     QSqlQueryModel * searchList(int id);
     ////
-    void editer(int i );
+    void loadData(int i );
 
 
     void setReleaseDate(QDate ch) {releaseDate=ch;};
