@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include "smtp.h"
-
+#include <QtCharts>
 class material
 {
 private:
@@ -43,14 +43,17 @@ private:
         QString getcurrency(){return  Currency;}
 
         bool AddMaterial();
-        bool EditMaterial();
+        bool EditMaterial(int info);
 
-        QSqlQuery ViewMaterial(QString);
+
+        QSqlQuery ViewMaterial(QString info);
         bool deleteMaterial(QString info);
-         bool searchMaterial(QString info);
+         QSqlQueryModel * search(QString info);
          QSqlQueryModel * sortmaterial();
-         QSqlQuery statMat();
+
+          QChart* statmat();
          QSqlQueryModel* afficherList();
+         QSqlQueryModel * loadData();
 
 };
 

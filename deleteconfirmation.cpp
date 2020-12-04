@@ -28,6 +28,7 @@ void deleteconfirmation::on_confirmDelete_clicked()
     {
         trashSound->play();
     }
+    confirmDelete =1;
     close();
 }
 
@@ -41,5 +42,6 @@ void deleteconfirmation::on_CancelDelete_clicked()
     {
         trashSound->play();
     }
+    confirmDelete=0;
     close();
 }

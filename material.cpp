@@ -32,6 +32,7 @@ material::material(QString id,QString Name,QString Description,QString SupplierI
 bool material::AddMaterial()
 {
     bool test;
+   // QString id2=QString::number(id);
     QMessageBox msg;
 
       QSqlQuery qry;
@@ -81,28 +82,54 @@ return test;
 
  QSqlQuery material ::ViewMaterial(QString info)
  {
+     bool test;
+     /*
      QSqlQuery query;
      query.prepare("select * from material where id='"+info+"'");
      query.exec();
-     return  query;
 
- }
- bool material::deleteMaterial(QString info )
+     return query;*/
+
+     //QString ch =QString::number(info);
+
+ QSqlQuery qry;
+ QSqlQueryModel * model=new QSqlQueryModel();
+ qry.prepare("select * from material where id=:info");
+ qry.bindValue(":id",info);
+ qry.exec();
+ model->setQuery(qry);
+
+ qDebug()<<info;
+ qDebug()<<"afficher done";
+ //return model;
+ if(qry.exec())
  {
 
 
-     QSqlQuery query;
-     query.prepare("Delete from  material where id='"+info+"'");
-     return query.exec();
-
+    test= true;
 
  }
- bool material::EditMaterial()
+ else
+ {
+     qDebug()<<"not done";
+      test= false;
+
+ }
+
+
+
+//return test;
+
+ }
+
+
+
+
+ bool material::EditMaterial(int info)
  {
      QSqlQuery query;
-
-
-     query.prepare("Edit material set id='"+id+"',Name='"+Name+"',Description='"+Description+"',SupplierID='"+SupplierID+"',Quantity='"+Quantity+"',price='"+price+"',Currency='"+Currency+"'");
+    //QString id2 = QString ::number(id);
+     query.prepare("update material set id='"+id+"',Name='"+Name+"',Description='"+Description+"',SupplierID='"+SupplierID+"',Quantity='"+Quantity+"',price='"+price+"',Currency='"+Currency+"'");
 
      //Creation des variables liées
      query.bindValue(":id",id);
@@ -118,7 +145,7 @@ return test;
      return query.exec();
 
  }
- bool material::searchMaterial(QString info)
+  QSqlQueryModel * material::search(QString info)
 {
      QSqlQueryModel *model=new QSqlQueryModel();
      QSqlQuery query;
@@ -140,22 +167,58 @@ return test;
        return model;
    }
 
-   QSqlQueryModel * material::afficherList()
+   //QSqlQueryModel* material::AfficherListe()
+
+      /* QSqlQueryModel *modal=new QSqlQueryModel();
+       QSqlQuery query=LoadData();
+       query.exec();
+       modal->setQuery(query);
+       return modal;*/
+       QSqlQueryModel * material::afficherList()
+          {
+          QSqlQueryModel * model=new QSqlQueryModel();
+          QSqlQuery qry;
+          qry.prepare("select id from material");
+          qry.exec();
+          model->setQuery(qry);
+          return  model ;
+          }
+
+
+
+   QChart* material::statmat()
    {
-   QSqlQueryModel * model=new QSqlQueryModel();
-   QSqlQuery qry;
-   qry.prepare("select id from material");
-   qry.exec();
-   model->setQuery(qry);
-   return  model ;
+
+       QPieSeries *series = new QPieSeries();
+          QSqlQuery query("SELECT ID, QUANTITY FROM MATERIAL;");
+          while(query.next())
+          {
+              series->append(query.value(0).toString(),query.value(1).toInt());
+          }
+
+          QChart * chart=new  QChart();
+          chart->addSeries(series);
+          chart->setTitle("Material statistics");
+
+            return   chart;
+
    }
 
 
-   QSqlQuery material::statMat()
-   {
-       QSqlQuery query;
-       query.prepare("select * from material");
-       query.exec();
-       return query;
+//   QSqlQuery material::LoadData()
+//   {
+//       QSqlQuery query;
+//       query.prepare("select id from client");
+//       return query;
+//   }
+
+
+   bool material::deleteMaterial(QString info){
+       QSqlQuery query ;
+
+          query.prepare("Delete from MATERIAL where ID=:id");
+          query.bindValue(":id",info);
+
+          return query.exec();
 
    }

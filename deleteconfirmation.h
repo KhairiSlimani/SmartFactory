@@ -18,7 +18,7 @@ class deleteconfirmation : public QDialog
 public:
     explicit deleteconfirmation(QWidget *parent = nullptr);
     ~deleteconfirmation();
-     int getConfirm(){int i = confirmDelete; return i;}
+     int getConfirm(){return confirmDelete;}
 
 private slots:
      void on_confirmDelete_clicked();

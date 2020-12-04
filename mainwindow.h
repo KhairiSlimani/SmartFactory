@@ -6,6 +6,7 @@
 #include"material.h"
 #include <QDialog>
 #include <QTimer>
+
 #include <QDateTime>
 #include <QListWidgetItem>
 
@@ -16,6 +17,8 @@
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 #include"deleteconfirmation.h"
+#include<QtCharts>
+
 
 #include <qplaintextedit.h>
 #include "smtp.h"
@@ -36,9 +39,11 @@ public:
 private slots:
 
       void showTime();
-      /*void Addsupplier();
-      void Viewsupplier(QString info);
-      void deletesupplier(QString info);*/
+      //void showContextMenu(const QPoint&);
+//      void deletematerial();
+//      void viewmateriel();
+//      void editmaterial();
+
 
 
       void mail(QString){};
@@ -57,6 +62,10 @@ private slots:
     void on_pushButton_EditSave_clicked();
 
     void on_pushButton_Add_clicked();
+    //void showContextMenu(const QPoint &pos);
+    //void DeleteItem();
+    //void EditItem();
+    //void SendEmailToItem();
 
 
 
@@ -129,11 +138,16 @@ private slots:
 
     void on_pushButton_Home_clicked();
 
+    void on_lineEdit_SearchMaterial_textChanged(const QString &arg1);
+     //void loadData();
+
+
 private:
     Ui::MainWindow *ui;
     QString msg;
     material m ;
     Suppliers s;
     Smtp* smtp;
+    QPropertyAnimation *animation;
 };
 #endif // MAINWINDOW_H

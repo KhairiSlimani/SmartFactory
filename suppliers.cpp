@@ -1,7 +1,7 @@
 #include "suppliers.h"
 #include<QtSql/QSqlQuery>
 #include<QtSql/QSqlQueryModel>
-#include<qdebug.h>
+#include <qdebug.h>
 #include<QMessageBox>
 
 
@@ -12,13 +12,13 @@ Suppliers::Suppliers()
     id="";
 
        campName="";
-      title="";
+       title="";
        adress="";
        ville="";
-      pays="";
-      telephone="";
+       pays="";
+       telephone="";
        fax="";
-      pagacc="";
+       pagacc="";
 }
 Suppliers::Suppliers(QString id,QString campName,QString title,QString adress,QString ville,QString pays,QString telephone,QString fax,QString pagacc)
 {

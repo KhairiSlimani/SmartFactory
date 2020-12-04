@@ -10,6 +10,7 @@
 
 #include"material.h"
 #include"smtp.h"
+#include<QPropertyAnimation>
 
 #include"deleteconfirmation.h"
 #include <QtCharts>
@@ -43,6 +44,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_DelMatDate->setText(datetimetext);
     ui->lineEdit_AddMatDate->setText(datetimetext);
     ui->lineEdit_AddMatTime->setText(datetimetext);
+
+       animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
+       animation->setDuration(5000);
+       animation->setStartValue(ui->pushButton_statMateriel->geometry());
+       animation->setEndValue(ui->pushButton_statMateriel->geometry());
+       animation->start();
+
+       animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
+       animation->setDuration(5000);
+       animation->setStartValue(ui->pushButton_statMateriel->geometry());
+       animation->setEndValue(ui->pushButton_statMateriel->geometry());
+       animation->start();
 
 
 
@@ -92,18 +105,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->lineEdit_AddSupplierIDMat->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_AddcurrncyMatAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->lineEdit_AddQuantMatAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->lineEdit_AddMatpriceAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddQuantMatAdd->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    ui->lineEdit_AddMatpriceAdd->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
     ui->lineEdit_AddUnitMatAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_AddDesmatAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_AddMatNameAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->lineEditADDMaterialID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEditADDMaterialID->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
 
     // controle de saisie de la modification de la matiére
     ui->lineEdit_EditMatCurrency->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_EditMatSupID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->lineEdit_EditMatQuant->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->lineEdit_EditMatPrice->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_EditMatQuant->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    ui->lineEdit_EditMatPrice->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
     ui->lineEdit_EditMatName->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_EditMatDes->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_EditMaterialID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
@@ -425,24 +438,7 @@ void MainWindow::on_pushButton_AddMaterialAdd_clicked()
 
 void MainWindow::on_pushButton_DeleteMaterial_clicked()
 {
-  /*  deleteconfirmation d;
-    d.setModal(true);
-    d.exec();
-
-    QModelIndex index = ui->listViewMateriel->currentIndex();
-    QString info = index.data(Qt::DisplayRole).toString();
-    if(d.getConfirm()==1)
-    {
-        material m;
-        bool test=m.deleteMaterial(info);
-
-        if(test)
-        {
-           qDebug()<<"not done";
-        }
-    }
-    */
-
+  ui->stackedWidget->setCurrentIndex(7);
 }
 
 
@@ -467,7 +463,7 @@ void MainWindow::on_pushButton_confirmMaterialEdit_clicked()
     QString info = index.data(Qt::DisplayRole).toString();
     QSqlQuery view;
     material m;
-    view = m.ViewMaterial(info);
+    //view = m.ViewMaterial(info);
 
     while(view.next())
     {
@@ -481,7 +477,9 @@ void MainWindow::on_pushButton_confirmMaterialEdit_clicked()
     }
 
     ui->stackedWidget->setCurrentIndex(2);
-}
+
+   }
+
 
 
 
@@ -511,37 +509,7 @@ void MainWindow::on_pushButton_EditSaveSupplier_clicked()
 
 
 
-void MainWindow::on_pushButton_SearchMaterial_clicked()
-{
-    QString id =  ui->lineEdit_SearchMaterial->text();
-    qDebug() << id;
-    material m;
-    bool test=m.searchMaterial(id);
-    qDebug() << test;
-    if(test == true)
-    {
-        QSqlQuery view=m.ViewMaterial(id);
 
-        while(view.next())
-        {
-            ui->lineEdit_ViewMaterialID->setText(view.value(0).toString());
-            ui->lineEdit_ViewMatQuantite->setText(view.value(1).toString());
-            ui->lineEdit_ViewMatSuppID->setText(view.value(2).toString());
-            ui->lineEdit_ViewMatPrice->setText(view.value(3).toString());
-            ui->lineEdit_ViewMatUnit->setText(view.value(4).toString());
-            ui->lineEdit_ViewMatDes->setText(view.value(5).toString());
-            ui->lineEdit_ViewMatName->setText(view.value(6).toString());
-
-        }
-
-
-
-    }
-    else
-    {
-        QMessageBox::warning(this, tr("Warning"),tr("Material Not Found!"), QMessageBox::Ok);
-    }
-}
 
 
 void MainWindow::on_pushButton_SortMaterial_clicked()
@@ -554,31 +522,19 @@ void MainWindow::on_pushButton_SortMaterial_clicked()
 
 void MainWindow::on_pushButton_6_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(12);
+    ui->stackedWidget->setCurrentIndex(6);
 }
 
 void MainWindow::on_pushButton_statMateriel_clicked()
 {
      material m;
 
-      QPieSeries *series = new QPieSeries();
+    QChartView * chartView=new QChartView(m.statmat());
+       chartView ->setParent(ui->horizontalFrame);
+       ui->stackedWidget->setCurrentIndex(12);
+   }
 
-               QSqlQuery query;
-                       query=m.statMat();
-               while(query.next())
-               {
-                   series->append(query.value(0).toString(),query.value(3).toInt());
-               }
 
-               QChart * chart=new  QChart();
-               chart->addSeries(series);
-               chart->setTitle("Material stats");
-               QChartView * chartView=new QChartView(chart);
-               chartView ->setParent(ui->horizontalFrame);
-               chartView->setFixedSize(ui->horizontalFrame->size());
-               ui->stackedWidget->setCurrentIndex(12);
-
-}
 
 void MainWindow::on_pushButton_3_clicked()
 {
@@ -598,12 +554,12 @@ void MainWindow::on_pushButton_matAddlist_clicked()
 
 void MainWindow::on_pushButton_matEditList_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(8);
+    ui->stackedWidget->setCurrentIndex(9);
 }
 
 void MainWindow::on_pushButton_DeleteMatList_clicked()
 {
-    deleteconfirmation d;
+   /* deleteconfirmation d;
        d.setModal(true);
        d.exec();
 
@@ -616,12 +572,43 @@ void MainWindow::on_pushButton_DeleteMatList_clicked()
 
            if(test)
            {
-               ui->listViewMateriel->setModel(m.afficherList());//refresh list view
-              qDebug()<<"not done";
+                //loadData();
            }
-       }
-   /* ui->stackedWidget->setCurrentIndex(10);*/
-}
+       }*/
+    deleteconfirmation d;
+       QMessageBox msg;
+
+       //take the id of the element to delete
+
+   int i = ui->listViewMateriel->currentIndex().data().toInt();
+
+    d.exec();
+
+   if(d.getConfirm()==1)
+    {
+       bool test= m.deleteMaterial(ui->listViewMateriel->currentIndex().data().toString());
+
+       //refresh affichage
+       ui->listViewMateriel->setModel(m.afficherList());
+
+       if(test==true)
+           {
+
+            msg.setText("material deleted ");
+            msg.exec();
+           }
+
+   }
+   else
+   {
+
+        msg.setText("error ");
+        msg.exec();
+   }
+
+   }
+
+
 
 void MainWindow::on_pushButton_9_clicked()
 {
@@ -667,3 +654,48 @@ void MainWindow::on_pushButton_16_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
 }
+
+void MainWindow::on_pushButton_Home_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_lineEdit_SearchMaterial_textChanged(const QString &arg1)
+{
+
+
+    material m ;
+    QString info =arg1;
+    ui->listViewMateriel->setModel(m.search(info));
+
+}
+
+void MainWindow::on_pushButton_SearchMaterial_clicked()
+{
+    QString id =  ui->lineEdit_SearchMaterial->text();
+        qDebug() << id;
+        material m;
+        bool test=m.search(id);
+        qDebug() << test;
+        if(test == true)
+        {
+            QSqlQuery view=m.ViewMaterial(id);
+
+            while(view.next())
+            {
+                ui->lineEdit_ViewMaterialID->setText(view.value(0).toString());
+                ui->lineEdit_ViewMatQuantite->setText(view.value(1).toString());
+                ui->lineEdit_ViewMatSuppID->setText(view.value(2).toString());
+                ui->lineEdit_ViewMatPrice->setText(view.value(3).toString());
+                ui->lineEdit_ViewMatUnit->setText(view.value(4).toString());
+                ui->lineEdit_ViewMatDes->setText(view.value(5).toString());
+                ui->lineEdit_ViewMatName->setText(view.value(6).toString());
+
+            }
+        }
+
+}
+
+
+
+
