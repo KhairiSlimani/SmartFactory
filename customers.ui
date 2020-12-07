@@ -344,7 +344,7 @@ background: rgb(85,170,255);
       <rect>
        <x>590</x>
        <y>45</y>
-       <width>112</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
@@ -559,7 +559,7 @@ background:rgb(85,170,255);
       <rect>
        <x>590</x>
        <y>45</y>
-       <width>112</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
@@ -5275,9 +5275,9 @@ background:rgb(85,170,255);
     <widget class="QLabel" name="label_21">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>546</x>
        <y>20</y>
-       <width>47</width>
+       <width>41</width>
        <height>21</height>
       </rect>
      </property>
@@ -5331,7 +5331,7 @@ background:rgb(85,170,255);
       <rect>
        <x>590</x>
        <y>45</y>
-       <width>91</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
@@ -5880,7 +5880,7 @@ background:rgb(85,170,255);
       <rect>
        <x>590</x>
        <y>46</y>
-       <width>112</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
@@ -6417,7 +6417,7 @@ background:rgb(85,170,255);
       <rect>
        <x>590</x>
        <y>45</y>
-       <width>112</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
