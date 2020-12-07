@@ -156,6 +156,32 @@ void Projects::editProject()
 void Projects::on_pushButton_AddNewProject_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->lineEdit_IDProjectInput->clear();
+    ui->lineEdit_NameProjectInput->clear();
+    ui->lineEdit_DescriptionProjectInput->clear();
+    ui->lineEdit_BudgetProjectInput->clear();
+    ui->lineEdit_CustomerIDProjectInput->clear();
+    ui->lineEdit_IDProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_NameProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+
+    ui->lineEdit_DescriptionProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_BudgetProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_CustomerIDProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;");
+
+    ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;");
 }
 
 void Projects::on_pushButton_SaveAddProject_clicked()

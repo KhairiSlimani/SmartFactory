@@ -267,6 +267,61 @@ void Customers::on_pushButton_return2_clicked()
 void Customers::on_pushButton_AddNewCustomer_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
+    ui->lineEdit_IDCustomerInput->clear();
+    ui->lineEdit_FirstNameCustomerInput->clear();
+    ui->lineEdit_LastNameCustomerInput->clear();
+    ui->lineEdit_CompanyCustomerInput->setText("");
+    ui->lineEdit_PhoneNumberCustomerInput->setText("");
+    ui->lineEdit_EmailCustomerInput->setText("");
+    ui->lineEdit_WebsiteCustomerInput->setText("");
+    ui->lineEdit_AdressCustomerInput->setText("");
+    ui->lineEdit_CityCustomerInput->setText("");
+    ui->lineEdit_ZipCodeCustomerInput->setText("");
+    ui->lineEdit_CountryCustomerInput->setText("");
+    ui->lineEdit_BankAccountCustomerInput->setText("");
+    ui->lineEdit_CreditLimitCustomerInput->setText("");
+    ui->lineEdit_IDCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_IDCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_FirstNameCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_LastNameCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CompanyCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_EmailCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_WebsiteCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_AdressCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CityCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CountryCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_BankAccountCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
 }
 
 void Customers::on_pushButton_SaveAddCustomer_clicked()
