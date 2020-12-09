@@ -1,11 +1,11 @@
-#include "connection.h"
+#include "databaseconnection.h"
 
-Connection::Connection()
+Connect::Connect()
 {
 
 }
 
-bool Connection::openConnection()
+bool Connect::openConnection()
 {
     bool test=false;
     QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
@@ -21,8 +21,7 @@ bool Connection::openConnection()
     return test;
 }
 
-
-void Connection::closeConnection()
+void Connect::closeConnection()
 {
     db.close();
 }

@@ -1,4 +1,4 @@
-QT       += core gui sql printsupport widgets network multimedia
+QT       += core gui sql printsupport widgets network multimedia charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,28 +16,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    connection.cpp \
-    deleteconfirmation.cpp \
+    chatconnection.cpp \
+    client.cpp \
+    databaseconnection.cpp \
     employee.cpp \
-    employees.cpp \
     main.cpp \
-    login.cpp \
+    mainwindow.cpp \
+    peermanager.cpp \
     profile.cpp \
+    server.cpp \
     smtp.cpp
 
 HEADERS += \
-    connection.h \
-    deleteconfirmation.h \
+    chatconnection.h \
+    client.h \
+    databaseconnection.h \
     employee.h \
-    employees.h \
-    login.h \
+    mainwindow.h \
+    peermanager.h \
     profile.h \
+    server.h \
     smtp.h
 
 FORMS += \
-    deleteconfirmation.ui \
-    employees.ui \
-    login.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

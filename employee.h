@@ -6,6 +6,9 @@
 #include "QSqlQueryModel"
 #include <QMessageBox>
 #include <QDebug>
+#include <QtCharts>
+#include <QPieSeries>
+#include <QListView>
 #include "smtp.h"
 
 class Employee
@@ -54,6 +57,8 @@ public:
     QSqlQueryModel * loadData();
     QSqlQueryModel * search(QString);
     QSqlQueryModel * sort();
+    bool searchID(QString);
+    QChart* statistic();
 };
 
 #endif // EMPLOYEE_H

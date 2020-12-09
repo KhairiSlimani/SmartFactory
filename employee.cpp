@@ -116,3 +116,53 @@ QSqlQueryModel * Employee :: sort()
 
     return model;
 }
+
+bool Employee::searchID(QString info)
+{
+    QSqlQuery query;
+    query.prepare("select * from Employee where id='"+info+"'");
+    query.exec();
+    if(query.next())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+QChart* Employee::statistic()
+{
+   int i;
+   int HRAgentsNumber=0;
+   int StockAgentsNumber=0;
+   QPieSeries *series = new QPieSeries();
+   QSqlQuery query;
+   query.prepare("select jobtitle from Employee");
+   query.exec();
+   query.next();
+   int n = query.numRowsAffected();
+   for(i=0 ; i < n ; i++)
+   {
+        qDebug()<< query.value(i).toString();
+        if(query.value(i).toString() == "HR Agent")
+        {
+            HRAgentsNumber++;
+        }
+        else //if(query.value(i).toString() == "Stock Agent")
+        {
+            StockAgentsNumber++;
+        }
+   }
+
+   series->append("HR Agent",HRAgentsNumber);
+   series->append("Stock Agent",StockAgentsNumber);
+
+   QChart * chart=new  QChart();
+   chart->addSeries(series);
+   chart->setTitle("Job Title Statistics");
+
+   return   chart;
+
+}
+
+
