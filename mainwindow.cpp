@@ -8,7 +8,134 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     loadData();
+    //debut travail de yasmine
+    ui->listView_3->setModel(C.AfficherListe());
+    //Time
+    QTimer *timer=new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
+    timer->start();
 
+    //Customer's list
+    ui->listView_3->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->listView_3, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenuCustomers(QPoint)));
+
+    //Place Holder for search Customer By ID
+    ui->lineEdit_SearchCustomer->setPlaceholderText("  Search...");
+
+    //place Holder of add Customer Inteface
+    ui->lineEdit_IDCustomerInput->setPlaceholderText(" Enter ID");
+    ui->lineEdit_FirstNameCustomerInput->setPlaceholderText("Enter First Name");
+    ui->lineEdit_LastNameCustomerInput->setPlaceholderText("Enter Last Name");
+    ui->lineEdit_CompanyCustomerInput->setPlaceholderText("Enter Company Name");
+    ui->lineEdit_PhoneNumberCustomerInput->setPlaceholderText("Enter Phone Number");
+    ui->lineEdit_EmailCustomerInput->setPlaceholderText("Enter Email");
+    ui->lineEdit_WebsiteCustomerInput->setPlaceholderText("Enter Website");
+    ui->lineEdit_AdressCustomerInput->setPlaceholderText("Enter Adress");
+    ui->lineEdit_CityCustomerInput->setPlaceholderText("Enter City");
+    ui->lineEdit_ZipCodeCustomerInput->setPlaceholderText("Enter ZipCode");
+    ui->lineEdit_CountryCustomerInput->setPlaceholderText("Enter Country");
+    ui->lineEdit_BankAccountCustomerInput->setPlaceholderText("Enter Bank Account Number");
+    ui->lineEdit_CreditLimitCustomerInput->setPlaceholderText("Enter Credit Limit");
+
+    //place Holder of edit Customer Interface
+    ui->lineEdit_IDCustomerEdit->setPlaceholderText(" Enter ID");
+    ui->lineEdit_FirstNameCustomerEdit->setPlaceholderText("Enter First Name");
+    ui->lineEdit_LastNameCustomerEdit->setPlaceholderText("Enter Last Name");
+    ui->lineEdit_CompanyCustomerEdit->setPlaceholderText("Enter Company Name");
+    ui->lineEdit_PhoneNumberCustomerEdit->setPlaceholderText("Enter Phone Number");
+    ui->lineEdit_EmailCustomerEdit->setPlaceholderText("Enter Email");
+    ui->lineEdit_WebsiteCustomerEdit->setPlaceholderText("Enter Website");
+    ui->lineEdit_AdressCustomerEdit->setPlaceholderText("Enter Adress");
+    ui->lineEdit_CityCustomerEdit->setPlaceholderText("Enter City");
+    ui->lineEdit_ZipCodeCustomerEdit->setPlaceholderText("Enter ZipCode");
+    ui->lineEdit_CountryCustomerEdit->setPlaceholderText("Enter Country");
+    ui->lineEdit_BankAccountCustomerEdit->setPlaceholderText("Enter Bank Account Number");
+    ui->lineEdit_CreditLimitCustomerEdit->setPlaceholderText("Enter Credit Limit");
+
+    //controle de saisie du searchCustomer
+    ui->lineEdit_SearchCustomer->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+
+    //controle de saisie des Inputs de AddCustomer
+    ui->lineEdit_FirstNameCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));//input must be an alphabet uppercase or lowercase
+    ui->lineEdit_LastNameCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_CityCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_CountryCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_PhoneNumberCustomerInput->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));//input must be from 7 to 15 dgits
+    ui->lineEdit_BankAccountCustomerInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));//leading digit must be 1 to 9 (prevents leading zeroes)
+    ui->lineEdit_CreditLimitCustomerInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
+    ui->lineEdit_IDCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));//input must be a code ascii character
+    ui->lineEdit_CompanyCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_WebsiteCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_AdressCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_ZipCodeCustomerInput->setValidator(new QRegExpValidator(QRegExp("[0-9]{6,12}")));
+
+
+    //controle des Inputs de EditCustomer
+    ui->lineEdit_FirstNameCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));//input must be an alphabet uppercase or lowercase
+    ui->lineEdit_LastNameCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_CityCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_CountryCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_PhoneNumberCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));//input must be from 7 to 15 dgits
+    ui->lineEdit_BankAccountCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));//leading digit must be 1 to 9 (prevents leading zeroes)
+    ui->lineEdit_CreditLimitCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
+    ui->lineEdit_IDCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));//input must be a code ascii character
+    ui->lineEdit_CompanyCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_WebsiteCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_AdressCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_ZipCodeCustomerEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{6,12}")));
+
+    animation=new QPropertyAnimation(ui->label_2,"geometry");
+    animation->setDuration(10000);
+    animation->setLoopCount(4);
+    animation->setStartValue(ui->label_2->geometry());
+    animation->setEndValue(QRect(210,50,291,41));
+    animation->start();
+
+    ui->listView_4->setModel(P.AfficherListe());
+
+
+    //Project's list
+    ui->listView_4->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->listView_4, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenuProject(QPoint)));
+
+
+
+    //Place Holder For Add New Project
+    ui->lineEdit_IDProjectInput->setPlaceholderText(" Enter ID");
+    ui->lineEdit_NameProjectInput->setPlaceholderText(" Enter Name");
+    ui->lineEdit_DescriptionProjectInput->setPlaceholderText(" Enter Description");
+    ui->lineEdit_BudgetProjectInput->setPlaceholderText(" Enter Budget");
+    ui->lineEdit_CustomerIDProjectInput->setPlaceholderText(" Enter Customer ID");
+
+    //Place Holder For Edit Project
+    ui->lineEdit_IDProjectEdit->setPlaceholderText(" Enter ID");
+    ui->lineEdit_NameProjectEdit->setPlaceholderText(" Enter Name");
+    ui->lineEdit_DescriptionProjectEdit->setPlaceholderText(" Enter Description");
+    ui->lineEdit_BudgetProjectEdit->setPlaceholderText(" Enter Budget");
+    ui->lineEdit_CustomerIDProjectEdit->setPlaceholderText(" Enter Customer ID");
+
+    //Controle de saisie des Inputs de add project:
+    ui->lineEdit_NameProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_DescriptionProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_IDProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_CustomerIDProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_BudgetProjectInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
+
+    //Controle de saisie des Inputs de Edit project:
+    ui->lineEdit_NameProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_DescriptionProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_IDProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_CustomerIDProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_BudgetProjectEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
+
+    animation=new QPropertyAnimation(ui->label_134,"geometry");
+    animation->setDuration(10000);
+    animation->setLoopCount(4);
+    animation->setStartValue(ui->label_134->geometry());
+    animation->setEndValue(QRect(210,50,251,51));
+    animation->start();
+
+    //khairi
     //Place Holder
     ui->idLineEdit->setPlaceholderText("  Enter ID");
     ui->passwordLineEdit->setPlaceholderText("  Enter Password");
@@ -49,10 +176,6 @@ MainWindow::MainWindow(QWidget *parent)
     animation->setEndValue(QRect(340,90,291,61));
     animation->start();
 
-    //Time
-    QTimer *timer=new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
-    timer->start();
 
     //Employees List
     ui->listView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -102,7 +225,17 @@ void MainWindow::showTime()
     ui->time_5->setText(time_text);
     ui->time_6->setText(time_text);
     ui->time_7->setText(time_text);
-
+    ui->time_8->setText(time_text);
+    ui->time_9->setText(time_text);
+    ui->time_10->setText(time_text);
+    ui->time_21->setText(time_text);
+    ui->time_22->setText(time_text);
+    ui->time_23->setText(time_text);
+    ui->time_24->setText(time_text);
+    ui->time_25->setText(time_text);
+    ui->time2->setText(time_text);
+    ui->time3->setText(time_text);
+    ui->time4->setText(time_text);
 
     QDateTime dateTime = QDateTime::currentDateTime();
     QString datetimetext = dateTime.toString();
@@ -113,8 +246,139 @@ void MainWindow::showTime()
     ui->date_5->setText(datetimetext);
     ui->date_6->setText(datetimetext);
     ui->date_7->setText(datetimetext);
+    ui->date_19->setText(datetimetext);
+    ui->date_20->setText(datetimetext);
+    ui->date_21->setText(datetimetext);
+    ui->date_22->setText(datetimetext);
+    ui->date_23->setText(datetimetext);
+    ui->date_24->setText(datetimetext);
+    ui->date2->setText(datetimetext);
+    ui->date3->setText(datetimetext);
+    ui->date4->setText(datetimetext);
+
 
 }
+
+void MainWindow::showContextMenuCustomers(const QPoint &pos)
+{
+    // Handle global position
+    QPoint globalPos = ui->listView_3->mapToGlobal(pos);
+
+    // Create menu and insert some actions
+    QMenu myMenu;
+    myMenu.addAction("View", this, SLOT(ViewCustomer()));
+    myMenu.addAction("Edit",  this, SLOT(EditCustomer()));
+    myMenu.addAction("Delete", this, SLOT(DeleteCustomer()));
+    myMenu.addAction("Send Email", this, SLOT(SendEmailToCustomer()));
+
+    // Show context menu at handling position
+    myMenu.exec(globalPos);
+}
+
+void MainWindow::DeleteCustomer()
+{
+    DeleteConfirmation D;
+    D.setModal(true);
+    D.exec();
+
+    //Recuperation de l'indice du curseur
+    QModelIndex index = ui->listView_3->currentIndex();
+    //Recuperation de l'id du client sur lequel mon curseur est positionné
+    QString itemText = index.data(Qt::DisplayRole).toString();
+
+    if(D.getConfirm()==1)
+    {
+        //supprimer l'objet C de la table client et on recupére la valeur de retour(query.exec()) dans la variable test
+        bool test=C.Effacer(itemText);
+
+        if(test)//if(test==true)->La requete est executée->QMessageBox::information
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Deletion of client is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView_3->setModel(C.AfficherListe());
+        }
+        else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Deletion of Client failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
+
+    }
+
+}
+
+
+void MainWindow::ViewCustomer()
+{
+    QModelIndex index = ui->listView_3->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=C.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_IDCustomerOutput->setText(view.value(0).toString());
+          ui->lineEdit_FirstNameCustomerOutput->setText(view.value(1).toString());
+          ui->lineEdit_LastNameCustomerOutput->setText(view.value(2).toString());
+          ui->lineEdit_CompanyNameCustomerOutput->setText(view.value(3).toString());
+          ui->lineEdit_PhoneCustomerOutput->setText(view.value(4).toString());
+          ui->lineEdit_EmailCustomerOutput->setText(view.value(5).toString());
+          ui->lineEdit_WebsiteCustomerOutput->setText(view.value(6).toString());
+          ui->lineEdit_StreetCustomerOutput->setText(view.value(7).toString());
+          ui->lineEdit_CityCustomerOutput->setText(view.value(8).toString());
+          ui->lineEdit_ZipCodeCustomerOutput->setText(view.value(9).toString());
+          ui->lineEdit_CountryCustomerOutput->setText(view.value(10).toString());
+          ui->lineEdit_BankAccountNumberOutput->setText(view.value(11).toString());
+          ui->lineEdit_CreditLimitCustomerOutput->setText(view.value(12).toString());
+    }
+
+    ui->stackedWidget->setCurrentIndex(13);
+}
+
+void MainWindow::EditCustomer()
+{
+
+    QModelIndex index = ui->listView_3->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=C.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_IDCustomerEdit->setText(view.value(0).toString());
+          ui->lineEdit_FirstNameCustomerEdit->setText(view.value(1).toString());
+          ui->lineEdit_LastNameCustomerEdit->setText(view.value(2).toString());
+          ui->lineEdit_CompanyCustomerEdit->setText(view.value(3).toString());
+          ui->lineEdit_PhoneNumberCustomerEdit->setText(view.value(4).toString());
+          ui->lineEdit_EmailCustomerEdit->setText(view.value(5).toString());
+          ui->lineEdit_WebsiteCustomerEdit->setText(view.value(6).toString());
+          ui->lineEdit_AdressCustomerEdit->setText(view.value(7).toString());
+          ui->lineEdit_CityCustomerEdit->setText(view.value(8).toString());
+          ui->lineEdit_ZipCodeCustomerEdit->setText(view.value(9).toString());
+          ui->lineEdit_CountryCustomerEdit->setText(view.value(10).toString());
+          ui->lineEdit_BankAccountCustomerEdit->setText(view.value(11).toString());
+          ui->lineEdit_CreditLimitCustomerEdit->setText(view.value(12).toString());
+    }
+    ui->stackedWidget->setCurrentIndex(14);
+}
+
+void MainWindow::SendEmailToCustomer()
+{
+    QModelIndex index = ui->listView_3->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=C.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_Email->setText(view.value(5).toString());
+    }
+
+    ui->stackedWidget->setCurrentIndex(16);
+}
+
 
 void MainWindow::on_signInButton_clicked()
 {
@@ -350,7 +614,7 @@ void MainWindow::on_access1Button_clicked()
     }
     else if(ui->viewJobTitle->text() == "Project and Services Employee")
     {
-        //ui->stackedWidget->setCurrentIndex("7ot lehna r9am l'widget mte3k");
+        ui->stackedWidget->setCurrentIndex(11);
     }
     else if(ui->viewJobTitle->text() == "Laboratory Employee")
     {
@@ -955,16 +1219,6 @@ void MainWindow::showContextMenu(const QPoint &pos)
     myMenu.exec(globalPos);
 }
 
-void MainWindow::statistics()
-{
-
-    Employee E;
-    QChartView * chartView=new QChartView(E.statistic());
-    chartView ->setParent(ui->statisticFrame);
-
-}
-
-
 void MainWindow::deleteEmployee()
 {
 
@@ -1038,12 +1292,6 @@ void MainWindow::on_profileButton_6_clicked()
     ui->stackedWidget->setCurrentIndex(2);
 }
 
-void MainWindow::on_statisticButton_clicked()
-{
-    statistics();
-    ui->stackedWidget->setCurrentIndex(10);
-}
-
 void MainWindow::on_returnButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
@@ -1057,4 +1305,1214 @@ void MainWindow::on_returnButton_3_clicked()
 void MainWindow::on_profileButton_7_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_SaveAddCustomer_clicked()
+{
+    if(ui->lineEdit_IDCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_LastNameCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_LastNameCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CompanyCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CompanyCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_EmailCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_EmailCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_WebsiteCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_WebsiteCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_AdressCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_AdressCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CityCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CityCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CountryCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CountryCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_BankAccountCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                             "padding: 1px;"
+                                                             "border-radius: 10px;");
+    }
+
+
+    if((ui->lineEdit_IDCustomerInput->text().isEmpty())||(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())||(ui->lineEdit_LastNameCustomerInput->text().isEmpty())||(ui->lineEdit_CompanyCustomerInput->text().isEmpty())||(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())||(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())||(ui->lineEdit_CountryCustomerInput->text().isEmpty())||(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())||(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())||(ui->lineEdit_EmailCustomerInput->text().isEmpty())||(ui->lineEdit_CityCustomerInput->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+
+    }
+    else
+    {
+
+        QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",QRegularExpression::CaseInsensitiveOption);
+        ui->lineEdit_EmailCustomerInput->setValidator(new QRegularExpressionValidator(rx, this));
+        if(!ui->lineEdit_EmailCustomerInput->hasAcceptableInput())
+        {
+            ui->lineEdit_EmailCustomerInput->setStyleSheet("QLineEdit { color: red;}");
+            QMessageBox::warning(this, tr("Email verification"),tr("Email format is incorrect."), QMessageBox::Ok);
+        }
+        else
+        {
+            //récuperations des informations saisies dans les lineEdits
+            QString id=ui->lineEdit_IDCustomerInput->text();
+            QString FirstName=ui->lineEdit_FirstNameCustomerInput->text();
+            QString LastName=ui->lineEdit_LastNameCustomerInput->text();
+            QString CompanyName=ui->lineEdit_CompanyCustomerInput->text();
+            int PhoneNumber=ui->lineEdit_PhoneNumberCustomerInput->text().toInt();//Conversion de la chaine saisie en un entier car PhoneNumber est de type int
+            QString Email=ui->lineEdit_EmailCustomerInput->text();
+            QString Website=ui->lineEdit_WebsiteCustomerInput->text();
+            QString Street=ui->lineEdit_AdressCustomerInput->text();
+            QString City=ui->lineEdit_CityCustomerInput->text();
+            int ZipCode=ui->lineEdit_ZipCodeCustomerInput->text().toInt();
+            QString Country=ui->lineEdit_CountryCustomerInput->text();
+            int BankAccountNumber=ui->lineEdit_BankAccountCustomerInput->text().toInt();//Conversion de la chaine saisie en un entier car BankAccountNumber est de type int
+            float CreditLimit=ui->lineEdit_CreditLimitCustomerInput->text().toFloat();//Conversion de la chaine saisie en un reel car CreditLimit est de type float
+
+
+            //Instantiation d'un objet de type client en utilisant les informations saisies dans l'interface graphique
+            Customer c(id,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
+
+            //Inserer l'objet C dans la table client et recuperer la valeur de retour de query.exec() dans la variable test.
+            bool test=c.ajouter();
+
+            if(test)//if (test==true)->la requete est executée->QMessageBox::information
+            {
+                QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                         QObject::tr("Addition of new Client is successful.\n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+
+                ui->listView_3->setModel(C.AfficherListe());
+            }
+            else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+            {
+                QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                      QObject::tr("Addition of new Client failed.\n"
+                                                  "Click Cancel to exit."), QMessageBox::Cancel);
+            }
+              ui->stackedWidget->setCurrentIndex(12);
+        }
+    }
+}
+
+
+void MainWindow::on_pushButton_SaveEditCustomer_clicked()
+{
+    if(ui->lineEdit_IDCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_FirstNameCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_LastNameCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_LastNameCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CompanyCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CompanyCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_PhoneNumberCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_EmailCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_EmailCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_WebsiteCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_AdressCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_AdressCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CityCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CityCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_ZipCodeCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CountryCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CountryCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_BankAccountCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CreditLimitCustomerEdit->text().isEmpty())
+    {
+        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+
+
+    if((ui->lineEdit_IDCustomerEdit->text().isEmpty())||(ui->lineEdit_FirstNameCustomerEdit->text().isEmpty())||(ui->lineEdit_LastNameCustomerEdit->text().isEmpty())||(ui->lineEdit_CompanyCustomerEdit->text().isEmpty())||(ui->lineEdit_PhoneNumberCustomerEdit->text().isEmpty())||(ui->lineEdit_ZipCodeCustomerEdit->text().isEmpty())||(ui->lineEdit_CountryCustomerEdit->text().isEmpty())||(ui->lineEdit_BankAccountCustomerEdit->text().isEmpty())||(ui->lineEdit_CreditLimitCustomerEdit->text().isEmpty())||(ui->lineEdit_EmailCustomerEdit->text().isEmpty())||(ui->lineEdit_CityCustomerEdit->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),
+                             tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+
+    }
+    else
+    {
+
+        QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",
+                              QRegularExpression::CaseInsensitiveOption);
+        ui->lineEdit_EmailCustomerEdit->setValidator(new QRegularExpressionValidator(rx, this));
+        if(!ui->lineEdit_EmailCustomerEdit->hasAcceptableInput())
+        {
+            ui->lineEdit_EmailCustomerEdit->setStyleSheet("QLineEdit { color: red;}");
+            QMessageBox::warning(this, tr("Email verification"),
+                                 tr("Email format is incorrect."), QMessageBox::Ok);
+        }
+        else
+        {
+            //récuperations des informations saisies dans les lineEdits
+            QString id=ui->lineEdit_IDCustomerEdit->text();
+            QString FirstName=ui->lineEdit_FirstNameCustomerEdit->text();
+            QString LastName=ui->lineEdit_LastNameCustomerEdit->text();
+            QString CompanyName=ui->lineEdit_CompanyCustomerEdit->text();
+            int PhoneNumber=ui->lineEdit_PhoneNumberCustomerEdit->text().toInt();//Conversion de la chaine saisie en un entier car PhoneNumber est de type int
+            QString Email=ui->lineEdit_EmailCustomerEdit->text();
+            QString Website=ui->lineEdit_WebsiteCustomerEdit->text();
+            QString Street=ui->lineEdit_AdressCustomerEdit->text();
+            QString City=ui->lineEdit_CityCustomerEdit->text();
+            int ZipCode=ui->lineEdit_ZipCodeCustomerEdit->text().toInt();
+            QString Country=ui->lineEdit_CountryCustomerEdit->text();
+            int BankAccountNumber=ui->lineEdit_BankAccountCustomerEdit->text().toInt();//Conversion de la chaine saisie en un entier car BankAccountNumber est de type int
+            float CreditLimit=ui->lineEdit_CreditLimitCustomerEdit->text().toFloat();//Conversion de la chaine saisie en un reel car CreditLimit est de type float
+
+
+            //Instantiation d'un objet de type client en utilisant les informations saisies dans l'interface graphique
+            Customer C(id,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
+
+            //Inserer l'objet C dans la table client et recuperer la valeur de retour de query.exec() dans la variable test.
+            bool test=C.Editer();
+
+            if(test)//if (test==true)->la requete est executée->QMessageBox::information
+            {
+                QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                         QObject::tr("Edit of Client is successful.\n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+
+                ui->listView_3->setModel(C.AfficherListe());
+            }
+            else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+            {
+                QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                      QObject::tr("Edit of Client failed.\n"
+                                                  "Click Cancel to exit."), QMessageBox::Cancel);
+            }
+
+            ui->stackedWidget->setCurrentIndex(12);
+        }
+    }
+}
+
+void MainWindow::on_pushButton_Return_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(12);
+}
+
+void MainWindow::on_pushButton_CancelEditCustomer_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(12);
+}
+
+void MainWindow::on_pushButton_CancelAddCustomer_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(12);
+}
+
+void MainWindow::on_pushButton_return2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(12);
+}
+
+void MainWindow::on_signOut_6_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_5_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_1_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_Print_clicked()
+{
+
+    QStringList list;
+
+    QPlainTextEdit text;
+    text.setStyleSheet("QPlainTextEdit{color: #ffff00; background-color: #303030;");
+    QTextDocument *doc = text.document();
+    QFont font = doc->defaultFont();
+    font.setBold(true);
+    font.setFamily("Arial");
+    font.setPixelSize(20);
+    doc->setDefaultFont(font);
+    text.appendPlainText("                                              Date: "+ui->date->text()+"");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("Information of Customer:");
+    text.appendPlainText("");
+    text.appendPlainText("ID:  "+ui->lineEdit_IDCustomerOutput->text()+"");
+    text.appendPlainText("First Name:  "+ui->lineEdit_FirstNameCustomerOutput->text()+"");
+    text.appendPlainText("Last Name:  "+ui->lineEdit_LastNameCustomerOutput->text()+"");
+    text.appendPlainText("Company Name:  "+ui->lineEdit_CompanyNameCustomerOutput->text()+"");
+    text.appendPlainText("Phone Number:  "+ui->lineEdit_PhoneCustomerOutput->text()+"");
+    text.appendPlainText("Email:  "+ui->lineEdit_EmailCustomerOutput->text()+"");
+    text.appendPlainText("Website:  "+ui->lineEdit_WebsiteCustomerOutput->text()+"");
+    text.appendPlainText("Street:  "+ui->lineEdit_StreetCustomerOutput->text()+"");
+    text.appendPlainText("City:  "+ui->lineEdit_CityCustomerOutput->text()+"");
+    text.appendPlainText("ZipCode:  "+ui->lineEdit_ZipCodeCustomerOutput->text()+"");
+    text.appendPlainText("Country:  "+ui->lineEdit_CountryCustomerOutput->text()+"");
+    text.appendPlainText("Bank Account Number:  "+ui->lineEdit_BankAccountNumberOutput->text()+"");
+    text.appendPlainText("Credit Limit:  "+ui->lineEdit_CreditLimitCustomerOutput->text()+"");
+
+    QPrinter printer;
+    printer.setPrinterName("Print");
+    //printer.setOutputFormat(QPrinter::PdfFormat);
+    //printer.setOutputFileName("Information Of Employee "+ui->viewID->text()+"");
+    QPrintDialog dlg(&printer,this);
+    if (dlg.exec() == QDialog::Rejected)
+    {
+        return;
+    }
+    text.print(&printer);
+    text.show();
+}
+
+void MainWindow::on_pushButton_Send_clicked()
+{
+    smtp = new Smtp("p.florallo@gmail.com","nesrine123","smtp.gmail.com",465);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+    msg=ui->plainTextEdit->toPlainText();
+    smtp->sendMail("p.florallo@gmail.com",ui->lineEdit_Email->text(),ui->lineEdit_Subject->text(),msg);
+}
+
+void MainWindow::on_pushButton_SortCustomers_clicked()
+{
+    ui->listView_3->setModel(C.Trier());
+
+    QMessageBox::information(nullptr, QObject::tr("Ok"),
+                             QObject::tr("Sort of list of clients successful.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_lineEdit_SearchCustomer_textChanged(const QString &arg1)
+{
+    QString information =arg1;
+    ui->listView_3->setModel(C.chercher(information));
+    if(ui->lineEdit_SearchCustomer->text()=="")
+    {
+        ui->listView_3->setModel(C.AfficherListe());
+    }
+}
+
+void MainWindow::on_CustomersButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(12);
+}
+
+void MainWindow::on_pushButton_AddNewCustomer_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(15);
+   ui->lineEdit_IDCustomerInput->clear();
+   ui->lineEdit_FirstNameCustomerInput->clear();
+   ui->lineEdit_LastNameCustomerInput->clear();
+   ui->lineEdit_CompanyCustomerInput->clear();
+   ui->lineEdit_PhoneNumberCustomerInput->clear();
+   ui->lineEdit_EmailCustomerInput->clear();
+   ui->lineEdit_WebsiteCustomerInput->clear();
+   ui->lineEdit_AdressCustomerInput->clear();
+   ui->lineEdit_CityCustomerInput->clear();
+   ui->lineEdit_ZipCodeCustomerInput->clear();
+   ui->lineEdit_CountryCustomerInput->clear();
+   ui->lineEdit_BankAccountCustomerInput->clear();
+   ui->lineEdit_CreditLimitCustomerInput->clear();
+   ui->lineEdit_IDCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_IDCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_FirstNameCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_LastNameCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_CompanyCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_PhoneNumberCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_EmailCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_WebsiteCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_AdressCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_CityCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_ZipCodeCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_CountryCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_BankAccountCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+   ui->lineEdit_CreditLimitCustomerInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+}
+
+void MainWindow::on_profile_7_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_profile_1_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_profile_3_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_profile_4_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_profile_5_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_profile_6_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::showContextMenuProject(const QPoint &pos)
+{
+    // Handle global position
+    QPoint globalPos = ui->listView_4->mapToGlobal(pos);
+
+    // Create menu and insert some actions
+    QMenu myMenu;
+    myMenu.addAction("View", this, SLOT(viewProject()));
+    myMenu.addAction("Edit",  this, SLOT(editProject()));
+    myMenu.addAction("Delete", this, SLOT(deleteProject()));
+
+    // Show context menu at handling position
+    myMenu.exec(globalPos);
+}
+
+void MainWindow::deleteProject()
+{
+    DeleteConfirmation D;
+    D.setModal(true);
+    D.exec();
+
+    QModelIndex index = ui->listView_4->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    if(D.getConfirm()==1)
+    {
+        //supprimer l'objet P de la table projet et on recupére la valeur de retour(query.exec()) dans la variable test
+        bool test=P.Effacer(itemText);
+
+        if(test)//if(test==true)->La requete est executée->QMessageBox::information
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Deletion Project is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView_4->setModel(P.AfficherListe());
+        }
+        else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Deletion Project failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
+
+    }
+
+}
+
+void MainWindow::viewProject()
+{
+    QModelIndex index = ui->listView_4->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=P.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_IDProjectOutput->setText(view.value(0).toString());
+          ui->lineEdit_NameProjectOutput->setText(view.value(1).toString());
+          ui->lineEditlineEdit_DescriptionProjectOutput->setText(view.value(2).toString());
+          ui->lineEditlineEdit_StartDateProjectOutput->setText(view.value(3).toString());
+          ui->lineEdit_EndDateProjectOutput->setText(view.value(4).toString());
+          ui->lineEdit_BudgetProjectOutput->setText(view.value(5).toString());
+          ui->lineEdit_CustomerIDProjectOutput->setText(view.value(6).toString());
+    }
+
+    ui->stackedWidget->setCurrentIndex(20);
+}
+
+void MainWindow::editProject()
+{
+    QModelIndex index = ui->listView_4->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=P.Lire(itemText);
+
+    while(view.next())
+    {
+          ui->lineEdit_IDProjectEdit->setText(view.value(0).toString());
+          ui->lineEdit_NameProjectEdit->setText(view.value(1).toString());
+          ui->lineEdit_DescriptionProjectEdit->setText(view.value(2).toString());
+          ui->dateEdit_StartDateProjectEdit->setDate(view.value(3).toDate());
+          ui->dateEdit_EndDateProjectEdit->setDate(view.value(4).toDate());
+          ui->lineEdit_BudgetProjectEdit->setText(view.value(5).toString());
+          ui->lineEdit_CustomerIDProjectEdit->setText(view.value(6).toString());
+    }
+   ui->stackedWidget->setCurrentIndex(19);
+}
+
+void MainWindow::on_pushButton_AddNewProject_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(18);
+    ui->lineEdit_IDProjectInput->clear();
+    ui->lineEdit_NameProjectInput->clear();
+    ui->lineEdit_DescriptionProjectInput->clear();
+    ui->lineEdit_BudgetProjectInput->clear();
+    ui->lineEdit_CustomerIDProjectInput->clear();
+    ui->lineEdit_IDProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_NameProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+
+    ui->lineEdit_DescriptionProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_BudgetProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_CustomerIDProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;");
+
+    ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;");
+}
+
+
+void MainWindow::on_pushButton_SaveAddProject_clicked()
+{
+    if(ui->lineEdit_IDProjectInput->text().isEmpty())
+    {
+        ui->lineEdit_IDProjectInput->setStyleSheet("border: 2px solid red;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_IDProjectInput->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;"
+                                                   "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_NameProjectInput->text().isEmpty())
+    {
+        ui->lineEdit_NameProjectInput->setStyleSheet("border: 2px solid red;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_NameProjectInput->setStyleSheet("border: 2px solid black;"
+                                                     "padding: 1px;"
+                                                     "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_DescriptionProjectInput->text().isEmpty())
+    {
+        ui->lineEdit_DescriptionProjectInput->setStyleSheet("border: 2px solid red;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_DescriptionProjectInput->setStyleSheet("border: 2px solid black;"
+                                                            "padding: 1px;"
+                                                            "border-radius: 10px;");
+    }
+
+    if(ui->dateEdit_StartDateProjectInput->text().isEmpty())
+    {
+        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+    else
+    {
+        ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+
+    if(ui->dateEdit_EndDateProjectInput->text().isEmpty())
+    {
+        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid red;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+    else
+    {
+        ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid black;"
+                                                        "padding: 1px;"
+                                                        "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_BudgetProjectInput->text().isEmpty())
+    {
+        ui->lineEdit_BudgetProjectInput->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_BudgetProjectInput->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CustomerIDProjectInput->text().isEmpty())
+    {
+        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 2px solid red;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 2px solid black;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
+    }
+
+
+    if((ui->lineEdit_IDProjectInput->text().isEmpty())||(ui->lineEdit_NameProjectInput->text().isEmpty())||(ui->lineEdit_DescriptionProjectInput->text().isEmpty())||(ui->dateEdit_StartDateProjectInput->text().isEmpty())||(ui->dateEdit_EndDateProjectInput->text().isEmpty())||(ui->lineEdit_BudgetProjectInput->text().isEmpty())||(ui->lineEdit_CustomerIDProjectInput->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+    }
+    else
+    {
+        //récuperations des informations saisies dans les lineEdits
+        QString ID=ui->lineEdit_IDProjectInput->text();
+        QString Name=ui->lineEdit_NameProjectInput->text();
+        QString Description=ui->lineEdit_DescriptionProjectInput->text();
+        QString StartDate=ui->dateEdit_StartDateProjectInput->text();
+        QString EndDate=ui->dateEdit_EndDateProjectInput->text();
+        float Budget=ui->lineEdit_BudgetProjectInput->text().toFloat();//Conversion de la chaine saisie en un reel car Budget est de type float
+        QString CustomerID=ui->lineEdit_CustomerIDProjectInput->text();
+
+
+        //Instantiation d'un objet de type projet en utilisant les informations saisies dans l'interface graphique
+        Project P(ID,Name,Description,StartDate,EndDate,Budget,CustomerID);
+
+        //Inserer l'objet P dans la table projet et recuperer la valeur de retour de query.exec() dans la variable test.
+        bool test=P.Ajouter();
+
+        if(test)//Si la requete a ete executé convenablement
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Addition of new Project is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView_4->setModel(P.AfficherListe());
+
+        }
+        else
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Addition of new Project failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
+
+        ui->stackedWidget->setCurrentIndex(17);
+    }
+}
+
+void MainWindow::on_pushButton_SaveEditProject_clicked()
+{
+
+    if(ui->lineEdit_IDProjectEdit->text().isEmpty())
+    {
+        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                  "padding: 1px;"
+                                                  "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                  "padding: 1px;"
+                                                  "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_NameProjectEdit->text().isEmpty())
+    {
+        ui->lineEdit_NameProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_NameProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                    "padding: 1px;"
+                                                    "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_DescriptionProjectEdit->text().isEmpty())
+    {
+        ui->lineEdit_DescriptionProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_DescriptionProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                           "padding: 1px;"
+                                                           "border-radius: 10px;");
+    }
+
+    if(ui->dateEdit_StartDateProjectEdit->text().isEmpty())
+    {
+        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+    else
+    {
+        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                         "padding: 1px;"
+                                                         "border-radius: 10px;");
+    }
+
+    if(ui->dateEdit_EndDateProjectEdit->text().isEmpty())
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+    else
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;"
+                                                       "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_BudgetProjectEdit->text().isEmpty())
+    {
+        ui->lineEdit_BudgetProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_BudgetProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                      "padding: 1px;"
+                                                      "border-radius: 10px;");
+    }
+
+    if(ui->lineEdit_CustomerIDProjectEdit->text().isEmpty())
+    {
+        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+
+
+    if(ui->dateEdit_StartDateProjectEdit->text()=="01/01/2000")
+    {
+        ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;");
+    }
+    else
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;");
+
+    }
+
+    if(ui->dateEdit_EndDateProjectEdit->text()=="01/01/2000")
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid red;"
+                                                       "padding: 1px;");
+    }
+    else
+    {
+        ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                       "padding: 1px;");
+
+    }
+
+
+    if((ui->lineEdit_IDProjectEdit->text().isEmpty())||(ui->lineEdit_NameProjectEdit->text().isEmpty())||(ui->lineEdit_DescriptionProjectEdit->text().isEmpty())||(ui->dateEdit_StartDateProjectEdit->text().isEmpty())||(ui->dateEdit_EndDateProjectEdit->text().isEmpty())||(ui->lineEdit_BudgetProjectEdit->text().isEmpty())||(ui->lineEdit_CustomerIDProjectEdit->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+    }
+    else
+    {
+        //récuperations des informations saisies dans les lineEdits
+        QString ID=ui->lineEdit_IDProjectEdit->text();
+        QString Name=ui->lineEdit_NameProjectEdit->text();
+        QString Description=ui->lineEdit_DescriptionProjectEdit->text();
+        QString StartDate=ui->dateEdit_StartDateProjectEdit->text();
+        QString EndDate=ui->dateEdit_EndDateProjectEdit->text();
+        float Budget=ui->lineEdit_BudgetProjectEdit->text().toFloat();//Conversion de la chaine saisie en un reel car Budget est de type float
+        QString CustomerID=ui->lineEdit_CustomerIDProjectEdit->text();
+
+        //Instantiation d'un objet de type projet en utilisant les informations saisies dans l'interface graphique
+        Project P(ID,Name,Description,StartDate,EndDate,Budget,CustomerID);
+
+        //Inserer l'objet P dans la table projet et recuperer la valeur de retour de query.exec() dans la variable test.
+        bool test=P.Editer();
+
+        if(test)//Si la requete a ete executé convenablement
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Edit Project is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView_4->setModel(P.AfficherListe());
+
+        }
+        else
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Edit Project failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
+
+        ui->stackedWidget->setCurrentIndex(17);
+    }
+}
+
+void MainWindow::on_pushButton_CancelAddProject_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(17);
+}
+
+void MainWindow::on_pushButton_CancelEditProject_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(17);
+}
+
+void MainWindow::on_pushButton_Return_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(17);
+}
+
+void MainWindow::on_pushButton_SortProject_clicked()
+{
+    ui->listView_4->setModel(P.Trier());
+    QMessageBox::information(nullptr, QObject::tr("Ok"),
+                             QObject::tr("Sort of list of clients successful.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void MainWindow::on_lineEdit_SearchProject_textChanged(const QString &arg1)
+{
+    QString information =arg1;
+    ui->listView_4->setModel(P.chercher(information));
+    if(ui->lineEdit_SearchProject->text()=="")
+    {
+        ui->listView_4->setModel(P.AfficherListe());
+    }
+}
+
+void MainWindow::on_pushButton_Print_2_clicked()
+{
+    QStringList list;
+    QPlainTextEdit text;
+    text.setStyleSheet("QPlainTextEdit{color: #ffff00; background-color: #303030;");
+    QTextDocument *doc = text.document();
+    QFont font = doc->defaultFont();
+    font.setBold(true);
+    font.setFamily("Arial");
+    font.setPixelSize(20);
+    doc->setDefaultFont(font);
+    text.appendPlainText("                                              Date: "+ui->date->text()+"");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("Information of Customer:");
+    text.appendPlainText("");
+    text.appendPlainText("ID:  "+ui->lineEdit_IDProjectOutput->text()+"");
+    text.appendPlainText("Name:  "+ui->lineEdit_NameProjectOutput->text()+"");
+    text.appendPlainText("Description:  "+ui->lineEditlineEdit_DescriptionProjectOutput->text()+"");
+    text.appendPlainText("Start Date:  "+ui->lineEditlineEdit_StartDateProjectOutput->text()+"");
+    text.appendPlainText("End Date:  "+ui->lineEdit_EndDateProjectOutput->text()+"");
+    text.appendPlainText("Budget:  "+ui->lineEdit_BudgetProjectOutput->text()+"");
+    text.appendPlainText("Customer ID:  "+ui->lineEdit_CustomerIDProjectOutput->text()+"");
+
+    QPrinter printer;
+    printer.setPrinterName("Print");
+    //printer.setOutputFormat(QPrinter::PdfFormat);
+    //printer.setOutputFileName("Information Of Employee "+ui->viewID->text()+"");
+    QPrintDialog dlg(&printer,this);
+    if (dlg.exec() == QDialog::Rejected)
+    {
+        return;
+    }
+    text.print(&printer);
+    text.show();
+}
+
+void MainWindow::on_signOut_8_clicked()
+{
+  ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_10_clicked()
+{
+  ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_12_clicked()
+{
+  ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_14_clicked()
+{
+  ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_9_clicked()
+{
+  ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_11_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_13_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_15_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_ProjectsButton_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(17);
 }

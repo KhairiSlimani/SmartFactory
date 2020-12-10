@@ -174,6 +174,7 @@ void Smtp::readyRead()
     }
   else if ( state == Close )
     {
+      QMessageBox::warning(0,"System Message!","Email sent successfully",QMessageBox::Ok);
       deleteLater();
       return;
     }
