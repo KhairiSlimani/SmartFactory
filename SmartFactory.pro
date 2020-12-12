@@ -1,4 +1,4 @@
-QT       += core gui sql printsupport widgets network multimedia
+QT       += core gui sql printsupport widgets network multimedia charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bill.cpp \
     chatconnection.cpp \
     client.cpp \
     customer.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     employee.cpp \
     main.cpp \
     mainwindow.cpp \
+    order.cpp \
     peermanager.cpp \
     profile.cpp \
     project.cpp \
@@ -31,6 +33,7 @@ SOURCES += \
     smtp.cpp
 
 HEADERS += \
+    bill.h \
     chatconnection.h \
     client.h \
     customer.h \
@@ -38,6 +41,7 @@ HEADERS += \
     deleteconfirmation.h \
     employee.h \
     mainwindow.h \
+    order.h \
     peermanager.h \
     profile.h \
     project.h \

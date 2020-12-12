@@ -8,5 +8,6 @@
     </qresource>
     <qresource prefix="/sounds">
         <file>sounds/trashSound.mp3</file>
+        <file>sounds/coin.wav</file>
     </qresource>
 </RCC>

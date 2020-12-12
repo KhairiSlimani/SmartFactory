@@ -22,6 +22,7 @@
 #include<QtMultimedia/QMediaPlayer>
 #include<QTextTable>
 #include<QScrollBar>
+#include <QSound>
 #include "employee.h"
 #include "profile.h"
 #include "smtp.h"
@@ -29,6 +30,8 @@
 #include "project.h"
 #include "customer.h"
 #include "deleteconfirmation.h"
+#include "bill.h"
+#include "order.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -89,7 +92,6 @@ private slots:
     void newParticipant(const QString &nick);
     void participantLeft(const QString &nick);
     void showInformation();
-
 
     void on_returnButton_2_clicked();
 
@@ -193,6 +195,88 @@ private slots:
 
     void on_ProjectsButton_clicked();
 
+    //meriam declaration
+
+    void statistique();
+    void initEditBill();
+    void initAddBill();
+    void initEditOrder();
+    void initAddOrder();
+
+    void showContextMenuBill(const QPoint &pos);
+    void showContextMenuOrder(const QPoint &pos);
+
+    void on_orderButton_clicked();
+
+    void on_billButton_clicked();
+
+    void deleteBill();
+    void viewBill();
+    void editBill();
+
+    void deleteOrder();
+    void viewOrder();
+    void editOrder();
+    void sendMail();
+
+    int on_billListView_doubleClicked(const QModelIndex &index);
+
+    void on_sort_clicked();
+
+    void on_addOrder_clicked();
+    void on_editButton_clicked();
+    void on_addButton_2_clicked();
+
+    void on_return_9_clicked();
+
+    void on_edit_clicked();
+
+    void on_cancelButton_22_clicked();
+
+    void on_back_clicked();
+
+    void on_addBill_clicked();
+
+    void on_back_2_clicked();
+
+    void on_search_textChanged(const QString &arg1);
+
+    void on_addBill_2_clicked();
+
+    void on_return_11_clicked();
+
+    void on_cancelButton_23_clicked();
+
+    void on_options_clicked();
+
+    //mail functions
+
+     void on_sendMailButton_2_clicked();
+
+     void on_cancelButton_5_clicked();
+
+
+
+     void on_cancelButton_7_clicked();
+
+     void on_cancelButton_6_clicked();
+
+
+
+     void on_signOut_16_clicked();
+
+     void on_signOut_18_clicked();
+
+     void on_signOut_22_clicked();
+
+     void on_signOut_17_clicked();
+
+     void on_signOut_19_clicked();
+
+     void on_signOut_23_clicked();
+
+     ////////end meriam's declaration
+
 private:
     Ui::MainWindow *ui;
     QPropertyAnimation *animation;
@@ -207,6 +291,13 @@ private:
 
     //declaration yasmine
     Customer C;
+
+    //declaration meriam
+
+    bill b;
+    order o;
+    QPropertyAnimation *animation1;
+    QSound *coinSound;
 
 };
 #endif // MAINWINDOW_H

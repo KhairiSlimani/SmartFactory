@@ -25,7 +25,7 @@ bool Employee::create()
     QSqlQuery query;
     QString sphoneNumber=QString::number(phoneNumber);
     QString ssalary=QString::number(salary);
-    query.prepare("INSERT INTO Employee (id,firstName,lastName,sex,birthDate,hireDate,adresse,phoneNumber,salary,jobTitle,email)" "VALUES (:id,:firstName,:lastName,:sex,:birthDate,:hireDate,:adresse,:phoneNumber,:salary,:jobTitle,:email)");
+    query.prepare("INSERT INTO employee (id,firstName,lastName,sex,birthDate,hireDate,adresse,phoneNumber,salary,jobTitle,email)" "VALUES (:id,:firstName,:lastName,:sex,:birthDate,:hireDate,:adresse,:phoneNumber,:salary,:jobTitle,:email)");
     query.bindValue(":id",id);
     query.bindValue(":phoneNumber",sphoneNumber);
     query.bindValue(":salary",ssalary);
