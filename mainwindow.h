@@ -32,6 +32,11 @@
 #include "deleteconfirmation.h"
 #include "bill.h"
 #include "order.h"
+#include "produit.h"
+#include "depot.h"
+#include "arduino.h"
+#include "arduino_alcohol.h"
+
 
 
 QT_BEGIN_NAMESPACE
@@ -46,6 +51,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     QString id;
+    void update();
+
 
 public slots:
     void appendMessage(const QString &from, const QString &message);
@@ -196,6 +203,7 @@ private slots:
     void on_ProjectsButton_clicked();
 
     //meriam declaration
+    void update_label();
 
     void statistique();
     void initEditBill();
@@ -249,6 +257,8 @@ private slots:
 
     void on_options_clicked();
 
+
+
     //mail functions
 
      void on_sendMailButton_2_clicked();
@@ -276,6 +286,64 @@ private slots:
      void on_signOut_23_clicked();
 
      ////////end meriam's declaration
+     //start of chedi declaration
+     void showContextMenuProduct(const QPoint &pos);
+     void showContextMenuWarehouse(const QPoint &pos);
+
+     void DeleteItemProduct();
+     void ViewItemProduct();
+     void EditItemProduct();
+     void SendEmailToItemProduct();
+     void on_ProductsButton_clicked();
+     void on_WarehouseButton_clicked();
+     void on_signOut_40_clicked();
+     void on_pushButton_AddNewProduct_2_clicked();
+     void on_pushButton_SortProduct_2_clicked();
+     void on_pushButton_Search_2_clicked();
+     void on_LoadData_2_clicked();
+     void on_signOut_41_clicked();
+     void on_pushButton_Print_4_clicked();
+     void on_pushButton_Return_4_clicked();
+     void on_signOut_42_clicked();
+     void on_pushButton_2_clicked();
+     void on_pushButton_SaveEditProduct_2_clicked();
+     void on_pushButton_CancelEditProduct_2_clicked();
+     void on_signOut_44_clicked();
+     void on_pushButton_SaveAddProduct_2_clicked();
+     void on_signOut_45_clicked();
+     void on_pushButton_CancelAddProduct_2_clicked();
+     void on_pushButton_3_clicked();
+     void on_pushButton_4_clicked();
+
+
+     void deleteWarehouse();
+     void viewWarehouse();
+     void editWarehouse();
+
+
+     void on_pushButton_AddNewWarehouse_clicked();
+
+     void on_LoadData_3_clicked();
+
+     void on_signOut_46_clicked();
+
+     void on_pushButton_Return_5_clicked();
+
+     void on_signOut_47_clicked();
+
+     void on_pushButton_CancelEditWarehouse_clicked();
+
+     void on_signOut_48_clicked();
+
+     void on_pushButton_SaveEditWarehouse_clicked();
+
+     void on_signOut_49_clicked();
+
+     void on_pushButton_CancelAddWarehouse_clicked();
+
+     void on_pushButton_SaveAddWarehouse_clicked();
+
+     void on_cancelButton_8_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -288,6 +356,10 @@ private:
     Project P;
     QString myNickName;
     QTextTableFormat tableFormat;
+    Arduino A;
+    QByteArray data;
+
+
 
     //declaration yasmine
     Customer C;
@@ -298,6 +370,14 @@ private:
     order o;
     QPropertyAnimation *animation1;
     QSound *coinSound;
+    //declaration meriam + yesmine
+    QByteArray data1;
+    arduino_alcohol D;
+
+    //declaration chedi
+    produit P1;
+    depot DEPOT;
+
 
 };
 #endif // MAINWINDOW_H

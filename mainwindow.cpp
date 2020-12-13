@@ -135,6 +135,9 @@ MainWindow::MainWindow(QWidget *parent)
     animation->setEndValue(QRect(210,50,251,51));
     animation->start();
 
+    //************************************************************************************************************************
+
+
     //khairi
     //Place Holder
     ui->idLineEdit->setPlaceholderText("  Enter ID");
@@ -206,6 +209,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->adressLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->salaryLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]")));
 
+    //************************************************************************************************************************
+
+
     ///meriam's work ///
 
 
@@ -230,6 +236,106 @@ MainWindow::MainWindow(QWidget *parent)
 
     statistique();
 
+    //************************************************************************************************************************
+
+
+
+    //chedi place holder + controle de saisie
+
+    //products list
+    ui->listView_5->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->listView_5, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+
+    //Place Holder for search product By code
+    ui->lineEdit_SearchCustomer->setPlaceholderText("  Search...");
+
+    //place Holder of add Product Inteface
+    ui->lineEdit_ProductCodeInput_2->setPlaceholderText(" Enter Product Code");
+    ui->lineEdit_ProductNameInput_2->setPlaceholderText("Enter Product Name");
+    ui->lineEdit_QuantityInStockInput_2->setPlaceholderText("Enter The Quantity In Stock");
+    ui->lineEdit_SellPriceInput_2->setPlaceholderText("Enter Sell Price /TND");
+
+
+    //place Holder of edit Product Interface
+    ui->lineEdit_ProductCodeEdit_2->setPlaceholderText(" Enter Product Code");
+    ui->lineEdit_ProductNameEdit_2->setPlaceholderText("Enter Product Name");
+    ui->lineEdit_QuantityInStockEdit_2->setPlaceholderText("Enter The Quantity In Stock");
+    ui->lineEdit_SellPriceEdit_2->setPlaceholderText("Enter Sell Price /TND");
+
+    //controle de saisie du searchProduct
+    ui->lineEdit_SearchCustomer_3->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+
+    //controle de saisie des Inputs de AddProduct
+    ui->lineEdit_ProductCodeInput_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+    ui->lineEdit_ProductNameInput_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));//input must be an alphabet uppercase or lowercase
+    ui->lineEdit_QuantityInStockInput_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+    ui->lineEdit_SellPriceInput_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+
+    //controle des Inputs de EditProduct
+    ui->lineEdit_ProductCodeEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+    ui->lineEdit_ProductNameEdit_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));//input must be an alphabet uppercase or lowercase
+    ui->lineEdit_QuantityInStockEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+    ui->lineEdit_SellPriceEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
+
+    //warehouse list
+    ui->listView_6->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->listView_6, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+
+    //Place Holder For Add New Warehouse
+    ui->lineEdit_IDWarehouseInput->setPlaceholderText(" Enter Warehouse ID");
+    ui->lineEdit_TypeOfProductInput->setPlaceholderText(" Enter The Type Of Product");
+    ui->lineEdit_NameWarehouseManagerInput->setPlaceholderText(" Enter The Name Of Warehouse Manager");
+
+    //Place Holder For Edit Warehouse
+    ui->lineEdit_IDWarehouseInput_2->setPlaceholderText(" Enter Warehouse ID");
+    ui->lineEdit_TypeOfProductInput_2->setPlaceholderText(" Enter The Type Of Product");
+    ui->lineEdit_NameWarehouseManagerInput_2->setPlaceholderText(" Enter The Name Of Warehouse Manager");
+
+    //Controle de saisie des Inputs de add Warehouse:
+    ui->lineEdit_TypeOfProductInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_NameWarehouseManagerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_IDWarehouseInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+
+    //Controle de saisie des Inputs de Edit Warehouse:
+    ui->lineEdit_TypeOfProductInput_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_NameWarehouseManagerInput_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_IDWarehouseInput_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+
+
+    animation=new QPropertyAnimation(ui->CustomerRelationshipManagementButton,"geometry");
+    animation->setDuration(4000);
+    animation->setLoopCount(4);
+    animation->setStartValue(ui->CustomerRelationshipManagementButton->geometry());
+    animation->setEndValue(QRect(30,100,471,51));
+    animation->start();
+
+
+
+    //arduino chedi+khairi
+
+    int ret = A.connect_arduino();
+    switch (ret)
+    {
+        case(0): qDebug()<<"arduino is avaible and connected to: "<<A.getArduino_port_name();
+        break;
+
+        case(1): qDebug()<<"arduino is avaible but not connected to: "<<A.getArduino_port_name();
+        break;
+
+        case(-1): qDebug()<<"arduino is not avaible";
+        break;
+
+
+    }
+
+    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update()));
+
+    ////
+    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));
+
+
+
+
 
 }
 
@@ -237,6 +343,48 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::update()
+{
+    data = A.read_from_arduino();
+
+    if(data == "1")
+    {
+        ui->etat->setText("Warning there is a large amount of gas :(");
+    }
+    else
+    {
+        ui->etat->setText("No gas leak :)");
+    }
+
+    ui->etat->setText(data);
+
+
+}
+
+//meriam+yesmine arduino
+void MainWindow::update_label()
+{
+    data1=A.read_from_arduino();
+    bool ok;
+    if(data1.toHex().toInt(&ok,16)==1)
+    {
+         D.setModal(true);
+         D.exec();
+
+         if(D.getAlert()==1)
+         {
+             A.write_to_arduino("1");
+         }
+    }
+            else
+    {
+         D.hide();
+    }
+     qDebug() << "data" << data1;
+
+}
+/////
 
 void MainWindow::showTime()
 {
@@ -269,6 +417,16 @@ void MainWindow::showTime()
     ui->time_17->setText(time_text);
     ui->time_18->setText(time_text);
     ui->time_19->setText(time_text);
+    ui->time_26->setText(time_text);
+    ui->time2_3->setText(time_text);
+    ui->time3_3->setText(time_text);
+    ui->time4_3->setText(time_text);
+    ui->time_27->setText(time_text);
+    ui->time2_4->setText(time_text);
+    ui->time3_4->setText(time_text);
+    ui->time4_4->setText(time_text);
+
+
 
 
     QDateTime dateTime = QDateTime::currentDateTime();
@@ -298,6 +456,15 @@ void MainWindow::showTime()
     ui->date_15->setText(datetimetext);
     ui->date_16->setText(datetimetext);
     ui->date_17->setText(datetimetext);
+    ui->date_25->setText(datetimetext);
+    ui->date2_3->setText(datetimetext);
+    ui->date3_3->setText(datetimetext);
+    ui->date4_3->setText(datetimetext);
+    ui->date_26->setText(datetimetext);
+    ui->date3_4->setText(datetimetext);
+    ui->date4_4->setText(datetimetext);
+
+
 
 
 
@@ -654,7 +821,7 @@ void MainWindow::on_access1Button_clicked()
     }
     else if(ui->viewJobTitle->text() == "Depot Employee")
     {
-        //ui->stackedWidget->setCurrentIndex("7ot lehna l'widget mte3k");
+        ui->stackedWidget->setCurrentIndex(21);
     }
     else if(ui->viewJobTitle->text() == "Project and Services Employee")
     {
@@ -680,7 +847,7 @@ void MainWindow::on_access1Button_clicked()
     }
     else if(ui->viewJobTitle->text() == "Stock Employee")
     {
-        //ui->stackedWidget->setCurrentIndex("7ot lehna r9am l'widget mte3k");
+        ui->stackedWidget->setCurrentIndex(21);
     }
     else if(ui->viewJobTitle->text() == "CEO")
     {
@@ -2595,27 +2762,23 @@ void MainWindow::showContextMenuOrder(const QPoint &pos)
 {
     // Handle global position
     QPoint globalPos1 = ui->orderListView->mapToGlobal(pos);
-    QPoint globalPos2 = ui->billListView->mapToGlobal(pos);
+
     // Create menu and insert some actions
     QMenu myMenu1;
 
 
 
     // Show context menu at handling position
-  if(ui->stackedWidget->currentIndex()==22){
-    myMenu1.addAction("View", this, SLOT(viewBill()));
-    myMenu1.addAction("Edit",  this, SLOT(editBill()));
-    myMenu1.addAction("Delete", this, SLOT(deleteBill()));
-    myMenu1.exec(globalPos2);
-  }
-  else if (ui->stackedWidget->currentIndex()==21) {
+ if (ui->stackedWidget->currentIndex()==32)
+ {
       myMenu1.addAction("View", this, SLOT(viewOrder()));
       myMenu1.addAction("Edit",  this, SLOT(editOrder()));
       myMenu1.addAction("Delete", this, SLOT(deleteOrder()));
       myMenu1.addAction("sendMail", this, SLOT(sendMail()));
       myMenu1.exec(globalPos1);
+ }
 
-  }
+
 }
 
 void MainWindow::showContextMenuBill(const QPoint &pos)
@@ -2628,7 +2791,7 @@ QMenu myMenu;
 
 
 // Show context menu at handling position
-if(ui->stackedWidget->currentIndex()==22)
+if(ui->stackedWidget->currentIndex()==33)
 {
 myMenu.addAction("View", this, SLOT(viewBill()));
 myMenu.addAction("Edit",  this, SLOT(editBill()));
@@ -2715,7 +2878,7 @@ void MainWindow::on_billButton_clicked()
 
     ////////////////
     ui->billListView->setModel(b.afficherList());
-    ui->stackedWidget->setCurrentIndex(22);
+    ui->stackedWidget->setCurrentIndex(33);
 }
 //choose order button from menu
 void MainWindow::on_orderButton_clicked()
@@ -2723,7 +2886,7 @@ void MainWindow::on_orderButton_clicked()
     //refresh affichage
     order o ;
     ui->orderListView->setModel(o.afficherList());
-    ui->stackedWidget->setCurrentIndex(21);
+    ui->stackedWidget->setCurrentIndex(32);
 }
 
 //Bill menu
@@ -2900,6 +3063,8 @@ void MainWindow::on_addBill_2_clicked()
                msg.setIcon(QMessageBox::Critical);
              msg.setText("error ");
                 msg.exec();
+                //reintialisation the add interface
+                initAddBill();
          }
 
 
@@ -3100,7 +3265,7 @@ else
 void MainWindow::sendMail()
 {
 
-    ui->stackedWidget->setCurrentIndex(23);
+    ui->stackedWidget->setCurrentIndex(34);
     ui->tabWidget->setCurrentIndex(0);
 
 }
@@ -3186,6 +3351,9 @@ void MainWindow::on_addButton_2_clicked()
                msg.setIcon(QMessageBox::Critical);
              msg.setText("error ");
                 msg.exec();
+
+                //reintialisation the add interface
+               initAddOrder();
          }
 
 
@@ -3321,10 +3489,14 @@ void MainWindow::on_cancelButton_23_clicked()
 void MainWindow::on_options_clicked()
 {
     statistique();
-    ui->stackedWidget->setCurrentIndex(23);
+    ui->stackedWidget->setCurrentIndex(34);
     ui->tabWidget->setCurrentIndex(1);
 
 }
+
+
+
+
 
 //mail sending
 
@@ -3347,7 +3519,7 @@ void MainWindow::on_sendMailButton_2_clicked()
     msg.setText("Mail sent");
        msg.exec();
 
-       ui->stackedWidget->setCurrentIndex(21);
+       ui->stackedWidget->setCurrentIndex(32);
 }
 
 
@@ -3362,7 +3534,7 @@ void MainWindow::on_cancelButton_5_clicked()
 
 void MainWindow::on_cancelButton_7_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(21);
+     ui->stackedWidget->setCurrentIndex(32);
 }
 
 void MainWindow::on_cancelButton_6_clicked()
@@ -3401,4 +3573,604 @@ void MainWindow::on_signOut_19_clicked()
 void MainWindow::on_signOut_23_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+//chedi's work *****************************************************************************************************
+
+void MainWindow::showContextMenuProduct(const QPoint &pos)
+{
+    // Handle global position
+    QPoint globalPos = ui->listView->mapToGlobal(pos);
+
+    // Create menu and insert some actions
+    QMenu myMenu;
+    myMenu.addAction("View", this, SLOT(ViewItem()));
+    myMenu.addAction("Edit",  this, SLOT(EditItem()));
+    myMenu.addAction("Delete", this, SLOT(DeleteItem()));
+    myMenu.addAction("Send Email", this, SLOT(SendEmailToItem()));
+
+    // Show context menu at handling position
+    myMenu.exec(globalPos);
+}
+
+void MainWindow::DeleteItemProduct()
+{
+    DeleteConfirmation D;
+    D.setModal(true);
+    D.exec();
+
+    //Recuperation de l'indice du curseur
+    QModelIndex index = ui->listView_5->currentIndex();
+    //Recuperation du code du produit sur lequel mon curseur est positionné
+    QString itemText = index.data(Qt::DisplayRole).toString();
+
+    if(D.getConfirm()==1)
+    {
+        //supprimer l'objet P de la table client et on recupére la valeur de retour(query.exec()) dans la variable test
+        bool test=P1.Effacer(itemText);
+
+        if(test)//if(test==true)->La requete est executée->QMessageBox::information
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Deletion of PRODUCT is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView->setModel(P1.AfficherListe());
+        }
+        else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Deletion of PRODUCT failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
+
+    }
+
+}
+
+void MainWindow::ViewItemProduct()
+{
+    QModelIndex index = ui->listView->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    ui->tableView_2->setModel(P1.Afficher(itemText));
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void MainWindow::EditItemProduct()
+{
+
+    ui->stackedWidget->setCurrentIndex(25);
+}
+
+void MainWindow::SendEmailToItemProduct()
+{
+    ui->stackedWidget->setCurrentIndex(24);
+}
+
+
+void MainWindow::on_ProductsButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(22);
+
+}
+
+void MainWindow::on_WarehouseButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(27);
+
+}
+
+void MainWindow::on_signOut_40_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_AddNewProduct_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(26);
+
+
+}
+
+void MainWindow::on_pushButton_SortProduct_2_clicked()
+{
+    ui->listView->setModel(P1.Trier());
+    QMessageBox::information(nullptr, QObject::tr("SORT "),
+                             QObject::tr("sort by Sell-price Done Successfully.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_pushButton_Search_2_clicked()
+{
+    QString itemText=ui->lineEdit_SearchCustomer_3->text();
+    if(P1.Chercher(itemText))
+    {
+        ui->tableView_2->setModel(P1.Afficher(itemText));
+        ui->stackedWidget->setCurrentIndex(23);
+    }
+    else
+    {
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+                              QObject::tr("PRODUCT Not Found.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+
+}
+
+void MainWindow::on_LoadData_2_clicked()
+{
+    ui->listView->setModel(P1.AfficherListe());
+
+}
+
+
+
+void MainWindow::on_signOut_41_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_Print_4_clicked()
+{
+    QStringList list;
+    QAbstractItemModel *model = ui->tableView_2->model();
+    QModelIndex index0 = model->index(0,0);
+    QModelIndex index1 = model->index(0,1);
+    QModelIndex index2 = model->index(0,2);
+    QModelIndex index3 = model->index(0,3);
+
+    QPlainTextEdit text;
+    text.setStyleSheet("QPlainTextEdit{color: #ffff00; background-color: #303030;");
+    QTextDocument *doc = text.document();
+    QFont font = doc->defaultFont();
+    font.setBold(true);
+    font.setFamily("Arial");
+    font.setPixelSize(30);
+    doc->setDefaultFont(font);
+    text.appendPlainText("                                     Date: "+ui->date->text()+"");
+    text.appendPlainText("");
+    text.appendPlainText("FLORALLO DEPOT");
+    text.appendPlainText("");
+    text.appendPlainText("");
+    text.appendPlainText("Information of PRODUCT:");
+    text.appendPlainText("");
+    text.appendPlainText("Product Code: "+index0.data().toString()+"");
+    text.appendPlainText("Product Name: "+index1.data().toString()+"");
+    text.appendPlainText("Sell Price: "+index2.data().toString()+"");
+    text.appendPlainText("Quantity In Stock: "+index3.data().toString()+"");
+    QPrinter printer;
+    printer.setPrinterName("Print");
+    QPrintDialog dlg(&printer,this);
+    if (dlg.exec() == QDialog::Rejected)
+    {
+        return;
+    }
+    text.print(&printer);
+
+
+}
+
+void MainWindow::on_pushButton_Return_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(22);
+
+}
+
+void MainWindow::on_signOut_42_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    smtp = new Smtp("depot.florallo@gmail.com" , "esprit20", "smtp.gmail.com",465);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+    msg=ui->plainTextEdit_5->toPlainText();
+
+    smtp->sendMail("depot.florallo@gmail.com",ui->lineEdit_Email_3->text(),ui->lineEdit_Subject_3->text(),msg);
+
+    QMessageBox::information(nullptr, QObject::tr("SENT"),
+                             QObject::tr("Email Sended Successfully.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_pushButton_SaveEditProduct_2_clicked()
+{
+    QString productCode=ui->lineEdit_ProductCodeEdit_2->text();
+    QString productName=ui->lineEdit_ProductNameEdit_2->text();
+    QString sellPrice=ui->lineEdit_SellPriceEdit_2->text();
+    QString quantityInStock=ui->lineEdit_QuantityInStockEdit_2->text();
+
+produit PR(productCode,productName,sellPrice,quantityInStock);
+bool test=PR.Editer();
+
+if(test)//if (test==true)->la requete est executÃ©e->QMessageBox::information
+       {
+           QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                    QObject::tr("Edit of PRODUCT is successful.\n"
+                                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+          ui->listView->setModel(PR.AfficherListe());
+       }
+       else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
+       {
+           QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                 QObject::tr("Edit of PRODUCT failed.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+       }
+
+       ui->stackedWidget->setCurrentIndex(22);
+
+}
+
+void MainWindow::on_pushButton_CancelEditProduct_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(22);
+
+}
+
+void MainWindow::on_signOut_44_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_SaveAddProduct_2_clicked()
+{
+    if(ui->lineEdit_ProductCodeInput_2->text().isEmpty())
+    {
+        ui->lineEdit_ProductCodeInput_2->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_ProductCodeInput_2->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_ProductNameInput_2->text().isEmpty())
+    {
+        ui->lineEdit_ProductNameInput_2->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+       ui->lineEdit_ProductNameInput_2->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_QuantityInStockInput_2->text().isEmpty())
+    {
+        ui->lineEdit_QuantityInStockInput_2->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_QuantityInStockInput_2->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_SellPriceInput_2->text().isEmpty())
+    {
+        ui->lineEdit_SellPriceInput_2->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_SellPriceInput_2->setStyleSheet("border: 1px solid black");
+    }
+
+    if((ui->lineEdit_ProductCodeInput_2->text().isEmpty())||(ui->lineEdit_ProductNameInput_2->text().isEmpty())||(ui->lineEdit_QuantityInStockInput_2->text().isEmpty())||(ui->lineEdit_SellPriceInput_2->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+
+    }
+    else
+    {
+
+                      QString productCode=ui->lineEdit_ProductCodeInput_2->text();
+                      QString productName=ui->lineEdit_ProductNameInput_2->text();
+                      QString sellPrice=ui->lineEdit_SellPriceInput_2->text();
+                      QString quantityInStock=ui->lineEdit_QuantityInStockInput_2->text();
+
+         produit p(productCode,productName,sellPrice,quantityInStock);
+         bool test=p.ajouter();
+         if(test)//if (test==true)->la requete est executÃ©e->QMessageBox::information
+         {
+             QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                      QObject::tr("Addition of new PRODUCT is successful.\n"
+                                                  "Click Cancel to exit."), QMessageBox::Cancel);
+
+             ui->listView->setModel(p.AfficherListe());
+             ui->stackedWidget->setCurrentIndex(22);
+         }
+         else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
+         {
+             QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                   QObject::tr("Addition of new PRODUCT failed.\n"
+                                               "Click Cancel to exit."), QMessageBox::Cancel);
+             ui->stackedWidget->setCurrentIndex(22);
+         }
+
+    }
+}
+
+void MainWindow::on_signOut_45_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+
+
+void MainWindow::on_pushButton_CancelAddProduct_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(22);
+
+}
+
+
+//arduino
+//turn on alarm
+void MainWindow::on_pushButton_3_clicked()
+{
+    A.write_to_arduino("1");
+
+}
+
+//arduino
+//turnOffAlarm
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    A.write_to_arduino("0");
+
+}
+
+//warehouse
+
+void MainWindow::showContextMenuWarehouse(const QPoint &pos)
+{
+    // Handle global position
+    QPoint globalPos = ui->listView_6->mapToGlobal(pos);
+
+    // Create menu and insert some actions
+    QMenu myMenu;
+    myMenu.addAction("View", this, SLOT(viewWarehouse()));
+    myMenu.addAction("Edit",  this, SLOT(editWarehouse()));
+    myMenu.addAction("Delete", this, SLOT(deleteWarehouse()));
+
+    // Show context menu at handling position
+    myMenu.exec(globalPos);
+}
+
+void MainWindow::deleteWarehouse()
+{
+    DeleteConfirmation D;
+    D.setModal(true);
+    D.exec();
+
+    QModelIndex index = ui->listView_6->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    if(D.getConfirm()==1)
+    {
+        //supprimer l'objet P de la table projet et on recupÃ©re la valeur de retour(query.exec()) dans la variable test
+        bool test=DEPOT.Effacer(itemText);
+
+        if(test)//if(test==true)->La requete est executÃ©e->QMessageBox::information
+        {
+            QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                     QObject::tr("Deletion WAREHOUSE is successful.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->listView->setModel(DEPOT.AfficherListe());
+        }
+        else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
+        {
+            QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                  QObject::tr("Deletion WAREHOUSE failed.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+        }
+
+    }
+
+}
+
+void MainWindow::viewWarehouse()
+{
+    QModelIndex index = ui->listView_6->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    ui->tableView_3->setModel(DEPOT.Afficher(itemText));
+    ui->stackedWidget->setCurrentIndex(28);
+}
+
+void MainWindow::editWarehouse()
+{
+    ui->stackedWidget->setCurrentIndex(29);
+}
+
+void MainWindow::on_pushButton_AddNewWarehouse_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(30);
+
+}
+
+void MainWindow::on_LoadData_3_clicked()
+{
+    ui->listView->setModel(DEPOT.AfficherListe());
+}
+
+void MainWindow::on_signOut_46_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_Return_5_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(27);
+
+}
+
+void MainWindow::on_signOut_47_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_CancelEditWarehouse_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(27);
+
+}
+
+void MainWindow::on_signOut_48_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+
+
+void MainWindow::on_pushButton_SaveEditWarehouse_clicked()
+{
+    if(ui->lineEdit_IDWarehouseInput_2->text().isEmpty())
+    {
+        ui->lineEdit_IDWarehouseInput_2->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_IDWarehouseInput_2->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_TypeOfProductInput_2->text().isEmpty())
+    {
+        ui->lineEdit_TypeOfProductInput_2->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_TypeOfProductInput_2->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_NameWarehouseManagerInput_2->text().isEmpty())
+    {
+        ui->lineEdit_NameWarehouseManagerInput_2->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_NameWarehouseManagerInput_2->setStyleSheet("border: 1px solid black");
+    }
+
+
+
+
+
+      if  ((ui->lineEdit_IDWarehouseInput_2->text().isEmpty())||(ui->lineEdit_TypeOfProductInput_2->text().isEmpty())||(ui->lineEdit_NameWarehouseManagerInput_2->text().isEmpty()))
+       {
+          QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+       }
+    else
+    {
+          QString warehouseID=ui->lineEdit_IDWarehouseInput_2->text();
+          QString typeOfProduct=ui->lineEdit_TypeOfProductInput_2->text();
+          QString nameOfDepotManager=ui->lineEdit_NameWarehouseManagerInput_2->text();
+
+  depot D(warehouseID,typeOfProduct,nameOfDepotManager);
+  bool test=D.Editer();
+  if(test)//if (test==true)->la requete est executÃƒÂ©e->QMessageBox::information
+             {
+                 QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                          QObject::tr("Edit of WAREHOUSE is successful.\n"
+                                                      "Click Cancel to exit."), QMessageBox::Cancel);
+
+                 ui->listView->setModel(D.AfficherListe());
+             }
+             else//if(test==false)->la requete n'est pas executÃƒÂ©e->QMessageBox::critical
+             {
+                 QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                                       QObject::tr("Edit of WAREHOUSE failed.\n"
+                                                   "Click Cancel to exit."), QMessageBox::Cancel);
+             }
+
+             ui->stackedWidget->setCurrentIndex(27);
+         }
+
+}
+
+void MainWindow::on_signOut_49_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_CancelAddWarehouse_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(27);
+
+}
+
+void MainWindow::on_pushButton_SaveAddWarehouse_clicked()
+{
+    if(ui->lineEdit_IDWarehouseInput->text().isEmpty())
+    {
+        ui->lineEdit_IDWarehouseInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_IDWarehouseInput->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_TypeOfProductInput->text().isEmpty())
+    {
+        ui->lineEdit_TypeOfProductInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_TypeOfProductInput->setStyleSheet("border: 1px solid black");
+    }
+
+    if(ui->lineEdit_NameWarehouseManagerInput->text().isEmpty())
+    {
+        ui->lineEdit_NameWarehouseManagerInput->setStyleSheet("border: 1px solid red");
+    }
+    else
+    {
+        ui->lineEdit_NameWarehouseManagerInput->setStyleSheet("border: 1px solid black");
+    }
+
+
+
+
+    if((ui->lineEdit_IDWarehouseInput->text().isEmpty())||(ui->lineEdit_TypeOfProductInput->text().isEmpty())||(ui->lineEdit_NameWarehouseManagerInput->text().isEmpty()))
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+    }
+    else
+    {
+        QString warehouseID=ui->lineEdit_IDWarehouseInput->text();
+        QString typeOfProduct=ui->lineEdit_TypeOfProductInput->text();
+        QString nameOfDepotManager=ui->lineEdit_NameWarehouseManagerInput->text();
+
+depot d(warehouseID,typeOfProduct,nameOfDepotManager);
+bool test=d.ajouter();
+if(test)//if (test==true)->la requete est executÃƒÂ©e->QMessageBox::information
+{
+QMessageBox::information(nullptr, QObject::tr("Ok"),
+                        QObject::tr("Addition of new warehouse is successful.\n"
+                                    "Click Cancel to exit."), QMessageBox::Cancel);
+
+ui->listView->setModel(d.AfficherListe());
+ui->stackedWidget->setCurrentIndex(27);
+}
+else//if(test==false)->la requete n'est pas executÃƒÂ©e->QMessageBox::critical
+{
+QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
+                     QObject::tr("Addition of new warehouse failed.\n"
+                                 "Click Cancel to exit."), QMessageBox::Cancel);
+ui->stackedWidget->setCurrentIndex(27);
+    }
+}
+
+}
+
+void MainWindow::on_cancelButton_8_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(32);
 }
