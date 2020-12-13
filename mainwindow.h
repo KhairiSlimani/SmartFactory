@@ -36,6 +36,8 @@
 #include "depot.h"
 #include "arduino.h"
 #include "arduino_alcohol.h"
+#include"material.h"
+#include"suppliers.h"
 
 
 
@@ -345,6 +347,148 @@ private slots:
 
      void on_cancelButton_8_clicked();
 
+     void on_pushButtonADD_clicked();
+
+     void on_pushButton_5_clicked();
+
+     void on_pushButton_clicked();
+
+     void on_pushButton_Add_clicked();
+
+     void on_pushButton_Addcancel_clicked();
+
+     void on_pushButton_matAddlist_clicked();
+
+     void on_pushButton_AddMaterialAdd_clicked();
+
+     void on_pushButton_12_clicked();
+
+     void on_pushButton_SearchMaterial_clicked();
+
+     void on_lineEdit_SearchMaterial_textChanged(const QString &arg1);
+
+     void on_pushButton_SortMaterial_clicked();
+
+     void on_pushButton_statMateriel_clicked();
+
+     void on_pushButton_matEditList_clicked();
+
+     void on_pushButton_DeleteMatList_clicked();
+
+     void on_pushButton_11_clicked();
+
+     void on_pushButton_10_clicked();
+
+     void on_pushButton_confirmMaterialEdit_clicked();
+
+     void on_pushButton_13_clicked();
+
+     void on_pushButton_14_clicked();
+
+     void on_pushButton_9_clicked();
+
+     void on_pushButton_Home_clicked();
+
+     void on_pushButton_EditSaveSupplier_clicked();
+
+     void on_pushButton_Editcancel_clicked();
+
+     void on_pushButton_ViewReturn_clicked();
+
+     void on_pushButton_6_clicked();
+
+     void on_pushButton_7_clicked();
+
+     void on_pushButton_8_clicked();
+
+     void on_pushButton_menusupplier_clicked();
+
+     void on_pushButton_menuMaterial_clicked();
+
+     void on_pushButton_15_clicked();
+
+     void on_signOut_63_clicked();
+
+     void on_signOut_62_clicked();
+
+     void on_signOut_61_clicked();
+
+     void on_signOut_60_clicked();
+
+     void on_signOut_59_clicked();
+
+     void on_signOut_58_clicked();
+
+     void on_signOut_57_clicked();
+
+     void on_signOut_7_clicked();
+
+     void on_signOut_39_clicked();
+
+     void on_signOut_27_clicked();
+
+     void on_signOut_28_clicked();
+
+     void on_signOut_29_clicked();
+
+     void on_signOut_43_clicked();
+
+     void on_signOut_30_clicked();
+
+     void on_signOut_31_clicked();
+
+     void on_signOut_32_clicked();
+
+     void on_signOut_33_clicked();
+
+     void on_signOut_34_clicked();
+
+     void on_signOut_35_clicked();
+
+     void on_signOut_36_clicked();
+
+     void on_profile_10_clicked();
+
+     void on_signOut_24_clicked();
+
+     void on_profile_11_clicked();
+
+     void on_signOut_25_clicked();
+
+     void on_profile_12_clicked();
+
+     void on_signOut_26_clicked();
+
+     void on_profile_13_clicked();
+
+     void on_signOut_37_clicked();
+
+     void on_profile_15_clicked();
+
+     void on_signOut_51_clicked();
+
+     void on_profile_16_clicked();
+
+     void on_signOut_52_clicked();
+
+     void on_profile_17_clicked();
+
+     void on_signOut_53_clicked();
+
+     void on_profile_18_clicked();
+
+     void on_signOut_54_clicked();
+
+     void on_profile_19_clicked();
+
+     void on_signOut_55_clicked();
+
+     void on_profile_20_clicked();
+
+     void on_signOut_56_clicked();
+
+     void on_returnstatmaterial_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPropertyAnimation *animation;
@@ -358,6 +502,8 @@ private:
     QTextTableFormat tableFormat;
     Arduino A;
     QByteArray data;
+    material m ;
+    Suppliers s;
 
 
 

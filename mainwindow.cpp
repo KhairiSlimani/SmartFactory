@@ -244,7 +244,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //products list
     ui->listView_5->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(ui->listView_5, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+    connect(ui->listView_5, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenuProduct(QPoint)));
 
     //Place Holder for search product By code
     ui->lineEdit_SearchCustomer->setPlaceholderText("  Search...");
@@ -279,7 +279,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //warehouse list
     ui->listView_6->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(ui->listView_6, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+    connect(ui->listView_6, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenuWarehouse(QPoint)));
 
     //Place Holder For Add New Warehouse
     ui->lineEdit_IDWarehouseInput->setPlaceholderText(" Enter Warehouse ID");
@@ -308,6 +308,53 @@ MainWindow::MainWindow(QWidget *parent)
     animation->setStartValue(ui->CustomerRelationshipManagementButton->geometry());
     animation->setEndValue(QRect(30,100,471,51));
     animation->start();
+    // travail de nesrine
+
+
+       animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
+       animation->setDuration(5000);
+       animation->setStartValue(ui->pushButton_statMateriel->geometry());
+       animation->setEndValue(ui->pushButton_statMateriel->geometry());
+       animation->start();
+
+       animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
+       animation->setDuration(5000);
+       animation->setStartValue(ui->pushButton_statMateriel->geometry());
+       animation->setEndValue(ui->pushButton_statMateriel->geometry());
+       animation->start();
+
+
+    //controle de saisie de fournisseurs de la modification
+    ui->lineEdit_editSID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_Addcontacttitle->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    //ui->lineEdit_editcontactName->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_editCname->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_EDitCIty->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_editCountry->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_editAdress->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_editPhone->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    ui->lineEdit_editFAX->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    ui->lineEdit_EditHomepage->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    //controle de saisie de l'ajout de fournisseurs
+    ui->lineEditADDSID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_Addcontacttitle->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    //ui->lineEdit_AddContName->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddCompName->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddCity->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddCountry->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddAdress->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
+    ui->lineEdit_AddPhone->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    //ui->lineEditAddHomepage->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    //controle de saisie de l'ajout d'une matiére
+
+    ui->lineEdit_AddSupplierIDMat->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddcurrncyMatAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddQuantMatAdd->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    ui->lineEdit_AddMatpriceAdd->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    ui->lineEdit_AddUnitMatAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddDesmatAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEdit_AddMatNameAdd->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->lineEditADDMaterialID->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
 
 
 
@@ -426,6 +473,16 @@ void MainWindow::showTime()
     ui->time3_4->setText(time_text);
     ui->time4_4->setText(time_text);
 
+    ui->time_20->setText(time_text);
+    ui->time_28->setText(time_text);
+    ui->time_29->setText(time_text);
+    ui->time_30->setText(time_text);
+    ui->time_31->setText(time_text);
+    ui->time_32->setText(time_text);
+    ui->time_33->setText(time_text);
+    ui->time_34->setText(time_text);
+    ui->time_35->setText(time_text);
+
 
 
 
@@ -463,6 +520,16 @@ void MainWindow::showTime()
     ui->date_26->setText(datetimetext);
     ui->date3_4->setText(datetimetext);
     ui->date4_4->setText(datetimetext);
+
+    ui->date_18->setText(datetimetext);
+    ui->date_27->setText(datetimetext);
+    ui->date_28->setText(datetimetext);
+    ui->date_29->setText(datetimetext);
+    ui->date_30->setText(datetimetext);
+    ui->date_31->setText(datetimetext);
+    ui->date_32->setText(datetimetext);
+    ui->date_33->setText(datetimetext);
+    ui->date_34->setText(datetimetext);
 
 
 
@@ -840,10 +907,34 @@ void MainWindow::on_access1Button_clicked()
         animation1->setStartValue(ui->orderButton->geometry());
         animation1->setEndValue(ui->billButton->geometry());
         animation1->start();
+
+        animation1=new QPropertyAnimation(ui->CustomersButton,"geometry");
+        animation1->setDuration(5000);
+        animation1->setStartValue(ui->CustomersButton->geometry());
+        animation1->setEndValue(ui->ProjectsButton->geometry());
+        animation1->start();
+
+        animation1=new QPropertyAnimation(ui->ProjectsButton,"geometry");
+        animation1->setDuration(5000);
+        animation1->setStartValue(ui->ProjectsButton->geometry());
+        animation1->setEndValue(ui->CustomersButton->geometry());
+        animation1->start();
     }
     else if(ui->viewJobTitle->text() == "Laboratory Employee")
     {
-        //ui->stackedWidget->setCurrentIndex("7ot lehna r9am l'widget mte3k");
+        ui->stackedWidget->setCurrentIndex(35);
+
+        animation1=new QPropertyAnimation(ui->pushButton_menusupplier,"geometry");
+        animation1->setDuration(5000);
+        animation1->setStartValue(ui->pushButton_menusupplier->geometry());
+        animation1->setEndValue(ui->pushButton_menuMaterial->geometry());
+        animation1->start();
+
+        animation1=new QPropertyAnimation(ui->pushButton_menuMaterial,"geometry");
+        animation1->setDuration(5000);
+        animation1->setStartValue(ui->pushButton_menuMaterial->geometry());
+        animation1->setEndValue(ui->pushButton_menusupplier->geometry());
+        animation1->start();
     }
     else if(ui->viewJobTitle->text() == "Stock Employee")
     {
@@ -3580,7 +3671,7 @@ void MainWindow::on_signOut_23_clicked()
 void MainWindow::showContextMenuProduct(const QPoint &pos)
 {
     // Handle global position
-    QPoint globalPos = ui->listView->mapToGlobal(pos);
+    QPoint globalPos = ui->listView_5->mapToGlobal(pos);
 
     // Create menu and insert some actions
     QMenu myMenu;
@@ -3700,7 +3791,7 @@ void MainWindow::on_pushButton_Search_2_clicked()
 
 void MainWindow::on_LoadData_2_clicked()
 {
-    ui->listView->setModel(P1.AfficherListe());
+    ui->listView_5->setModel(P1.AfficherListe());
 
 }
 
@@ -3994,7 +4085,7 @@ void MainWindow::on_pushButton_AddNewWarehouse_clicked()
 
 void MainWindow::on_LoadData_3_clicked()
 {
-    ui->listView->setModel(DEPOT.AfficherListe());
+    ui->listView_6->setModel(DEPOT.AfficherListe());
 }
 
 void MainWindow::on_signOut_46_clicked()
@@ -4173,4 +4264,783 @@ ui->stackedWidget->setCurrentIndex(27);
 void MainWindow::on_cancelButton_8_clicked()
 {
    ui->stackedWidget->setCurrentIndex(32);
+}
+// travaille de nessrine
+void MainWindow::on_pushButtonADD_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(37);
+
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(39);
+    QString i = ui->listViewSupplier->currentIndex().data().toString();
+    s.loadData(i);
+    ui->viewID->setText(s.getid());
+    ui->viewcampname->setText(s.getcampName());
+    ui->viewadress->setText(s.getadress());
+    ui->viewville->setText(s.getville());
+    ui->viewpays->setText(s.getpays());
+    ui->viewfax->setText(s.getfax());
+    ui->viewphone->setText(s.gettelephone());
+    ui->viewtitle->setText(s.gettitle());
+    ui->viewhomepage->setText(s.getpagacc());
+
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString i = ui->listViewSupplier->currentIndex().data().toString();
+    s.loadData(i);
+    ui->lineEdit_editSID->setText(s.getid());
+    ui->lineEdit_editCname->setText(s.getcampName());
+    ui->lineEdit_editAdress->setText(s.getadress());
+    ui->lineEdit_EDitCIty->setText(s.getville());
+    ui->lineEdit_editCountry->setText(s.getpays());
+    ui->lineEdit_editFAX->setText(s.getfax());
+    ui->lineEdit_editPhone->setText(s.gettelephone());
+    ui->lineEdit_editcontTitle->setText(s.gettitle());
+    ui->lineEdit_EditHomepage->setText(s.getpagacc());
+    ui->stackedWidget->setCurrentIndex(38);
+}
+
+
+void MainWindow::on_pushButton_Add_clicked()
+{
+    bool test=true;
+    QString id;
+
+    QString campName;
+    QString title;
+    QString adress;
+    QString ville;
+    QString pays;
+    QString telephone;
+    QString fax;
+    QString pagacc;
+    if(ui->lineEditADDSID->text().isEmpty())
+    {
+        ui->lineEditADDSID->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_Addcontacttitle->text().isEmpty())
+    {
+        ui->lineEdit_Addcontacttitle->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddAdress->text().isEmpty())
+    {
+        ui->lineEdit_AddAdress->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddCity->text().isEmpty())
+    {
+        ui->lineEdit_AddCity->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+    if(ui->lineEdit_AddCountry->text().isEmpty())
+    {
+        ui->lineEdit_AddCountry->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddPhone->text().isEmpty())
+    {
+        ui->lineEdit_AddPhone->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddCompName->text().isEmpty())
+    {
+        ui->lineEdit_AddCompName->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEditaddfax->text().isEmpty())
+    {
+        ui->lineEditaddfax->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_Addhomepage->text().isEmpty())
+    {
+        ui->lineEdit_Addhomepage->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(test)
+    {
+        id=ui->lineEditADDSID->text();
+        title=ui->lineEdit_Addcontacttitle->text();
+        adress=ui->lineEdit_AddAdress->text();
+        ville=ui->lineEdit_AddCity->text();
+        pays=ui->lineEdit_AddCountry->text();
+        campName=ui->lineEdit_AddCompName->text();
+        fax=ui->lineEditaddfax->text();
+        pagacc=ui->lineEdit_Addhomepage->text();
+        telephone=ui->lineEdit_AddPhone->text();
+
+        Suppliers s(id,campName,title,adress,ville,pays,telephone,fax,pagacc);
+        bool test2=s.Addsupplier();
+        ui->listViewSupplier->setModel(s.afficherList2());//refresh list view
+
+
+        if(test2)
+        {
+
+            QMessageBox :: information(nullptr, QObject :: tr("Add Supplier"),
+                                       QObject::tr("supplier Added"),QMessageBox::Cancel);
+
+        }
+        else
+        {
+            QMessageBox :: warning(nullptr, QObject :: tr("Add supplier"),
+                                   QObject::tr("Error,supplier Not Added :("),QMessageBox::Cancel);
+
+        }
+
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+    }
+
+
+    ui->stackedWidget->setCurrentIndex(36);
+}
+
+void MainWindow::on_pushButton_Addcancel_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(36);
+    //supplier
+}
+
+void MainWindow::on_pushButton_matAddlist_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(42);
+    //page current ca depend de la nouvelle stacket wideget
+}
+
+void MainWindow::on_pushButton_AddMaterialAdd_clicked()
+{
+    bool test=true;
+    QString id;
+    QString Name;
+    QString Description;
+    QString SupplierID;
+    QString Quantity ;
+    QString Unit;
+    QString price;
+    QString Currency;
+    QString Expiratdate;
+
+    if(ui->lineEdit_AddMatNameAdd->text().isEmpty())
+    {
+        ui->lineEdit_AddMatNameAdd->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEditADDMaterialID->text().isEmpty())
+    {
+        ui->lineEditADDMaterialID->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddDesmatAdd->text().isEmpty())
+    {
+        ui->lineEdit_AddDesmatAdd->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddSupplierIDMat->text().isEmpty())
+    {
+        ui->lineEdit_AddSupplierIDMat->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddcurrncyMatAdd->text().isEmpty())
+    {
+        ui->lineEdit_AddcurrncyMatAdd->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddQuantMatAdd->text().isEmpty())
+    {
+        ui->lineEdit_AddQuantMatAdd->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddMatpriceAdd->text().isEmpty())
+    {
+        ui->lineEdit_AddMatpriceAdd->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(ui->lineEdit_AddUnitMatAdd->text().isEmpty())
+    {
+        ui->lineEdit_AddUnitMatAdd->setStyleSheet("border: 2px solid red;");
+        test=false;
+    }
+
+    if(test)
+    {
+        Name=ui->lineEdit_AddMatNameAdd->text();
+        Description=ui->lineEdit_AddDesmatAdd->text();
+        SupplierID=ui->lineEdit_AddSupplierIDMat->text();
+        Quantity=ui->lineEdit_AddQuantMatAdd->text();
+        Unit=ui->lineEdit_AddUnitMatAdd->text();
+        price=ui->lineEdit_AddMatpriceAdd->text();
+        Currency=ui->lineEdit_AddMatpriceAdd->text();
+        id=ui->lineEditADDMaterialID->text();
+
+        material m(id,Name,Description,SupplierID,Quantity,Unit,price,Currency);
+        bool test2=m.AddMaterial();
+        ui->listViewMateriel->setModel(m.afficherList());//refresh list view
+
+
+        if(test2)
+        {
+
+            QMessageBox :: information(nullptr, QObject :: tr("Add Material"),
+                                       QObject::tr("Material Added"),QMessageBox::Cancel);
+
+        }
+        else
+        {
+            QMessageBox :: warning(nullptr, QObject :: tr("Add Material"),
+                                   QObject::tr("Error,Material Not Added :("),QMessageBox::Cancel);
+
+        }
+
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
+    }
+
+     ui->stackedWidget->setCurrentIndex(41);
+}
+
+void MainWindow::on_pushButton_12_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(41);
+    //cancel add de materielle
+}
+
+void MainWindow::on_pushButton_SearchMaterial_clicked()
+{
+    QString id =  ui->lineEdit_SearchMaterial->text();
+        qDebug() << id;
+        material m;
+        bool test=m.search(id);
+        qDebug() << test;
+        if(test == true)
+        {
+            QSqlQuery view=m.ViewMaterial(id);
+
+            while(view.next())
+            {
+                ui->lineEdit_ViewMaterialID->setText(view.value(0).toString());
+                ui->lineEdit_ViewMatQuantite->setText(view.value(1).toString());
+                ui->lineEdit_ViewMatSuppID->setText(view.value(2).toString());
+                ui->lineEdit_ViewMatPrice->setText(view.value(3).toString());
+                ui->lineEdit_ViewMatUnit->setText(view.value(4).toString());
+                ui->lineEdit_ViewMatDes->setText(view.value(5).toString());
+                ui->lineEdit_ViewMatName->setText(view.value(6).toString());
+
+            }
+        }
+
+}
+
+void MainWindow::on_lineEdit_SearchMaterial_textChanged(const QString &arg1)
+{
+    material m ;
+    QString info =arg1;
+    ui->listViewMateriel->setModel(m.search(info));
+}
+
+void MainWindow::on_pushButton_SortMaterial_clicked()
+{
+    material m;
+    QSqlQueryModel *model=new QSqlQueryModel();
+    model=m.sortmaterial();
+    ui->listViewMateriel->setModel(model);
+}
+
+void MainWindow::on_pushButton_statMateriel_clicked()
+{
+    material m;
+
+   QChartView * chartView=new QChartView(m.statmat());
+      chartView ->setParent(ui->horizontalFrame);
+      ui->stackedWidget->setCurrentIndex(45);
+}
+
+void MainWindow::on_pushButton_matEditList_clicked()
+{
+    QString i = ui->listViewMateriel->currentIndex().data().toString();
+    m.loadData(i);
+    ui->editID->setText(m.getid());
+    ui->editDescription->setText(m.getDescription());
+    ui->editName->setText(m.getName());
+    ui->editSupplierID->setText(m.getSupplierID());
+    ui->editQuantity->setText(m.getQuantity());
+    ui->editPrice->setText(m.getprice());
+    ui->editUnit->setText(m.getUnit());
+    ui->editCurrency->setText(m.getcurrency());
+    ui->stackedWidget->setCurrentIndex(43);
+}
+
+void MainWindow::on_pushButton_DeleteMatList_clicked()
+{
+   // deleteconfirmation d;
+    DeleteConfirmation d;
+       QMessageBox msg;
+
+
+
+    d.exec();
+
+   if(d.getConfirm()==1)
+    {
+       bool test= m.deleteMaterial(ui->listViewMateriel->currentIndex().data().toString());
+
+       //refresh affichage
+       ui->listViewMateriel->setModel(m.afficherList());
+
+       if(test==true)
+           {
+
+            msg.setText("material deleted ");
+            msg.exec();
+           }
+
+   }
+   else
+   {
+
+        msg.setText("error ");
+        msg.exec();
+   }
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(44);
+    QString i = ui->listViewMateriel->currentIndex().data().toString();
+    m.loadData(i);
+    ui->lineEdit_ViewMaterialID->setText(m.getid());
+    ui->lineEdit_ViewMatDes->setText(m.getDescription());
+    ui->lineEdit_ViewMatName->setText(m.getName());
+    ui->lineEdit_ViewMatSuppID->setText(m.getSupplierID());
+    ui->lineEdit_ViewMatQuantite->setText(m.getQuantity());
+    ui->lineEdit_ViewMatPrice->setText(m.getprice());
+    ui->lineEdit_ViewMatUnit->setText(m.getUnit());
+    ui->lineEdit_ViewMatcurrency->setText(m.getcurrency());
+
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(35);
+     //pushboutton home_materielle
+}
+
+void MainWindow::on_pushButton_confirmMaterialEdit_clicked()
+{
+    qDebug() << "bouton: « edit material » appuyé";
+
+    QMessageBox msg;
+     QString id = ui->listViewMateriel->currentIndex().data().toString();
+
+
+     //set values
+     m.setid(ui->editID->text());
+     m.setName(ui->editName->text());
+     m.setdescription(ui->editDescription->text());
+     m.setQuantity(ui->editQuantity->text());
+     m.setUnit(ui->editUnit->text());
+     m.setprice(ui->editPrice->text());
+     m.setSupplierID(ui->editSupplierID->text());
+     m.setCurrency(ui->editCurrency->text());
+
+         bool test= m.EditMaterial(id);
+         //refresh affichage
+           ui->listViewMateriel->setModel(m.afficherList());
+
+
+         if(test)
+            { qDebug()<<"done";
+
+             msg.setIcon(QMessageBox::Information);
+              msg.setText("edit dans le tableau");
+                 msg.exec();
+
+                  //reintialisation the add interface
+
+
+         }
+         else
+
+           { qDebug()<<"error";
+               msg.setIcon(QMessageBox::Critical);
+             msg.setText("error ");
+                msg.exec();
+         }
+
+    ui->stackedWidget->setCurrentIndex(41);
+}
+
+void MainWindow::on_pushButton_13_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(41);
+     // current index de cancel edit maerielle
+}
+
+void MainWindow::on_pushButton_14_clicked()
+{
+       ui->stackedWidget->setCurrentIndex(41);
+    //return view material
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+
+    DeleteConfirmation d;
+       QMessageBox msg;
+
+    d.exec();
+
+   if(d.getConfirm()==1)
+    {
+       bool test= s.deletesupplier(ui->listViewSupplier->currentIndex().data().toString());
+
+       //refresh affichage
+       ui->listViewSupplier->setModel(s.afficherList2());
+
+       if(test==true)
+           {
+
+            msg.setText("supplier deleted ");
+            msg.exec();
+           }
+
+   }
+   else
+   {
+
+        msg.setText("error ");
+        msg.exec();
+   }
+
+}
+
+void MainWindow::on_pushButton_Home_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(35);
+    // current page de la liste home of supplier
+}
+
+void MainWindow::on_pushButton_EditSaveSupplier_clicked()
+{
+    qDebug() << "bouton: « edit supplier » appuyé";
+
+    QMessageBox msg;
+     QString id = ui->listViewSupplier->currentIndex().data().toString();
+
+
+     //set values
+     s.setid(ui->lineEdit_editSID->text());
+     s.setcampName(ui->lineEdit_editCname->text());
+     s.setadress(ui->lineEdit_editAdress->text());
+     s.settitle(ui->lineEdit_editcontTitle->text());
+     s.setville(ui->lineEdit_EDitCIty->text());
+     s.setpays(ui->lineEdit_editCountry->text());
+     s.settelephone(ui->lineEdit_editPhone->text());
+     s.setfax(ui->lineEdit_editFAX->text());
+     s.setpagacc(ui->lineEdit_EditHomepage->text());
+
+         bool test=s.editsupplier(id);
+         //refresh affichage
+           ui->listViewSupplier->setModel(s.afficherList2());
+
+
+         if(test)
+            { qDebug()<<"done";
+
+             msg.setIcon(QMessageBox::Information);
+              msg.setText("edit dans le tableau");
+                 msg.exec();
+
+                  //reintialisation the add interface
+
+
+         }
+         else
+           { qDebug()<<"error";
+               msg.setIcon(QMessageBox::Critical);
+             msg.setText("error ");
+                msg.exec();
+         }
+    ui->stackedWidget->setCurrentIndex(36);
+}
+
+void MainWindow::on_pushButton_Editcancel_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(36);
+
+}
+
+void MainWindow::on_pushButton_ViewReturn_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(36);
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(40);
+     //send mail supplier liste
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+
+    smtp = new Smtp("p.florallo@gmail.com" , "nesrine123", "smtp.gmail.com",465);
+
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mail(QString)));
+
+    msg=ui->plainTextEdit->toPlainText();
+
+    smtp->sendMail("p.florallo@gmail.com","nesrine.zamni@esprit.tn",ui->lineEditmail->text(),msg);
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(36);
+     //cancel send mail
+}
+
+void MainWindow::on_pushButton_menusupplier_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(36);
+}
+
+void MainWindow::on_pushButton_menuMaterial_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(41);
+}
+
+void MainWindow::on_pushButton_15_clicked()
+{
+       ui->stackedWidget->setCurrentIndex(41);
+}
+
+void MainWindow::on_signOut_63_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_62_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_61_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_60_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_59_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_58_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_57_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_7_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_39_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_27_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_28_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_29_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_43_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_30_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_31_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_32_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_33_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_34_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_35_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_36_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_profile_10_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_24_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_11_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_25_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_12_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_26_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_13_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_37_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_15_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_51_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_16_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_52_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_17_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_53_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_18_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_54_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_19_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_55_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_profile_20_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_signOut_56_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_returnstatmaterial_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(41);
 }

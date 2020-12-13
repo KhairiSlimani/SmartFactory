@@ -2,7 +2,8 @@ QT       += core gui sql printsupport widgets network multimedia charts serialpo
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+TARGET = SmartFactory
+TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -14,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+CONFIG += c++11
 
 SOURCES += \
     arduino.cpp \
@@ -28,13 +30,15 @@ SOURCES += \
     employee.cpp \
     main.cpp \
     mainwindow.cpp \
+    material.cpp \
     order.cpp \
     peermanager.cpp \
     produit.cpp \
     profile.cpp \
     project.cpp \
     server.cpp \
-    smtp.cpp
+    smtp.cpp \
+    suppliers.cpp
 
 HEADERS += \
     arduino.h \
@@ -48,13 +52,15 @@ HEADERS += \
     depot.h \
     employee.h \
     mainwindow.h \
+    material.h \
     order.h \
     peermanager.h \
     produit.h \
     profile.h \
     project.h \
     server.h \
-    smtp.h
+    smtp.h \
+    suppliers.h
 
 FORMS += \
     arduino_alcohol.ui \
