@@ -17,6 +17,22 @@ Customer::Customer()
   CreditLimit=0;
 }
 
+Customer::Customer(QString nvFirstName,QString nvLastName,QString nvCompanyName,int nvPhoneNumber,QString nvEmail,QString nvWebsite,QString nvStreet,QString nvCity,int nvZipCode,QString nvCountry,int nvBankAccountNumber,float nvCreditLimit)
+{
+   FirstName=nvFirstName;
+   LastName=nvLastName;
+   CompanyName=nvCompanyName;
+   PhoneNumber=nvPhoneNumber;
+   Email=nvEmail;
+   Website=nvWebsite;
+   Street=nvStreet;
+   City=nvCity;
+   ZipCode=nvZipCode;
+   Country=nvCountry;
+   BankAccountNumber=nvBankAccountNumber;
+   CreditLimit=nvCreditLimit;
+}
+
 Customer::Customer(QString nvID,QString nvFirstName,QString nvLastName,QString nvCompanyName,int nvPhoneNumber,QString nvEmail,QString nvWebsite,QString nvStreet,QString nvCity,int nvZipCode,QString nvCountry,int nvBankAccountNumber,float nvCreditLimit)
 {
    id=nvID;
@@ -43,10 +59,9 @@ bool Customer::ajouter()
     QString CreditLimitS=QString::number(CreditLimit);
 
     //Prepare() prend la requete en parametre pour la préparer a l'execution
-    query.prepare("INSERT INTO client(id, FirstName, LastName, CompanyName, PhoneNumber, Email, Website, Street, City, ZipCode, Country, BankAccountNumber, CreditLimit)" "VALUES(:id, :FirstName, :LastName, :CompanyName, :PhoneNumber, :Email, :Website, :Street, :City, :ZipCode, :Country, :BankAccountNumber, :CreditLimit)");
+    query.prepare("INSERT INTO client(FirstName, LastName, CompanyName, PhoneNumber, Email, Website, Street, City, ZipCode, Country, BankAccountNumber, CreditLimit)" "VALUES(:FirstName, :LastName, :CompanyName, :PhoneNumber, :Email, :Website, :Street, :City, :ZipCode, :Country, :BankAccountNumber, :CreditLimit)");
 
     //Creation des variables liées
-    query.bindValue(":id",id);
     query.bindValue(":FirstName",FirstName);
     query.bindValue(":LastName",LastName);
     query.bindValue(":CompanyName",CompanyName);
@@ -152,3 +167,10 @@ QSqlQueryModel * Customer::chercher(QString information)
     return model;
 }
 
+QSqlQuery Customer::stat()
+{
+    QSqlQuery query;
+        query.prepare("select *from client ");
+        query.exec();
+        return query;
+}

@@ -12,6 +12,16 @@ Project::Project()
   CustomerID="";
 }
 
+Project::Project(QString Name,QString Description,QString StartDate,QString EndDate,float Budget,QString CustomerID)
+{
+   this->Name=Name;
+   this->Description=Description;
+   this->StartDate=StartDate;
+   this->EndDate=EndDate;
+   this->CustomerID=CustomerID;
+   this->Budget=Budget;
+}
+
 Project::Project(QString ID,QString Name,QString Description,QString StartDate,QString EndDate,float Budget,QString CustomerID)
 {
    this->ID=ID;

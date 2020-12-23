@@ -40,6 +40,7 @@ public:
 
     //Constructors
     Project();
+    Project(QString,QString,QString,QString,float,QString);
     Project(QString,QString,QString,QString,QString,float,QString);
 
     bool Ajouter();

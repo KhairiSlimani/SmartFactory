@@ -1,5 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QtCharts>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QLegend>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_SearchCustomer->setPlaceholderText("  Search...");
 
     //place Holder of add Customer Inteface
-    ui->lineEdit_IDCustomerInput->setPlaceholderText(" Enter ID");
+    //ui->lineEdit_IDCustomerInput->setPlaceholderText(" Enter ID");
     ui->lineEdit_FirstNameCustomerInput->setPlaceholderText("Enter First Name");
     ui->lineEdit_LastNameCustomerInput->setPlaceholderText("Enter Last Name");
     ui->lineEdit_CompanyCustomerInput->setPlaceholderText("Enter Company Name");
@@ -63,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_PhoneNumberCustomerInput->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));//input must be from 7 to 15 dgits
     ui->lineEdit_BankAccountCustomerInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));//leading digit must be 1 to 9 (prevents leading zeroes)
     ui->lineEdit_CreditLimitCustomerInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
-    ui->lineEdit_IDCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));//input must be a code ascii character
+    //ui->lineEdit_IDCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));//input must be a code ascii character
     ui->lineEdit_CompanyCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_WebsiteCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_AdressCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
@@ -101,7 +106,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //Place Holder For Add New Project
-    ui->lineEdit_IDProjectInput->setPlaceholderText(" Enter ID");
     ui->lineEdit_NameProjectInput->setPlaceholderText(" Enter Name");
     ui->lineEdit_DescriptionProjectInput->setPlaceholderText(" Enter Description");
     ui->lineEdit_BudgetProjectInput->setPlaceholderText(" Enter Budget");
@@ -117,7 +121,6 @@ MainWindow::MainWindow(QWidget *parent)
     //Controle de saisie des Inputs de add project:
     ui->lineEdit_NameProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_DescriptionProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->lineEdit_IDProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_CustomerIDProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_BudgetProjectInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
 
@@ -308,6 +311,11 @@ MainWindow::MainWindow(QWidget *parent)
     animation->setStartValue(ui->CustomerRelationshipManagementButton->geometry());
     animation->setEndValue(QRect(30,100,471,51));
     animation->start();
+
+    ui->listView_5->setModel(P1.AfficherListe());
+    ui->listView_6->setModel(DEPOT.AfficherListe());
+
+
     // travail de nesrine
 
 
@@ -360,7 +368,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //arduino chedi+khairi
 
-    int ret = A.connect_arduino();
+    /*int ret = A.connect_arduino();
     switch (ret)
     {
         case(0): qDebug()<<"arduino is avaible and connected to: "<<A.getArduino_port_name();
@@ -378,7 +386,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update()));
 
     ////
-    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));
+    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));*/
 
 
 
@@ -482,6 +490,8 @@ void MainWindow::showTime()
     ui->time_33->setText(time_text);
     ui->time_34->setText(time_text);
     ui->time_35->setText(time_text);
+    ui->time_36->setText(time_text);
+
 
 
 
@@ -530,10 +540,7 @@ void MainWindow::showTime()
     ui->date_32->setText(datetimetext);
     ui->date_33->setText(datetimetext);
     ui->date_34->setText(datetimetext);
-
-
-
-
+    ui->date_35->setText(datetimetext);
 
 }
 
@@ -617,6 +624,43 @@ void MainWindow::ViewCustomer()
 
 void MainWindow::EditCustomer()
 {
+
+    ui->lineEdit_FirstNameCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_LastNameCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CompanyCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_PhoneNumberCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_EmailCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_WebsiteCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_AdressCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CityCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_ZipCodeCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CountryCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_BankAccountCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
+    ui->lineEdit_CreditLimitCustomerEdit->setStyleSheet("padding: 1px;"
+                                                "background: rgb(85,170,255);"
+                                                "border-radius: 10px;");
 
     QModelIndex index = ui->listView_3->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
@@ -888,7 +932,7 @@ void MainWindow::on_access1Button_clicked()
     }
     else if(ui->viewJobTitle->text() == "Depot Employee")
     {
-        ui->stackedWidget->setCurrentIndex(21);
+        ui->stackedWidget->setCurrentIndex(22);
     }
     else if(ui->viewJobTitle->text() == "Project and Services Employee")
     {
@@ -922,7 +966,7 @@ void MainWindow::on_access1Button_clicked()
     }
     else if(ui->viewJobTitle->text() == "Laboratory Employee")
     {
-        ui->stackedWidget->setCurrentIndex(35);
+        ui->stackedWidget->setCurrentIndex(37);
 
         animation1=new QPropertyAnimation(ui->pushButton_menusupplier,"geometry");
         animation1->setDuration(5000);
@@ -1577,6 +1621,7 @@ void MainWindow::viewEmployee()
 
 void MainWindow::editEmployee()
 {
+
     QModelIndex index = ui->listView->currentIndex();
     QString info = index.data(Qt::DisplayRole).toString();
     QSqlQuery view;
@@ -1626,31 +1671,6 @@ void MainWindow::on_profileButton_7_clicked()
 
 void MainWindow::on_pushButton_SaveAddCustomer_clicked()
 {
-    if(ui->lineEdit_IDCustomerInput->text().isEmpty())
-    {
-        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 2px solid red;"
-                                                    "padding: 1px;"
-                                                    "border-radius: 10px;");
-    }
-    else
-    {
-        ui->lineEdit_IDCustomerInput->setStyleSheet("border: 2px solid black;"
-                                                    "padding: 1px;"
-                                                    "border-radius: 10px;");
-    }
-
-    if(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())
-    {
-        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid red;"
-                                                           "padding: 1px;"
-                                                           "border-radius: 10px;");
-    }
-    else
-    {
-        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid black;"
-                                                           "padding: 1px;"
-                                                           "border-radius: 10px;");
-    }
 
     if(ui->lineEdit_LastNameCustomerInput->text().isEmpty())
     {
@@ -1796,7 +1816,7 @@ void MainWindow::on_pushButton_SaveAddCustomer_clicked()
     }
 
 
-    if((ui->lineEdit_IDCustomerInput->text().isEmpty())||(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())||(ui->lineEdit_LastNameCustomerInput->text().isEmpty())||(ui->lineEdit_CompanyCustomerInput->text().isEmpty())||(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())||(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())||(ui->lineEdit_CountryCustomerInput->text().isEmpty())||(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())||(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())||(ui->lineEdit_EmailCustomerInput->text().isEmpty())||(ui->lineEdit_CityCustomerInput->text().isEmpty()))
+    if((ui->lineEdit_FirstNameCustomerInput->text().isEmpty())||(ui->lineEdit_LastNameCustomerInput->text().isEmpty())||(ui->lineEdit_CompanyCustomerInput->text().isEmpty())||(ui->lineEdit_PhoneNumberCustomerInput->text().isEmpty())||(ui->lineEdit_ZipCodeCustomerInput->text().isEmpty())||(ui->lineEdit_CountryCustomerInput->text().isEmpty())||(ui->lineEdit_BankAccountCustomerInput->text().isEmpty())||(ui->lineEdit_CreditLimitCustomerInput->text().isEmpty())||(ui->lineEdit_EmailCustomerInput->text().isEmpty())||(ui->lineEdit_CityCustomerInput->text().isEmpty()))
     {
         QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
 
@@ -1814,7 +1834,7 @@ void MainWindow::on_pushButton_SaveAddCustomer_clicked()
         else
         {
             //récuperations des informations saisies dans les lineEdits
-            QString id=ui->lineEdit_IDCustomerInput->text();
+            //QString id=ui->lineEdit_IDCustomerInput->text();
             QString FirstName=ui->lineEdit_FirstNameCustomerInput->text();
             QString LastName=ui->lineEdit_LastNameCustomerInput->text();
             QString CompanyName=ui->lineEdit_CompanyCustomerInput->text();
@@ -1830,7 +1850,7 @@ void MainWindow::on_pushButton_SaveAddCustomer_clicked()
 
 
             //Instantiation d'un objet de type client en utilisant les informations saisies dans l'interface graphique
-            Customer c(id,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
+            Customer c(FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
 
             //Inserer l'objet C dans la table client et recuperer la valeur de retour de query.exec() dans la variable test.
             bool test=c.ajouter();
@@ -1857,18 +1877,6 @@ void MainWindow::on_pushButton_SaveAddCustomer_clicked()
 
 void MainWindow::on_pushButton_SaveEditCustomer_clicked()
 {
-    if(ui->lineEdit_IDCustomerEdit->text().isEmpty())
-    {
-        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 2px solid red;"
-                                                   "padding: 1px;"
-                                                   "border-radius: 10px;");
-    }
-    else
-    {
-        ui->lineEdit_IDCustomerEdit->setStyleSheet("border: 2px solid black;"
-                                                   "padding: 1px;"
-                                                   "border-radius: 10px;");
-    }
 
     if(ui->lineEdit_FirstNameCustomerEdit->text().isEmpty())
     {
@@ -2048,7 +2056,7 @@ void MainWindow::on_pushButton_SaveEditCustomer_clicked()
         else
         {
             //récuperations des informations saisies dans les lineEdits
-            QString id=ui->lineEdit_IDCustomerEdit->text();
+            QString ID=ui->lineEdit_IDCustomerEdit->text();
             QString FirstName=ui->lineEdit_FirstNameCustomerEdit->text();
             QString LastName=ui->lineEdit_LastNameCustomerEdit->text();
             QString CompanyName=ui->lineEdit_CompanyCustomerEdit->text();
@@ -2064,7 +2072,7 @@ void MainWindow::on_pushButton_SaveEditCustomer_clicked()
 
 
             //Instantiation d'un objet de type client en utilisant les informations saisies dans l'interface graphique
-            Customer C(id,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
+            Customer C(ID,FirstName,LastName,CompanyName,PhoneNumber,Email,Website,Street,City,ZipCode,Country,BankAccountNumber,CreditLimit);
 
             //Inserer l'objet C dans la table client et recuperer la valeur de retour de query.exec() dans la variable test.
             bool test=C.Editer();
@@ -2216,7 +2224,6 @@ void MainWindow::on_CustomersButton_clicked()
 void MainWindow::on_pushButton_AddNewCustomer_clicked()
 {
    ui->stackedWidget->setCurrentIndex(15);
-   ui->lineEdit_IDCustomerInput->clear();
    ui->lineEdit_FirstNameCustomerInput->clear();
    ui->lineEdit_LastNameCustomerInput->clear();
    ui->lineEdit_CompanyCustomerInput->clear();
@@ -2229,12 +2236,8 @@ void MainWindow::on_pushButton_AddNewCustomer_clicked()
    ui->lineEdit_CountryCustomerInput->clear();
    ui->lineEdit_BankAccountCustomerInput->clear();
    ui->lineEdit_CreditLimitCustomerInput->clear();
-   ui->lineEdit_IDCustomerInput->setStyleSheet("padding: 1px;"
-                                               "background: rgb(85,170,255);"
-                                               "border-radius: 10px;");
-   ui->lineEdit_IDCustomerInput->setStyleSheet("padding: 1px;"
-                                               "background: rgb(85,170,255);"
-                                               "border-radius: 10px;");
+
+
    ui->lineEdit_FirstNameCustomerInput->setStyleSheet("padding: 1px;"
                                                "background: rgb(85,170,255);"
                                                "border-radius: 10px;");
@@ -2277,6 +2280,10 @@ void MainWindow::on_profile_7_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
 }
+
+
+
+
 
 void MainWindow::on_profile_1_clicked()
 {
@@ -2367,11 +2374,28 @@ void MainWindow::viewProject()
           ui->lineEdit_CustomerIDProjectOutput->setText(view.value(6).toString());
     }
 
-    ui->stackedWidget->setCurrentIndex(20);
+    ui->stackedWidget->setCurrentIndex(21);
 }
 
 void MainWindow::editProject()
 {
+    ui->lineEdit_NameProjectEdit->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_DescriptionProjectEdit->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_BudgetProjectEdit->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
+    ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;");
+
+    ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
+                                                   "padding: 1px;");
     QModelIndex index = ui->listView_4->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
     QSqlQuery view;
@@ -2387,23 +2411,16 @@ void MainWindow::editProject()
           ui->lineEdit_BudgetProjectEdit->setText(view.value(5).toString());
           ui->lineEdit_CustomerIDProjectEdit->setText(view.value(6).toString());
     }
-   ui->stackedWidget->setCurrentIndex(19);
+   ui->stackedWidget->setCurrentIndex(20);
 }
 
 void MainWindow::on_pushButton_AddNewProject_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(18);
-    ui->lineEdit_IDProjectInput->clear();
+    ui->stackedWidget->setCurrentIndex(19);
     ui->lineEdit_NameProjectInput->clear();
     ui->lineEdit_DescriptionProjectInput->clear();
     ui->lineEdit_BudgetProjectInput->clear();
     ui->lineEdit_CustomerIDProjectInput->clear();
-    ui->lineEdit_IDProjectInput->setStyleSheet("padding: 1px;"
-                                               "background: rgb(85,170,255);"
-                                               "border-radius: 10px;");
-    ui->lineEdit_NameProjectInput->setStyleSheet("padding: 1px;"
-                                               "background: rgb(85,170,255);"
-                                               "border-radius: 10px;");
 
     ui->lineEdit_DescriptionProjectInput->setStyleSheet("padding: 1px;"
                                                "background: rgb(85,170,255);"
@@ -2424,18 +2441,6 @@ void MainWindow::on_pushButton_AddNewProject_clicked()
 
 void MainWindow::on_pushButton_SaveAddProject_clicked()
 {
-    if(ui->lineEdit_IDProjectInput->text().isEmpty())
-    {
-        ui->lineEdit_IDProjectInput->setStyleSheet("border: 2px solid red;"
-                                                   "padding: 1px;"
-                                                   "border-radius: 10px;");
-    }
-    else
-    {
-        ui->lineEdit_IDProjectInput->setStyleSheet("border: 2px solid black;"
-                                                   "padding: 1px;"
-                                                   "border-radius: 10px;");
-    }
 
     if(ui->lineEdit_NameProjectInput->text().isEmpty())
     {
@@ -2516,14 +2521,13 @@ void MainWindow::on_pushButton_SaveAddProject_clicked()
     }
 
 
-    if((ui->lineEdit_IDProjectInput->text().isEmpty())||(ui->lineEdit_NameProjectInput->text().isEmpty())||(ui->lineEdit_DescriptionProjectInput->text().isEmpty())||(ui->dateEdit_StartDateProjectInput->text().isEmpty())||(ui->dateEdit_EndDateProjectInput->text().isEmpty())||(ui->lineEdit_BudgetProjectInput->text().isEmpty())||(ui->lineEdit_CustomerIDProjectInput->text().isEmpty()))
+    if((ui->lineEdit_NameProjectInput->text().isEmpty())||(ui->lineEdit_DescriptionProjectInput->text().isEmpty())||(ui->dateEdit_StartDateProjectInput->text().isEmpty())||(ui->dateEdit_EndDateProjectInput->text().isEmpty())||(ui->lineEdit_BudgetProjectInput->text().isEmpty())||(ui->lineEdit_CustomerIDProjectInput->text().isEmpty()))
     {
         QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
     }
     else
     {
         //récuperations des informations saisies dans les lineEdits
-        QString ID=ui->lineEdit_IDProjectInput->text();
         QString Name=ui->lineEdit_NameProjectInput->text();
         QString Description=ui->lineEdit_DescriptionProjectInput->text();
         QString StartDate=ui->dateEdit_StartDateProjectInput->text();
@@ -2533,7 +2537,7 @@ void MainWindow::on_pushButton_SaveAddProject_clicked()
 
 
         //Instantiation d'un objet de type projet en utilisant les informations saisies dans l'interface graphique
-        Project P(ID,Name,Description,StartDate,EndDate,Budget,CustomerID);
+        Project P(Name,Description,StartDate,EndDate,Budget,CustomerID);
 
         //Inserer l'objet P dans la table projet et recuperer la valeur de retour de query.exec() dans la variable test.
         bool test=P.Ajouter();
@@ -2553,25 +2557,12 @@ void MainWindow::on_pushButton_SaveAddProject_clicked()
                                               "Click Cancel to exit."), QMessageBox::Cancel);
         }
 
-        ui->stackedWidget->setCurrentIndex(17);
+        ui->stackedWidget->setCurrentIndex(18);
     }
 }
 
 void MainWindow::on_pushButton_SaveEditProject_clicked()
 {
-
-    if(ui->lineEdit_IDProjectEdit->text().isEmpty())
-    {
-        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 2px solid red;"
-                                                  "padding: 1px;"
-                                                  "border-radius: 10px;");
-    }
-    else
-    {
-        ui->lineEdit_IDProjectEdit->setStyleSheet("border: 2px solid black;"
-                                                  "padding: 1px;"
-                                                  "border-radius: 10px;");
-    }
 
     if(ui->lineEdit_NameProjectEdit->text().isEmpty())
     {
@@ -2713,23 +2704,23 @@ void MainWindow::on_pushButton_SaveEditProject_clicked()
                                               "Click Cancel to exit."), QMessageBox::Cancel);
         }
 
-        ui->stackedWidget->setCurrentIndex(17);
+        ui->stackedWidget->setCurrentIndex(18);
     }
 }
 
 void MainWindow::on_pushButton_CancelAddProject_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(17);
+    ui->stackedWidget->setCurrentIndex(18);
 }
 
 void MainWindow::on_pushButton_CancelEditProject_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(17);
+    ui->stackedWidget->setCurrentIndex(18);
 }
 
 void MainWindow::on_pushButton_Return_2_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(17);
+    ui->stackedWidget->setCurrentIndex(18);
 }
 
 void MainWindow::on_pushButton_SortProject_clicked()
@@ -2830,7 +2821,7 @@ void MainWindow::on_signOut_15_clicked()
 
 void MainWindow::on_ProjectsButton_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(17);
+     ui->stackedWidget->setCurrentIndex(18);
 }
 
 
@@ -2969,7 +2960,7 @@ void MainWindow::on_billButton_clicked()
 
     ////////////////
     ui->billListView->setModel(b.afficherList());
-    ui->stackedWidget->setCurrentIndex(33);
+    ui->stackedWidget->setCurrentIndex(35);
 }
 //choose order button from menu
 void MainWindow::on_orderButton_clicked()
@@ -2977,7 +2968,7 @@ void MainWindow::on_orderButton_clicked()
     //refresh affichage
     order o ;
     ui->orderListView->setModel(o.afficherList());
-    ui->stackedWidget->setCurrentIndex(32);
+    ui->stackedWidget->setCurrentIndex(34);
 }
 
 //Bill menu
@@ -3356,7 +3347,7 @@ else
 void MainWindow::sendMail()
 {
 
-    ui->stackedWidget->setCurrentIndex(34);
+    ui->stackedWidget->setCurrentIndex(35);
     ui->tabWidget->setCurrentIndex(0);
 
 }
@@ -3580,7 +3571,7 @@ void MainWindow::on_cancelButton_23_clicked()
 void MainWindow::on_options_clicked()
 {
     statistique();
-    ui->stackedWidget->setCurrentIndex(34);
+    ui->stackedWidget->setCurrentIndex(36);
     ui->tabWidget->setCurrentIndex(1);
 
 }
@@ -3610,7 +3601,7 @@ void MainWindow::on_sendMailButton_2_clicked()
     msg.setText("Mail sent");
        msg.exec();
 
-       ui->stackedWidget->setCurrentIndex(32);
+       ui->stackedWidget->setCurrentIndex(36);
 }
 
 
@@ -3625,7 +3616,7 @@ void MainWindow::on_cancelButton_5_clicked()
 
 void MainWindow::on_cancelButton_7_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(32);
+     ui->stackedWidget->setCurrentIndex(35);
 }
 
 void MainWindow::on_cancelButton_6_clicked()
@@ -3675,10 +3666,10 @@ void MainWindow::showContextMenuProduct(const QPoint &pos)
 
     // Create menu and insert some actions
     QMenu myMenu;
-    myMenu.addAction("View", this, SLOT(ViewItem()));
-    myMenu.addAction("Edit",  this, SLOT(EditItem()));
-    myMenu.addAction("Delete", this, SLOT(DeleteItem()));
-    myMenu.addAction("Send Email", this, SLOT(SendEmailToItem()));
+    myMenu.addAction("View Product", this, SLOT(ViewItemProduct()));
+    myMenu.addAction("Edit Product",  this, SLOT(EditItemProduct()));
+    myMenu.addAction("Delete Product", this, SLOT(DeleteItemProduct()));
+    myMenu.addAction("Send Email", this, SLOT(SendEmailToItemProduct()));
 
     // Show context menu at handling position
     myMenu.exec(globalPos);
@@ -3705,7 +3696,7 @@ void MainWindow::DeleteItemProduct()
             QMessageBox::information(nullptr, QObject::tr("Ok"),
                                      QObject::tr("Deletion of PRODUCT is successful.\n"
                                                  "Click Cancel to exit."), QMessageBox::Cancel);
-            ui->listView->setModel(P1.AfficherListe());
+            ui->listView_5->setModel(P1.AfficherListe());
         }
         else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
         {
@@ -3720,33 +3711,33 @@ void MainWindow::DeleteItemProduct()
 
 void MainWindow::ViewItemProduct()
 {
-    QModelIndex index = ui->listView->currentIndex();
+    QModelIndex index = ui->listView_5->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
     ui->tableView_2->setModel(P1.Afficher(itemText));
-    ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget->setCurrentIndex(24);
 }
 
 void MainWindow::EditItemProduct()
 {
 
-    ui->stackedWidget->setCurrentIndex(25);
+    ui->stackedWidget->setCurrentIndex(26);
 }
 
 void MainWindow::SendEmailToItemProduct()
 {
-    ui->stackedWidget->setCurrentIndex(24);
+    ui->stackedWidget->setCurrentIndex(25);
 }
 
 
 void MainWindow::on_ProductsButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(22);
+    ui->stackedWidget->setCurrentIndex(23);
 
 }
 
 void MainWindow::on_WarehouseButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(27);
+    ui->stackedWidget->setCurrentIndex(29);
 
 }
 
@@ -3758,14 +3749,14 @@ void MainWindow::on_signOut_40_clicked()
 
 void MainWindow::on_pushButton_AddNewProduct_2_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(26);
+    ui->stackedWidget->setCurrentIndex(27);
 
 
 }
 
 void MainWindow::on_pushButton_SortProduct_2_clicked()
 {
-    ui->listView->setModel(P1.Trier());
+    ui->listView_5->setModel(P1.Trier());
     QMessageBox::information(nullptr, QObject::tr("SORT "),
                              QObject::tr("sort by Sell-price Done Successfully.\n"
                                          "Click Cancel to exit."), QMessageBox::Cancel);
@@ -3791,7 +3782,6 @@ void MainWindow::on_pushButton_Search_2_clicked()
 
 void MainWindow::on_LoadData_2_clicked()
 {
-    ui->listView_5->setModel(P1.AfficherListe());
 
 }
 
@@ -3886,7 +3876,7 @@ if(test)//if (test==true)->la requete est executÃ©e->QMessageBox::information
                                     QObject::tr("Edit of PRODUCT is successful.\n"
                                                 "Click Cancel to exit."), QMessageBox::Cancel);
 
-          ui->listView->setModel(PR.AfficherListe());
+          ui->listView_5->setModel(PR.AfficherListe());
        }
        else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
        {
@@ -3895,13 +3885,13 @@ if(test)//if (test==true)->la requete est executÃ©e->QMessageBox::information
                                              "Click Cancel to exit."), QMessageBox::Cancel);
        }
 
-       ui->stackedWidget->setCurrentIndex(22);
+       ui->stackedWidget->setCurrentIndex(23);
 
 }
 
 void MainWindow::on_pushButton_CancelEditProduct_2_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(22);
+    ui->stackedWidget->setCurrentIndex(23);
 
 }
 
@@ -3970,7 +3960,7 @@ void MainWindow::on_pushButton_SaveAddProduct_2_clicked()
                                       QObject::tr("Addition of new PRODUCT is successful.\n"
                                                   "Click Cancel to exit."), QMessageBox::Cancel);
 
-             ui->listView->setModel(p.AfficherListe());
+             ui->listView_5->setModel(p.AfficherListe());
              ui->stackedWidget->setCurrentIndex(22);
          }
          else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
@@ -3978,7 +3968,7 @@ void MainWindow::on_pushButton_SaveAddProduct_2_clicked()
              QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
                                    QObject::tr("Addition of new PRODUCT failed.\n"
                                                "Click Cancel to exit."), QMessageBox::Cancel);
-             ui->stackedWidget->setCurrentIndex(22);
+             ui->stackedWidget->setCurrentIndex(23);
          }
 
     }
@@ -3994,7 +3984,7 @@ void MainWindow::on_signOut_45_clicked()
 
 void MainWindow::on_pushButton_CancelAddProduct_2_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(22);
+    ui->stackedWidget->setCurrentIndex(23);
 
 }
 
@@ -4025,9 +4015,9 @@ void MainWindow::showContextMenuWarehouse(const QPoint &pos)
 
     // Create menu and insert some actions
     QMenu myMenu;
-    myMenu.addAction("View", this, SLOT(viewWarehouse()));
-    myMenu.addAction("Edit",  this, SLOT(editWarehouse()));
-    myMenu.addAction("Delete", this, SLOT(deleteWarehouse()));
+    myMenu.addAction("View Warehouse", this, SLOT(viewWarehouse()));
+    myMenu.addAction("Edit Warehouse",  this, SLOT(editWarehouse()));
+    myMenu.addAction("Delete Warehouse", this, SLOT(deleteWarehouse()));
 
     // Show context menu at handling position
     myMenu.exec(globalPos);
@@ -4051,7 +4041,7 @@ void MainWindow::deleteWarehouse()
             QMessageBox::information(nullptr, QObject::tr("Ok"),
                                      QObject::tr("Deletion WAREHOUSE is successful.\n"
                                                  "Click Cancel to exit."), QMessageBox::Cancel);
-            ui->listView->setModel(DEPOT.AfficherListe());
+            ui->listView_6->setModel(DEPOT.AfficherListe());
         }
         else//if(test==false)->la requete n'est pas executÃ©e->QMessageBox::critical
         {
@@ -4069,23 +4059,22 @@ void MainWindow::viewWarehouse()
     QModelIndex index = ui->listView_6->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
     ui->tableView_3->setModel(DEPOT.Afficher(itemText));
-    ui->stackedWidget->setCurrentIndex(28);
+    ui->stackedWidget->setCurrentIndex(30);
 }
 
 void MainWindow::editWarehouse()
 {
-    ui->stackedWidget->setCurrentIndex(29);
+    ui->stackedWidget->setCurrentIndex(31);
 }
 
 void MainWindow::on_pushButton_AddNewWarehouse_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(30);
+    ui->stackedWidget->setCurrentIndex(32);
 
 }
 
 void MainWindow::on_LoadData_3_clicked()
 {
-    ui->listView_6->setModel(DEPOT.AfficherListe());
 }
 
 void MainWindow::on_signOut_46_clicked()
@@ -4096,7 +4085,7 @@ void MainWindow::on_signOut_46_clicked()
 
 void MainWindow::on_pushButton_Return_5_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(27);
+    ui->stackedWidget->setCurrentIndex(29);
 
 }
 
@@ -4108,7 +4097,7 @@ void MainWindow::on_signOut_47_clicked()
 
 void MainWindow::on_pushButton_CancelEditWarehouse_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(27);
+    ui->stackedWidget->setCurrentIndex(29);
 
 }
 
@@ -4171,7 +4160,7 @@ void MainWindow::on_pushButton_SaveEditWarehouse_clicked()
                                           QObject::tr("Edit of WAREHOUSE is successful.\n"
                                                       "Click Cancel to exit."), QMessageBox::Cancel);
 
-                 ui->listView->setModel(D.AfficherListe());
+                 ui->listView_6->setModel(D.AfficherListe());
              }
              else//if(test==false)->la requete n'est pas executÃƒÂ©e->QMessageBox::critical
              {
@@ -4193,7 +4182,7 @@ void MainWindow::on_signOut_49_clicked()
 
 void MainWindow::on_pushButton_CancelAddWarehouse_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(27);
+    ui->stackedWidget->setCurrentIndex(29);
 
 }
 
@@ -4247,7 +4236,7 @@ QMessageBox::information(nullptr, QObject::tr("Ok"),
                         QObject::tr("Addition of new warehouse is successful.\n"
                                     "Click Cancel to exit."), QMessageBox::Cancel);
 
-ui->listView->setModel(d.AfficherListe());
+ui->listView_6->setModel(d.AfficherListe());
 ui->stackedWidget->setCurrentIndex(27);
 }
 else//if(test==false)->la requete n'est pas executÃƒÂ©e->QMessageBox::critical
@@ -4263,18 +4252,19 @@ ui->stackedWidget->setCurrentIndex(27);
 
 void MainWindow::on_cancelButton_8_clicked()
 {
-   ui->stackedWidget->setCurrentIndex(32);
+   ui->stackedWidget->setCurrentIndex(34);
 }
-// travaille de nessrine
+//*************************************************************************************************************************
+// travail de nessrine
 void MainWindow::on_pushButtonADD_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(37);
+    ui->stackedWidget->setCurrentIndex(39);
 
 }
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(39);
+    ui->stackedWidget->setCurrentIndex(41);
     QString i = ui->listViewSupplier->currentIndex().data().toString();
     s.loadData(i);
     ui->viewID->setText(s.getid());
@@ -4302,7 +4292,7 @@ void MainWindow::on_pushButton_clicked()
     ui->lineEdit_editPhone->setText(s.gettelephone());
     ui->lineEdit_editcontTitle->setText(s.gettitle());
     ui->lineEdit_EditHomepage->setText(s.getpagacc());
-    ui->stackedWidget->setCurrentIndex(38);
+    ui->stackedWidget->setCurrentIndex(40);
 }
 
 
@@ -4410,18 +4400,18 @@ void MainWindow::on_pushButton_Add_clicked()
     }
 
 
-    ui->stackedWidget->setCurrentIndex(36);
+    ui->stackedWidget->setCurrentIndex(38);
 }
 
 void MainWindow::on_pushButton_Addcancel_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(36);
+    ui->stackedWidget->setCurrentIndex(38);
     //supplier
 }
 
 void MainWindow::on_pushButton_matAddlist_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(42);
+    ui->stackedWidget->setCurrentIndex(44);
     //page current ca depend de la nouvelle stacket wideget
 }
 
@@ -4522,12 +4512,12 @@ void MainWindow::on_pushButton_AddMaterialAdd_clicked()
         QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
     }
 
-     ui->stackedWidget->setCurrentIndex(41);
+     ui->stackedWidget->setCurrentIndex(43);
 }
 
 void MainWindow::on_pushButton_12_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(41);
+    ui->stackedWidget->setCurrentIndex(43);
     //cancel add de materielle
 }
 
@@ -4578,7 +4568,7 @@ void MainWindow::on_pushButton_statMateriel_clicked()
 
    QChartView * chartView=new QChartView(m.statmat());
       chartView ->setParent(ui->horizontalFrame);
-      ui->stackedWidget->setCurrentIndex(45);
+      ui->stackedWidget->setCurrentIndex(47);
 }
 
 void MainWindow::on_pushButton_matEditList_clicked()
@@ -4593,7 +4583,7 @@ void MainWindow::on_pushButton_matEditList_clicked()
     ui->editPrice->setText(m.getprice());
     ui->editUnit->setText(m.getUnit());
     ui->editCurrency->setText(m.getcurrency());
-    ui->stackedWidget->setCurrentIndex(43);
+    ui->stackedWidget->setCurrentIndex(45);
 }
 
 void MainWindow::on_pushButton_DeleteMatList_clicked()
@@ -4631,7 +4621,7 @@ void MainWindow::on_pushButton_DeleteMatList_clicked()
 
 void MainWindow::on_pushButton_11_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(44);
+    ui->stackedWidget->setCurrentIndex(46);
     QString i = ui->listViewMateriel->currentIndex().data().toString();
     m.loadData(i);
     ui->lineEdit_ViewMaterialID->setText(m.getid());
@@ -4647,7 +4637,7 @@ void MainWindow::on_pushButton_11_clicked()
 
 void MainWindow::on_pushButton_10_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(35);
+     ui->stackedWidget->setCurrentIndex(37);
      //pushboutton home_materielle
 }
 
@@ -4693,18 +4683,18 @@ void MainWindow::on_pushButton_confirmMaterialEdit_clicked()
                 msg.exec();
          }
 
-    ui->stackedWidget->setCurrentIndex(41);
+    ui->stackedWidget->setCurrentIndex(43);
 }
 
 void MainWindow::on_pushButton_13_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(41);
+     ui->stackedWidget->setCurrentIndex(43);
      // current index de cancel edit maerielle
 }
 
 void MainWindow::on_pushButton_14_clicked()
 {
-       ui->stackedWidget->setCurrentIndex(41);
+       ui->stackedWidget->setCurrentIndex(43);
     //return view material
 }
 
@@ -4742,7 +4732,7 @@ void MainWindow::on_pushButton_9_clicked()
 
 void MainWindow::on_pushButton_Home_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(35);
+    ui->stackedWidget->setCurrentIndex(37);
     // current page de la liste home of supplier
 }
 
@@ -4787,23 +4777,23 @@ void MainWindow::on_pushButton_EditSaveSupplier_clicked()
              msg.setText("error ");
                 msg.exec();
          }
-    ui->stackedWidget->setCurrentIndex(36);
+    ui->stackedWidget->setCurrentIndex(38);
 }
 
 void MainWindow::on_pushButton_Editcancel_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(36);
+    ui->stackedWidget->setCurrentIndex(38);
 
 }
 
 void MainWindow::on_pushButton_ViewReturn_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(36);
+     ui->stackedWidget->setCurrentIndex(38);
 }
 
 void MainWindow::on_pushButton_6_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(40);
+     ui->stackedWidget->setCurrentIndex(42);
      //send mail supplier liste
 }
 
@@ -4821,24 +4811,20 @@ void MainWindow::on_pushButton_7_clicked()
 
 void MainWindow::on_pushButton_8_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(36);
+     ui->stackedWidget->setCurrentIndex(38);
      //cancel send mail
 }
 
 void MainWindow::on_pushButton_menusupplier_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(36);
+    ui->stackedWidget->setCurrentIndex(38);
 }
 
 void MainWindow::on_pushButton_menuMaterial_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(41);
+     ui->stackedWidget->setCurrentIndex(43);
 }
 
-void MainWindow::on_pushButton_15_clicked()
-{
-       ui->stackedWidget->setCurrentIndex(41);
-}
 
 void MainWindow::on_signOut_63_clicked()
 {
@@ -5042,5 +5028,80 @@ void MainWindow::on_signOut_56_clicked()
 
 void MainWindow::on_returnstatmaterial_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(41);
+     ui->stackedWidget->setCurrentIndex(43);
+}
+
+void MainWindow::on_pushButton_return2_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(21);
+
+}
+
+void MainWindow::on_pushButton_arduino_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(33);
+
+}
+
+void MainWindow::on_pushButton_159_clicked()
+{
+    produit P1;
+
+        QPieSeries *series = new QPieSeries();
+                QSqlQuery query;
+                        query=P1.stat();
+                while(query.next())
+                {
+                    series->append(query.value(0).toString(),query.value(3).toInt());
+                }
+
+                QChart * chart=new  QChart();
+                chart->addSeries(series);
+                chart->setTitle("produit");
+
+                QChartView * chartView=new QChartView(chart);
+                chartView ->setParent(ui->horizontalFrame_78);
+                chartView->setFixedSize(ui->horizontalFrame_78->size());
+
+                ui->stackedWidget->setCurrentIndex(28);
+
+
+
+}
+
+void MainWindow::on_signOut_64_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(21);
+
+}
+
+void MainWindow::on_signOut_65_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_15_clicked()
+{
+    QPieSeries *series = new QPieSeries();
+        QSqlQuery query;
+                query=C.stat();
+        while(query.next())
+        {
+            series->append(query.value(0).toString(),query.value(12).toFloat());
+        }
+
+        QChart * chart=new  QChart();
+        chart->addSeries(series);
+        chart->setTitle("Credit limit of customers");
+
+        QChartView * chartView=new QChartView(chart);
+        chartView ->setParent(ui->horizontalFrame_3);
+        chartView->setFixedSize(ui->horizontalFrame_3->size());
+        ui->stackedWidget->setCurrentIndex(17);
+}
+
+void MainWindow::on_pushButton_16_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(11);
 }

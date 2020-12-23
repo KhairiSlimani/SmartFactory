@@ -117,3 +117,13 @@ QSqlQueryModel* produit::Trier()
     return model;
 }
 
+
+QSqlQuery produit::stat()
+{
+    QSqlQuery query ;
+    query.prepare(" SELECT *from produit");
+    query.exec();
+    return query;
+}
+
+

@@ -38,6 +38,11 @@
 #include "arduino_alcohol.h"
 #include"material.h"
 #include"suppliers.h"
+#include <QtCharts>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QLegend>
 
 
 
@@ -488,6 +493,18 @@ private slots:
      void on_signOut_56_clicked();
 
      void on_returnstatmaterial_clicked();
+
+     void on_pushButton_return2_3_clicked();
+
+     void on_pushButton_arduino_clicked();
+
+     void on_pushButton_159_clicked();
+
+     void on_signOut_64_clicked();
+
+     void on_signOut_65_clicked();
+
+     void on_pushButton_16_clicked();
 
 private:
     Ui::MainWindow *ui;

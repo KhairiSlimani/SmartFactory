@@ -36,6 +36,7 @@ public:
     bool Effacer(QString);
     bool Chercher(QString itemText);
     QSqlQueryModel* Trier();
+    QSqlQuery stat();
 
 
 

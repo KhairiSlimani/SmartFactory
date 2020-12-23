@@ -25,6 +25,7 @@ private:
 
 public:
     Customer();
+    Customer(QString,QString,QString,int,QString,QString,QString,QString,int,QString,int,float);
     Customer(QString,QString,QString,QString,int,QString,QString,QString,QString,int,QString,int,float);
 
     QString getID(){return id;}
@@ -65,6 +66,7 @@ public:
     QSqlQueryModel* Trier();
     QSqlQuery Lire(QString itemText);
     QSqlQueryModel *chercher(QString itemText);
+    QSqlQuery stat();
 
 };
 
