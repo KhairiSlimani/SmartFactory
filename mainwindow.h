@@ -228,6 +228,7 @@ private slots:
     void deleteBill();
     void viewBill();
     void editBill();
+    void PrintBill();
 
     void deleteOrder();
     void viewOrder();

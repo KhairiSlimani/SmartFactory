@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>37</number>
+     <number>36</number>
     </property>
     <widget class="QWidget" name="LoginPage">
      <widget class="QLabel" name="loginTitle">
@@ -18889,26 +18889,6 @@ border-radius:10px;</string>
           <string>Unit price :</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_60">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>91</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>order number :</string>
-         </property>
-        </widget>
         <widget class="QLineEdit" name="comments">
          <property name="geometry">
           <rect>
@@ -18923,7 +18903,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>100</y>
+           <y>70</y>
            <width>111</width>
            <height>21</height>
           </rect>
@@ -18937,16 +18917,6 @@ border-radius:10px;</string>
          </property>
          <property name="text">
           <string>quantity ordered :</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="customerID_2">
-         <property name="geometry">
-          <rect>
-           <x>360</x>
-           <y>160</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
          </property>
         </widget>
         <widget class="QLabel" name="label_63">
@@ -19043,7 +19013,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>160</y>
+           <y>140</y>
            <width>111</width>
            <height>21</height>
           </rect>
@@ -19073,7 +19043,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>50</y>
+           <y>10</y>
            <width>101</width>
            <height>21</height>
           </rect>
@@ -19099,40 +19069,14 @@ border-radius:10px;</string>
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="orderNumber">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>10</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
-         </property>
-        </widget>
         <widget class="QSpinBox" name="quantity">
          <property name="geometry">
           <rect>
            <x>130</x>
-           <y>100</y>
+           <y>70</y>
            <width>42</width>
            <height>22</height>
           </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="productCode">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>50</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
          </property>
         </widget>
         <widget class="QLabel" name="label_69">
@@ -19169,7 +19113,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>90</x>
-           <y>160</y>
+           <y>140</y>
            <width>131</width>
            <height>21</height>
           </rect>
@@ -19191,6 +19135,26 @@ border-radius:10px;</string>
            <x>360</x>
            <y>50</y>
            <width>101</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="productCode">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>10</y>
+           <width>111</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="customerID_2">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>160</y>
+           <width>111</width>
            <height>21</height>
           </rect>
          </property>
@@ -20255,16 +20219,6 @@ border-radius:10px;</string>
           <string>quantity ordered :</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="customerID_10">
-         <property name="geometry">
-          <rect>
-           <x>360</x>
-           <y>160</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
         <widget class="QLabel" name="label_355">
          <property name="geometry">
           <rect>
@@ -20425,7 +20379,7 @@ border-radius:10px;</string>
           </rect>
          </property>
          <property name="readOnly">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QSpinBox" name="quantity_10">
@@ -20436,19 +20390,6 @@ border-radius:10px;</string>
            <width>42</width>
            <height>22</height>
           </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="productCode_10">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>50</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
          </property>
         </widget>
         <widget class="QLabel" name="label_361">
@@ -20507,6 +20448,26 @@ border-radius:10px;</string>
            <x>360</x>
            <y>50</y>
            <width>101</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="productCode_10">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>50</y>
+           <width>101</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="customerID_10">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>160</y>
+           <width>111</width>
            <height>21</height>
           </rect>
          </property>
@@ -21091,7 +21052,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>60</y>
+           <y>30</y>
            <width>81</width>
            <height>21</height>
           </rect>
@@ -21111,7 +21072,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>130</y>
+           <y>100</y>
            <width>111</width>
            <height>21</height>
           </rect>
@@ -21167,19 +21128,6 @@ border-radius:10px;</string>
           <string>Shipper phone :</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="billNumber">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>10</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
-         </property>
-        </widget>
         <widget class="QLineEdit" name="shipperPhone">
          <property name="geometry">
           <rect>
@@ -21193,20 +21141,10 @@ border-radius:10px;</string>
         <widget class="QDoubleSpinBox" name="doubleSpinBox">
          <property name="geometry">
           <rect>
-           <x>120</x>
-           <y>280</y>
+           <x>130</x>
+           <y>230</y>
            <width>62</width>
            <height>22</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="orderID">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>60</y>
-           <width>113</width>
-           <height>20</height>
           </rect>
          </property>
         </widget>
@@ -21214,7 +21152,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>210</y>
+           <y>170</y>
            <width>81</width>
            <height>21</height>
           </rect>
@@ -21230,26 +21168,6 @@ border-radius:10px;</string>
           <string>release Date :</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_370">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>81</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Bill number :</string>
-         </property>
-        </widget>
         <widget class="QLineEdit" name="shipperName">
          <property name="geometry">
           <rect>
@@ -21263,8 +21181,8 @@ border-radius:10px;</string>
         <widget class="QDateEdit" name="dateEdit">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>210</y>
+           <x>120</x>
+           <y>170</y>
            <width>110</width>
            <height>22</height>
           </rect>
@@ -21274,7 +21192,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>280</y>
+           <y>230</y>
            <width>101</width>
            <height>21</height>
           </rect>
@@ -21294,7 +21212,7 @@ border-radius:10px;</string>
          <property name="geometry">
           <rect>
            <x>130</x>
-           <y>130</y>
+           <y>100</y>
            <width>91</width>
            <height>22</height>
           </rect>
@@ -21309,6 +21227,16 @@ border-radius:10px;</string>
            <string>cash</string>
           </property>
          </item>
+        </widget>
+        <widget class="QComboBox" name="orderID">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>30</y>
+           <width>121</width>
+           <height>22</height>
+          </rect>
+         </property>
         </widget>
        </widget>
        <widget class="QLabel" name="label_372">
@@ -22145,7 +22073,7 @@ border-radius:10px;</string>
           </rect>
          </property>
          <property name="readOnly">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QLineEdit" name="shipperPhone_2">
@@ -22165,16 +22093,6 @@ border-radius:10px;</string>
            <y>280</y>
            <width>62</width>
            <height>22</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="orderID_2">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>70</y>
-           <width>113</width>
-           <height>20</height>
           </rect>
          </property>
         </widget>
@@ -22277,6 +22195,16 @@ border-radius:10px;</string>
            <string>cash</string>
           </property>
          </item>
+        </widget>
+        <widget class="QComboBox" name="orderID_2">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>70</y>
+           <width>121</width>
+           <height>21</height>
+          </rect>
+         </property>
         </widget>
        </widget>
        <widget class="QLabel" name="date_16">
@@ -22604,9 +22532,9 @@ border-radius:10px;</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>10</y>
-          <width>561</width>
-          <height>411</height>
+          <y>40</y>
+          <width>571</width>
+          <height>361</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout"/>
@@ -22614,9 +22542,9 @@ border-radius:10px;</string>
        <widget class="QPushButton" name="cancelButton_8">
         <property name="geometry">
          <rect>
-          <x>540</x>
+          <x>260</x>
           <y>410</y>
-          <width>51</width>
+          <width>71</width>
           <height>20</height>
          </rect>
         </property>
@@ -22629,20 +22557,44 @@ border-radius:10px;</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">#cancelButton_5
+         <string notr="true">#cancelButton_8
 {
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);	
+background-color: transparent;
+border-width: 2px;
+border-color: rgb(85,170,255);
+border-style: solid;
+border-radius: 7;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;
 }
 
-#cancelButton_5:hover
+#cancelButton_8:hover
 {
-	background:rgb(85, 170, 255);
+background:rgb(85,170,255);
 }</string>
         </property>
         <property name="text">
          <string>return</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="employeesListTitle_5">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>-20</y>
+          <width>591</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Rounded MT Bold</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Statistic Of the quantity ordred from each product</string>
         </property>
        </widget>
       </widget>
@@ -27521,7 +27473,7 @@ QPushButton:hover
      <x>0</x>
      <y>0</y>
      <width>799</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

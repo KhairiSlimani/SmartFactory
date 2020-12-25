@@ -6,7 +6,8 @@
 #include <QDate>
 #include <QSqlQuery>
 #include <QMessageBox>
-
+#include <QPrinter>
+#include <QPainter>
 
 class bill
 {
@@ -24,8 +25,11 @@ public:
     bool edit(int id);
     QSqlQueryModel * afficherOrderedList();
     QSqlQueryModel * searchList(int id);
+    void printPDF();
     ////
     void loadData(int i );
+
+    QSqlQueryModel * fillOrderIDInBill();
 
 
     void setReleaseDate(QDate ch) {releaseDate=ch;};
@@ -45,7 +49,6 @@ public:
         QString  getOrderID() {return orderID;};
         int  getShipperNumber() {return shipperNumber;};
         double  getTotalAmount() {return totalAmount;};
-
 };
 
 #endif // BILL_H

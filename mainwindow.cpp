@@ -2837,6 +2837,7 @@ void MainWindow::statistique()
 
     QChartView * chartView=new QChartView(o.stat());
     chartView ->setParent(ui->horizontalFrame);
+    chartView->setFixedSize(ui->horizontalFrame->size());
 }
 
 //menu
@@ -2851,7 +2852,7 @@ void MainWindow::showContextMenuOrder(const QPoint &pos)
 
 
     // Show context menu at handling position
- if (ui->stackedWidget->currentIndex()==32)
+ if (ui->stackedWidget->currentIndex()==34)
  {
       myMenu1.addAction("View", this, SLOT(viewOrder()));
       myMenu1.addAction("Edit",  this, SLOT(editOrder()));
@@ -2873,11 +2874,12 @@ QMenu myMenu;
 
 
 // Show context menu at handling position
-if(ui->stackedWidget->currentIndex()==33)
+if(ui->stackedWidget->currentIndex()==35)
 {
 myMenu.addAction("View", this, SLOT(viewBill()));
 myMenu.addAction("Edit",  this, SLOT(editBill()));
 myMenu.addAction("Delete", this, SLOT(deleteBill()));
+myMenu.addAction("print", this, SLOT(PrintBill()));
 myMenu.exec(globalPos);
 }
 }
@@ -2888,8 +2890,6 @@ void MainWindow::initAddBill()
     ui->shipperName->setText("");
     QDate date = QDate::currentDate();
     ui->dateEdit->setDate(date);
-    ui->billNumber->setText("");
-    ui->orderID->setText("");
     ui->paymentMethod->setCurrentIndex(0);
     ui->shipperPhone->setText(0);
     ui->doubleSpinBox->setValue(0);
@@ -2901,7 +2901,6 @@ void MainWindow::initEditBill()
     QDate date = QDate::currentDate();
     ui->dateEdit_2->setDate(date);
     ui->billNumber_2->setText("");
-    ui->orderID_2->setText("");
     ui->paymentMethod_2->setCurrentIndex(0);
     ui->shipperPhone_2->setText(0);
     ui->doubleSpinBox_2->setValue(0);
@@ -2915,7 +2914,6 @@ void MainWindow::initEditOrder()
     QDate date = QDate::currentDate();
     ui->orderDate_10->setDate(date);
     ui->requiredDate_10->setDate(date);
-    ui->productCode_10->setText("");
     ui->extendedPrice_10->setValue(0);
     ui->status_10->setCurrentIndex(0);
 
@@ -2923,19 +2921,18 @@ void MainWindow::initEditOrder()
     ui->discount_10->setText("");
     ui->comments_10->setText("");
     ui->unitPrice_10->setValue(0);
-    ui->customerID_10->setText("");
 }
 
 void MainWindow::initAddOrder()
 {
 
-    ui->orderNumber->setText("");
+
 
     QDate date = QDate::currentDate();
     ui->orderDate->setDate(date);
      ui->requiredDate->setDate(date);
 
-    ui->productCode->setText("");
+
     ui->extendedPrice->setValue(0);
     ui->status->setCurrentIndex(0);
 
@@ -2997,7 +2994,7 @@ void MainWindow::editBill()
 
       b.loadData(i);
       ui->billNumber_2->setText(b.getBillNumber());
-      ui->orderID_2->setText(b.getOrderID());
+      ui->orderID_2->setCurrentText(b.getOrderID());
       ui->paymentMethod_2->setCurrentText(b.getPayMethod());
       ui->dateEdit_2->setDate(b.getReleaseDate());
       ui->doubleSpinBox_2->setValue(b.getTotalAmount());
@@ -3039,10 +3036,17 @@ else
 
 }
 
-
+void MainWindow::PrintBill()
+{
+    int i = ui->billListView->currentIndex().data().toInt();
+    b.loadData(i);
+    b.printPDF();
+}
 //when u push add bill button
 void MainWindow::on_addBill_clicked()
 {
+ui->orderID->setModel(b.fillOrderIDInBill());
+ui->orderID_2->setModel(b.fillOrderIDInBill());
 ui->tabWidget_3->setCurrentIndex(1);
 }
 
@@ -3074,14 +3078,14 @@ void MainWindow::on_addBill_2_clicked()
     QMessageBox msg;
     QIntValidator v(0,100000,this);
     int pos=0;
-    QString shipperPhone=ui->shipperPhone->text(),billNumber=ui->billNumber->text(),orderID=ui->orderID->text(),shipperName=ui->shipperName->text();
+    QString shipperPhone=ui->shipperPhone->text(),shipperName=ui->shipperName->text();
 
 
     QRegularExpression regex("[A-Za-z]+");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
 
 
-      if((ui->shipperPhone->text().length()==0) || (ui->billNumber->text().length()==0)  || (ui->orderID->text().length()==0)|| (ui->shipperName->text().length()==0) || (ui->doubleSpinBox->value()==0)  )
+      if((ui->shipperPhone->text().length()==0)  || (ui->shipperName->text().length()==0) || (ui->doubleSpinBox->value()==0)  )
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -3090,7 +3094,7 @@ void MainWindow::on_addBill_2_clicked()
           msgBox.exec();
 
       }
-      else if(!(v.validate(shipperPhone,pos)) || !(v.validate(billNumber,pos)) || !(v.validate(orderID,pos))  )
+      else if(!(v.validate(shipperPhone,pos)))
       {
           msg.setIcon(QMessageBox::Critical);
           msg.setText("shipperPhone,billNumber & orderID are numbers .");
@@ -3117,8 +3121,7 @@ void MainWindow::on_addBill_2_clicked()
 
             b.setShipperName (ui->shipperName->text());
             b.setReleaseDate(ui->dateEdit->date());
-            b.setBillNumber(ui->billNumber->text());
-            b.setOrderID(ui->orderID->text());
+            b.setOrderID(ui->orderID->currentText());
             b.setPayMethod(ui->paymentMethod->currentText());
             b.setShipperNumber(ui->shipperPhone->text().toInt());
             b.setTotalAmount(ui->doubleSpinBox->text().toFloat());
@@ -3169,14 +3172,14 @@ void MainWindow::on_editButton_clicked()
     QMessageBox msg;
     QIntValidator v(0,100000,this);
     int pos=0;
-    QString shipperPhone=ui->shipperPhone_2->text(),billNumber=ui->billNumber_2->text(),orderID=ui->orderID_2->text(),shipperName=ui->shipperName_2->text();
+    QString shipperPhone=ui->shipperPhone_2->text(),billNumber=ui->billNumber_2->text(),shipperName=ui->shipperName_2->text();
 
 
     QRegularExpression regex("[A-Za-z]+");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
 
 
-      if((ui->shipperPhone_2->text().length()==0) || (ui->billNumber_2->text().length()==0)  || (ui->orderID_2->text().length()==0)|| (ui->shipperName_2->text().length()==0) || (ui->doubleSpinBox_2->value()==0)  )
+      if((ui->shipperPhone_2->text().length()==0) || (ui->billNumber_2->text().length()==0)  || (ui->shipperName_2->text().length()==0) || (ui->doubleSpinBox_2->value()==0)  )
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -3185,10 +3188,10 @@ void MainWindow::on_editButton_clicked()
           msgBox.exec();
 
       }
-      else if(!(v.validate(shipperPhone,pos)) || !(v.validate(billNumber,pos)) || !(v.validate(orderID,pos))  )
+      else if(!(v.validate(shipperPhone,pos))   )
       {
           msg.setIcon(QMessageBox::Critical);
-          msg.setText("shipperPhone,billNumber & orderID are numbers .");
+          msg.setText("shipperPhone is a number .");
           msg.setStandardButtons(QMessageBox::Ok);
           msg.exec();
       }
@@ -3215,7 +3218,7 @@ void MainWindow::on_editButton_clicked()
     b.setShipperName (ui->shipperName_2->text());
     b.setReleaseDate(ui->dateEdit_2->date());
     b.setBillNumber(ui->billNumber_2->text());
-    b.setOrderID(ui->orderID_2->text());
+    b.setOrderID(ui->orderID_2->currentText());
     b.setPayMethod(ui->paymentMethod_2->currentText());
     b.setShipperNumber(ui->shipperPhone_2->text().toInt());
     b.setTotalAmount(ui->doubleSpinBox_2->text().toFloat());
@@ -3294,7 +3297,7 @@ void MainWindow::editOrder()
     int i = ui->orderListView->currentIndex().data().toInt();
      o.loadData(i);
      ui->orderNumber_10->setText(o.getOrderNumber());
-     ui->productCode_10->setText(o.getProductCode());
+     ui->productCode_10->setCurrentText(o.getProductCode());
      ui->quantity_10->setValue (o.getQuantityOrdered());
      ui->status_10->setCurrentText(o.getStatus());
      ui->orderDate_10->setDate(o.getOrderDate());
@@ -3302,7 +3305,7 @@ void MainWindow::editOrder()
      ui->discount_10->setText(o.getDiscount());
      ui->extendedPrice_10->setValue(o.getExtendedPrice());
      ui->requiredDate_10->setDate(o.getRequiredDate());
-     ui->customerID_10->setText(o.getCustomerID());
+     ui->customerID_10->setCurrentText(o.getCustomerID());
      ui->comments_10->setText(o.getComments());
 
 
@@ -3317,7 +3320,8 @@ void MainWindow::deleteOrder()
     //take the id of the element to delete
 
 int i = ui->orderListView->currentIndex().data().toInt();
-
+QString ch= o.getEmailFromClient(i);
+qDebug()<<ch;
  d.exec();
 
 if(d.getConfirm()==1)
@@ -3347,7 +3351,7 @@ else
 void MainWindow::sendMail()
 {
 
-    ui->stackedWidget->setCurrentIndex(35);
+    ui->stackedWidget->setCurrentIndex(36);
     ui->tabWidget->setCurrentIndex(0);
 
 }
@@ -3355,7 +3359,11 @@ void MainWindow::sendMail()
 
 void MainWindow::on_addOrder_clicked()
 {
-  ui->tabWidget_2->setCurrentIndex(1);
+    ui->productCode->setModel(o.fillProductIDInOrder());
+    ui->customerID_2->setModel(o.fillCustomerIDInOrder());
+    ui->productCode_10->setModel(o.fillProductIDInOrder());
+    ui->customerID_10->setModel(o.fillCustomerIDInOrder());
+    ui->tabWidget_2->setCurrentIndex(1);
 
 }
 
@@ -3368,9 +3376,9 @@ void MainWindow::on_addButton_2_clicked()
     QMessageBox msg;
     QIntValidator v(0,100000,this);
     int pos=0;
-    QString orderNumber=ui->orderNumber->text(),productCode=ui->productCode->text(),customerID=ui->customerID_2->text(),discount=ui->discount->text();
+    QString productCode=ui->productCode->currentText(),customerID=ui->customerID_2->currentText(),discount=ui->discount->text();
 
-      if((ui->orderNumber->text().length()==0) || (ui->productCode->text().length()==0) || (ui->customerID_2->text().length()==0) || (ui->comments->text().length()==0)|| (ui->discount->text().length()==0)|| (ui->quantity->value()==0) ||  (ui->unitPrice->value()==0) ||  (ui->extendedPrice->value()==0) )
+      if( (ui->comments->text().length()==0)|| (ui->discount->text().length()==0)|| (ui->quantity->value()==0) ||  (ui->unitPrice->value()==0) ||  (ui->extendedPrice->value()==0) )
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -3379,7 +3387,7 @@ void MainWindow::on_addButton_2_clicked()
           msgBox.exec();
 
       }
-      else if(!(v.validate(orderNumber,pos)) || !(v.validate(productCode,pos)) || !(v.validate(customerID,pos)) || !(v.validate(discount,pos)) )
+      else if(!(v.validate(productCode,pos)) || !(v.validate(customerID,pos)) || !(v.validate(discount,pos)) )
       {
           msg.setIcon(QMessageBox::Critical);
           msg.setText("orderNumber,productCode,customerID & discount are numbers .");
@@ -3397,8 +3405,7 @@ void MainWindow::on_addButton_2_clicked()
       {
 
 
-            o.setOrderNumber(ui->orderNumber->text());
-            o.setProductCode(ui->productCode->text());
+            o.setProductCode(ui->productCode->currentText());
             o.setQuantityOrdered(ui->quantity->text().toInt());
             o.setStatus(ui->status->currentText());
             o.setOrderDate(ui->orderDate->date());
@@ -3406,7 +3413,7 @@ void MainWindow::on_addButton_2_clicked()
             o.setDiscount(ui->discount->text());
             o.setExtendedPrice(ui->extendedPrice->text().toDouble());
             o.setRequiredDate(ui->requiredDate->date());
-            o.setCustomerID(ui->customerID_2->text());
+            o.setCustomerID(ui->customerID_2->currentText());
             o.setComments(ui->comments->text());
 
 
@@ -3450,11 +3457,11 @@ void MainWindow::on_edit_clicked()
     qDebug() << "bouton: « edit order » appuyé";
     QIntValidator v(0,100000,this);
     int pos=0;
-    QString orderNumber=ui->orderNumber_10->text(),productCode=ui->productCode_10->text(),customerID=ui->customerID_10->text(),discount=ui->discount_10->text();
+    QString orderNumber=ui->orderNumber_10->text(),productCode=ui->productCode_10->currentText(),customerID=ui->customerID_10->currentText(),discount=ui->discount_10->text();
     QMessageBox msg;
      int id = ui->orderListView->currentIndex().data().toInt();
 
-      if((ui->orderNumber_10->text().length()==0) || (ui->productCode_10->text().length()==0) || (ui->customerID_10->text().length()==0) || (ui->comments_10->text().length()==0)|| (ui->discount_10->text().length()==0) || (ui->quantity_10->value()==0) || (ui->unitPrice_10->value()==0) || (ui->extendedPrice_10->value()==0))
+      if((ui->orderNumber_10->text().length()==0) || (ui->comments_10->text().length()==0)|| (ui->discount_10->text().length()==0) || (ui->quantity_10->value()==0) || (ui->unitPrice_10->value()==0) || (ui->extendedPrice_10->value()==0))
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Critical);
@@ -3463,10 +3470,10 @@ void MainWindow::on_edit_clicked()
           msgBox.exec();
 
       }
-      else if(!(v.validate(orderNumber,pos)) || !(v.validate(productCode,pos)) || !(v.validate(customerID,pos)) || !(v.validate(discount,pos)) )
+      else if( !(v.validate(discount,pos)) )
       {
           msg.setIcon(QMessageBox::Critical);
-          msg.setText("orderNumber,productCode,customerID & discount are numbers!");
+          msg.setText(" discount is a number!");
           msg.setStandardButtons(QMessageBox::Ok);
           msg.exec();
       }
@@ -3484,7 +3491,7 @@ void MainWindow::on_edit_clicked()
 
 
             o.setOrderNumber(ui->orderNumber_10->text());
-            o.setProductCode(ui->productCode_10->text());
+            o.setProductCode(ui->productCode_10->currentText());
             o.setQuantityOrdered(ui->quantity_10->text().toInt());
             o.setStatus(ui->status_10->currentText());
             o.setOrderDate(ui->orderDate_10->date());
@@ -3492,7 +3499,7 @@ void MainWindow::on_edit_clicked()
             o.setDiscount(ui->discount_10->text());
             o.setExtendedPrice(ui->extendedPrice_10->text().toDouble());
             o.setRequiredDate(ui->requiredDate_10->date());
-            o.setCustomerID(ui->customerID_10->text());
+            o.setCustomerID(ui->customerID_10->currentText());
             o.setComments(ui->comments_10->text());
 
 
@@ -3509,7 +3516,7 @@ void MainWindow::on_edit_clicked()
               msg.setText("edit dans le tableau");
                  msg.exec();
 
-                  //reintialisation the add interface
+                  //reintialisation the edit interface
                  initEditOrder();
 
          }
@@ -3518,6 +3525,9 @@ void MainWindow::on_edit_clicked()
                msg.setIcon(QMessageBox::Critical);
              msg.setText("error ");
                 msg.exec();
+
+                //reintialisation the edit interface
+               initEditOrder();
          }
 
 
@@ -3587,21 +3597,19 @@ void MainWindow::on_sendMailButton_2_clicked()
    smtp = new Smtp("recovery.mary2000@gmail.com" , "meriam.123", "smtp.gmail.com",465);
    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
-   smtp->sendMail("recovery.mary2000@gmail.com","meriam.mhedhbi@esprit.tn",ui->subjectLineEdit->text(),ui->plainTextEdit->toPlainText());
+   smtp->sendMail("recovery.mary2000@gmail.com","meriam.mhedhbi@esprit.tn",ui->subjectLineEdit_2->text(),ui->plainTextEdit_2->toPlainText());
 
-
-
-   // reintialisation
-   ui->subjectLineEdit->setText("");
-   ui->plainTextEdit->setPlainText("");
 
 
    QMessageBox msg ;
    msg.setIcon(QMessageBox::Information);
-    msg.setText("Mail sent");
+    msg.setText("Email ready to send");
        msg.exec();
 
-       ui->stackedWidget->setCurrentIndex(36);
+       ui->stackedWidget->setCurrentIndex(34);
+       // reintialisation
+       ui->subjectLineEdit_2->setText("");
+       ui->plainTextEdit_2->setPlainText("");
 }
 
 
@@ -3616,7 +3624,9 @@ void MainWindow::on_cancelButton_5_clicked()
 
 void MainWindow::on_cancelButton_7_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(35);
+    ui->subjectLineEdit_2->setText("");
+    ui->plainTextEdit_2->setPlainText("");
+    ui->stackedWidget->setCurrentIndex(34);
 }
 
 void MainWindow::on_cancelButton_6_clicked()
@@ -5071,7 +5081,7 @@ void MainWindow::on_pushButton_159_clicked()
 
 void MainWindow::on_signOut_64_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(21);
+  ui->stackedWidget->setCurrentIndex(2);
 
 }
 

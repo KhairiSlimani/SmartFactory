@@ -5,6 +5,7 @@
         <file>images/profileIconHover.png</file>
         <file>images/signOut.png</file>
         <file>images/signOutHover.png</file>
+        <file>images/facture.jpg</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>sounds/trashSound.mp3</file>

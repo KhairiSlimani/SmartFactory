@@ -1,5 +1,6 @@
 #include "order.h"
-
+#include <QMap>
+#include <QDebug>
 order::order()
 {
         orderNumber="";
@@ -75,6 +76,7 @@ order::order()
            }
            else
            {
+
                 test= false;
 
            }
@@ -132,18 +134,32 @@ order::order()
 //statestique ///////////////////////
  QChart* order::stat()
    {
+     QMap<QString,int> map;
+
      QString ch ;
      int i;
 
     QPieSeries *series = new QPieSeries();
-    QSqlQuery query("SELECT PRODUCTCODE, QUANTITYORDERED FROM ORDERTAB;");
+    QSqlQuery query("SELECT PRODUCTNAME, QUANTITYORDERED FROM (ORDERTAB o),(PRODUIT p) WHERE (o.PRODUCTCODE=p.PRODUCTCODE) ;");
     while(query.next())
     {
        ch=query.value(0).toString();
        i=query.value(1).toInt();
-       //u need to fix this
-        series->append(ch,i);
+
+  if (map.find(ch)==map.end())
+       {
+       map.insert(ch,i);
+       }
+    else
+       {
+      map[ch]+=i;
+       }
+
     }
+
+    QMap<QString, int>::iterator it;
+    for (it = map.begin(); it != map.end(); ++it)
+    series->append(it.key(),it.value());
 
     QChart * chart=new  QChart();
     chart->addSeries(series);
@@ -177,4 +193,47 @@ order::order()
             }
 
  }
+
+ QSqlQueryModel * order::fillCustomerIDInOrder()
+ {
+   QSqlQueryModel * model=new QSqlQueryModel();
+   QSqlQuery qry ;
+   qry.prepare(" SELECT id FROM client");
+   qry.exec();
+
+   model->setQuery(qry);
+     return model;
+ }
+
+ QSqlQueryModel * order::fillProductIDInOrder()
+ {
+   QSqlQueryModel * model=new QSqlQueryModel();
+   QSqlQuery qry ;
+   qry.prepare(" SELECT productCode FROM produit");
+   qry.exec();
+
+   model->setQuery(qry);
+     return model;
+ }
+QString order::getEmailFromClient(int i)
+{
+    //not finished
+    QSqlQuery qry ;
+    QString ii = QVariant(i).toString(),ch;
+    qDebug()<<ii;
+    qry.prepare(" SELECT EMAIL FROM client c where (c.id= '"+ii+"');");
+    //qry.exec();
+    qry.next();
+    ch=qry.value(0).toString();
+
+    qDebug()<<ch;
+
+    return ch ;
+
+}
+
+
+
+
+
 

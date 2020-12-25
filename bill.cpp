@@ -60,7 +60,6 @@ bool bill::ajouter()
        }
        else
        {
-
             test= false;
 
        }
@@ -123,6 +122,17 @@ model->setQuery(qry);
 return model;
 }
 
+QSqlQueryModel * bill::fillOrderIDInBill()
+{
+  QSqlQueryModel * model=new QSqlQueryModel();
+  QSqlQuery qry ;
+  qry.prepare(" SELECT OrderNumber FROM orderTab");
+  qry.exec();
+
+  model->setQuery(qry);
+    return model;
+}
+
 QSqlQueryModel * bill::searchList(int id)
 {
 QSqlQueryModel * model=new QSqlQueryModel();
@@ -157,7 +167,56 @@ void bill::loadData(int i )
            shipperNumber=qry.value(6).toInt();
 
            }
-         qDebug()<<billNumber;
 
 }
 
+
+void bill::printPDF(){
+    QPrinter printer;
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName("C:/Users/meriam/Documents/facture.pdf");
+    QPainter painter,painter2;
+    QImage image(":/images/images/facture.jpg");
+    if (! painter.begin(&printer)) { // failed to open file
+        qWarning("failed to open file, is it writable?");
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText("On n'a pas réussi à créer le pdf.");
+        msgBox.exec();
+    }
+    else{
+        QString s = QString::number(shipperNumber);
+        QString t= QString::number(totalAmount);
+        QFont font = painter.font();
+
+        font.setPointSize(font.pointSize() * 2);
+        painter.setFont(font);
+
+        painter.setPen(Qt::darkBlue);
+        painter.drawText(40, 40, "FACTURE : ");
+        painter.setPen(Qt::blue);
+        painter.drawImage(40,640,image);
+
+        painter.drawText(330, 40, "billNumber : ");
+        painter.drawText(330, 140, "orderID :");
+        painter.drawText(330, 240, "shipperName : ");
+        painter.drawText(330, 340, "shipperNumber: ");
+        painter.drawText(330, 440, "releaseDate : ");
+        painter.drawText(330, 540, "payMethod : ");
+        painter.drawText(330, 640, "totalAmount : ");
+        painter.setPen(Qt::black);
+        painter.drawText(530, 40, this->billNumber);
+        painter.drawText(530, 140, this->orderID);
+        painter.drawText(530, 240, this->shipperName);
+        painter.drawText(530, 340, s);
+        painter.drawText(530, 440, this->releaseDate.toString("dd/MM/yyyy"));
+        painter.drawText(530, 540, this->payMethod);
+        painter.drawText(530, 640, t);
+        painter.end();
+        qDebug()<<t;
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText("Le pdf a été créé.");
+        msgBox.exec();
+    }
+}
