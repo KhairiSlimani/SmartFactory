@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>36</number>
+     <number>19</number>
     </property>
     <widget class="QWidget" name="LoginPage">
      <widget class="QLabel" name="loginTitle">
@@ -11894,48 +11894,33 @@ border-radius: 10px;
 </string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_CustomerIDProjectInput">
+      <widget class="QDateEdit" name="dateEdit_StartDateProjectInput">
        <property name="geometry">
         <rect>
-         <x>320</x>
-         <y>110</y>
+         <x>50</x>
+         <y>180</y>
          <width>141</width>
-         <height>23</height>
+         <height>22</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>11</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="styleSheet">
         <string notr="true">padding: 1px;
 background: rgb(85,170,255);
-border-radius: 10px;
+border-radius: 7px;
 </string>
-       </property>
-      </widget>
-      <widget class="QDateEdit" name="dateEdit_StartDateProjectInput">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>180</y>
-         <width>121</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-        </font>
        </property>
       </widget>
       <widget class="QDateEdit" name="dateEdit_EndDateProjectInput">
        <property name="geometry">
         <rect>
-         <x>330</x>
+         <x>320</x>
          <y>180</y>
-         <width>121</width>
+         <width>141</width>
          <height>22</height>
         </rect>
        </property>
@@ -11943,6 +11928,12 @@ border-radius: 10px;
         <font>
          <pointsize>10</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">padding: 1px;
+background: rgb(85,170,255);
+border-radius: 7px;
+</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton_SaveAddProject">
@@ -12021,6 +12012,22 @@ background:rgb(85,170,255);
        </property>
        <property name="text">
         <string>Cancel</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="customerIDInput">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>110</y>
+         <width>141</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">padding: 1px;
+background: rgb(85,170,255);
+border-radius: 10px;
+</string>
        </property>
       </widget>
      </widget>
@@ -12304,26 +12311,6 @@ background: rgb(85,170,255);
 border-radius: 10px;</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_CustomerIDProjectEdit">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>90</y>
-         <width>141</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">padding: 1px;
-background: rgb(85,170,255);
-border-radius: 10px;</string>
-       </property>
-      </widget>
       <widget class="QDateEdit" name="dateEdit_StartDateProjectEdit">
        <property name="geometry">
         <rect>
@@ -12332,6 +12319,12 @@ border-radius: 10px;</string>
          <width>110</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">padding: 1px;
+background: rgb(85,170,255);
+border-radius: 7px;
+</string>
        </property>
       </widget>
       <widget class="QDateEdit" name="dateEdit_EndDateProjectEdit">
@@ -12342,6 +12335,12 @@ border-radius: 10px;</string>
          <width>110</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">padding: 1px;
+background: rgb(85,170,255);
+border-radius: 10px;
+</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton_SaveEditProject">
@@ -12420,6 +12419,22 @@ background:rgb(85,170,255);
        </property>
        <property name="text">
         <string>Cancel</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="customerIDEdit">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>90</y>
+         <width>141</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">padding: 1px;
+background: rgb(85,170,255);
+border-radius: 10px;
+</string>
        </property>
       </widget>
      </widget>
@@ -27473,7 +27488,7 @@ QPushButton:hover
      <x>0</x>
      <y>0</y>
      <width>799</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

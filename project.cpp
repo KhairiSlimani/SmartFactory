@@ -135,3 +135,32 @@ QSqlQueryModel * Project::chercher(QString information)
     return model;
 }
 
+
+QSqlQueryModel * Project::fillCustomerIDInProject()
+{
+  QSqlQueryModel * model=new QSqlQueryModel();
+  QSqlQuery qry ;
+  qry.prepare(" SELECT ID FROM client");
+  qry.exec();
+
+  model->setQuery(qry);
+    return model;
+}
+
+void Project::loadData(int i )
+{
+   QString ch = QVariant(i).toString();
+    QSqlQuery query("select * from Projet where ID="+ch+";");
+
+        while (query.next())
+         {
+            ID=query.value(0).toString();
+            Name=query.value(1).toString();
+            Description=query.value(2).toString();
+            StartDate=query.value(3).toString();
+            EndDate=query.value(4).toString();
+            Budget=query.value(5).toFloat();
+            CustomerID=query.value(6).toString();
+        }
+
+}

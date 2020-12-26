@@ -109,26 +109,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_NameProjectInput->setPlaceholderText(" Enter Name");
     ui->lineEdit_DescriptionProjectInput->setPlaceholderText(" Enter Description");
     ui->lineEdit_BudgetProjectInput->setPlaceholderText(" Enter Budget");
-    ui->lineEdit_CustomerIDProjectInput->setPlaceholderText(" Enter Customer ID");
 
     //Place Holder For Edit Project
     ui->lineEdit_IDProjectEdit->setPlaceholderText(" Enter ID");
     ui->lineEdit_NameProjectEdit->setPlaceholderText(" Enter Name");
     ui->lineEdit_DescriptionProjectEdit->setPlaceholderText(" Enter Description");
     ui->lineEdit_BudgetProjectEdit->setPlaceholderText(" Enter Budget");
-    ui->lineEdit_CustomerIDProjectEdit->setPlaceholderText(" Enter Customer ID");
 
     //Controle de saisie des Inputs de add project:
     ui->lineEdit_NameProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_DescriptionProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->lineEdit_CustomerIDProjectInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_BudgetProjectInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
 
     //Controle de saisie des Inputs de Edit project:
     ui->lineEdit_NameProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_DescriptionProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lineEdit_IDProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
-    ui->lineEdit_CustomerIDProjectEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_BudgetProjectEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
 
     animation=new QPropertyAnimation(ui->label_134,"geometry");
@@ -2388,30 +2384,23 @@ void MainWindow::editProject()
     ui->lineEdit_BudgetProjectEdit->setStyleSheet("padding: 1px;"
                                                "background: rgb(85,170,255);"
                                                "border-radius: 10px;");
-    ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("padding: 1px;"
-                                               "background: rgb(85,170,255);"
-                                               "border-radius: 10px;");
     ui->dateEdit_StartDateProjectEdit->setStyleSheet("border: 2px solid black;"
                                                    "padding: 1px;");
 
     ui->dateEdit_EndDateProjectEdit->setStyleSheet("border: 2px solid black;"
                                                    "padding: 1px;");
-    QModelIndex index = ui->listView_4->currentIndex();
-    QString itemText = index.data(Qt::DisplayRole).toString();
-    QSqlQuery view;
-    view=P.Lire(itemText);
 
-    while(view.next())
-    {
-          ui->lineEdit_IDProjectEdit->setText(view.value(0).toString());
-          ui->lineEdit_NameProjectEdit->setText(view.value(1).toString());
-          ui->lineEdit_DescriptionProjectEdit->setText(view.value(2).toString());
-          ui->dateEdit_StartDateProjectEdit->setDate(view.value(3).toDate());
-          ui->dateEdit_EndDateProjectEdit->setDate(view.value(4).toDate());
-          ui->lineEdit_BudgetProjectEdit->setText(view.value(5).toString());
-          ui->lineEdit_CustomerIDProjectEdit->setText(view.value(6).toString());
-    }
-   ui->stackedWidget->setCurrentIndex(20);
+    int i = ui->listView_4->currentIndex().data().toInt();
+    P.loadData(i);
+
+    ui->lineEdit_IDProjectEdit->setText(P.getID());
+    ui->lineEdit_NameProjectEdit->setText(P.getName());
+    ui->lineEdit_DescriptionProjectEdit->setText(P.getDescription());
+    ui->dateEdit_StartDateProjectEdit->setDate(QDate::fromString(P.getStartDate(),"dd/MM/yyyy"));
+    ui->dateEdit_EndDateProjectEdit->setDate(QDate::fromString(P.getEndDate(),"dd/MM/yyyy"));
+    ui->lineEdit_BudgetProjectEdit->setText(QVariant(P.getBudget()).toString());
+    ui->customerIDEdit->setModel(P.fillCustomerIDInProject());
+    ui->stackedWidget->setCurrentIndex(20);
 }
 
 void MainWindow::on_pushButton_AddNewProject_clicked()
@@ -2420,20 +2409,19 @@ void MainWindow::on_pushButton_AddNewProject_clicked()
     ui->lineEdit_NameProjectInput->clear();
     ui->lineEdit_DescriptionProjectInput->clear();
     ui->lineEdit_BudgetProjectInput->clear();
-    ui->lineEdit_CustomerIDProjectInput->clear();
+    ui->customerIDInput->setModel(P.fillCustomerIDInProject());
 
+    ui->lineEdit_NameProjectInput->setStyleSheet("padding: 1px;"
+                                               "background: rgb(85,170,255);"
+                                               "border-radius: 10px;");
     ui->lineEdit_DescriptionProjectInput->setStyleSheet("padding: 1px;"
                                                "background: rgb(85,170,255);"
                                                "border-radius: 10px;");
     ui->lineEdit_BudgetProjectInput->setStyleSheet("padding: 1px;"
                                                "background: rgb(85,170,255);"
                                                "border-radius: 10px;");
-    ui->lineEdit_CustomerIDProjectInput->setStyleSheet("padding: 1px;"
-                                               "background: rgb(85,170,255);"
-                                               "border-radius: 10px;");
     ui->dateEdit_StartDateProjectInput->setStyleSheet("border: 2px solid black;"
                                                    "padding: 1px;");
-
     ui->dateEdit_EndDateProjectInput->setStyleSheet("border: 2px solid black;"
                                                    "padding: 1px;");
 }
@@ -2504,24 +2492,18 @@ void MainWindow::on_pushButton_SaveAddProject_clicked()
     {
         ui->lineEdit_BudgetProjectInput->setStyleSheet("border: 2px solid black;"
                                                        "padding: 1px;"
+
+
+
+
+
                                                        "border-radius: 10px;");
     }
 
-    if(ui->lineEdit_CustomerIDProjectInput->text().isEmpty())
-    {
-        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 2px solid red;"
-                                                           "padding: 1px;"
-                                                           "border-radius: 10px;");
-    }
-    else
-    {
-        ui->lineEdit_CustomerIDProjectInput->setStyleSheet("border: 2px solid black;"
-                                                           "padding: 1px;"
-                                                           "border-radius: 10px;");
-    }
 
 
-    if((ui->lineEdit_NameProjectInput->text().isEmpty())||(ui->lineEdit_DescriptionProjectInput->text().isEmpty())||(ui->dateEdit_StartDateProjectInput->text().isEmpty())||(ui->dateEdit_EndDateProjectInput->text().isEmpty())||(ui->lineEdit_BudgetProjectInput->text().isEmpty())||(ui->lineEdit_CustomerIDProjectInput->text().isEmpty()))
+
+    if((ui->lineEdit_NameProjectInput->text().isEmpty())||(ui->lineEdit_DescriptionProjectInput->text().isEmpty())||(ui->dateEdit_StartDateProjectInput->text().isEmpty())||(ui->dateEdit_EndDateProjectInput->text().isEmpty())||(ui->lineEdit_BudgetProjectInput->text().isEmpty()))
     {
         QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
     }
@@ -2533,7 +2515,7 @@ void MainWindow::on_pushButton_SaveAddProject_clicked()
         QString StartDate=ui->dateEdit_StartDateProjectInput->text();
         QString EndDate=ui->dateEdit_EndDateProjectInput->text();
         float Budget=ui->lineEdit_BudgetProjectInput->text().toFloat();//Conversion de la chaine saisie en un reel car Budget est de type float
-        QString CustomerID=ui->lineEdit_CustomerIDProjectInput->text();
+        QString CustomerID=ui->customerIDInput->currentText();
 
 
         //Instantiation d'un objet de type projet en utilisant les informations saisies dans l'interface graphique
@@ -2629,19 +2611,6 @@ void MainWindow::on_pushButton_SaveEditProject_clicked()
                                                       "border-radius: 10px;");
     }
 
-    if(ui->lineEdit_CustomerIDProjectEdit->text().isEmpty())
-    {
-        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 2px solid red;"
-                                                          "padding: 1px;"
-                                                          "border-radius: 10px;");
-    }
-    else
-    {
-        ui->lineEdit_CustomerIDProjectEdit->setStyleSheet("border: 2px solid black;"
-                                                          "padding: 1px;"
-                                                          "border-radius: 10px;");
-    }
-
 
     if(ui->dateEdit_StartDateProjectEdit->text()=="01/01/2000")
     {
@@ -2668,7 +2637,7 @@ void MainWindow::on_pushButton_SaveEditProject_clicked()
     }
 
 
-    if((ui->lineEdit_IDProjectEdit->text().isEmpty())||(ui->lineEdit_NameProjectEdit->text().isEmpty())||(ui->lineEdit_DescriptionProjectEdit->text().isEmpty())||(ui->dateEdit_StartDateProjectEdit->text().isEmpty())||(ui->dateEdit_EndDateProjectEdit->text().isEmpty())||(ui->lineEdit_BudgetProjectEdit->text().isEmpty())||(ui->lineEdit_CustomerIDProjectEdit->text().isEmpty()))
+    if((ui->lineEdit_IDProjectEdit->text().isEmpty())||(ui->lineEdit_NameProjectEdit->text().isEmpty())||(ui->lineEdit_DescriptionProjectEdit->text().isEmpty())||(ui->dateEdit_StartDateProjectEdit->text().isEmpty())||(ui->dateEdit_EndDateProjectEdit->text().isEmpty())||(ui->lineEdit_BudgetProjectEdit->text().isEmpty()))
     {
         QMessageBox::warning(this, tr("Warning"),tr("Please Fill The required Fields Marked In Red."), QMessageBox::Ok);
     }
@@ -2681,7 +2650,7 @@ void MainWindow::on_pushButton_SaveEditProject_clicked()
         QString StartDate=ui->dateEdit_StartDateProjectEdit->text();
         QString EndDate=ui->dateEdit_EndDateProjectEdit->text();
         float Budget=ui->lineEdit_BudgetProjectEdit->text().toFloat();//Conversion de la chaine saisie en un reel car Budget est de type float
-        QString CustomerID=ui->lineEdit_CustomerIDProjectEdit->text();
+        QString CustomerID=ui->customerIDEdit->currentText();
 
         //Instantiation d'un objet de type projet en utilisant les informations saisies dans l'interface graphique
         Project P(ID,Name,Description,StartDate,EndDate,Budget,CustomerID);

@@ -51,5 +51,7 @@ public:
     QSqlQuery Lire(QString itemText);
     QSqlQueryModel* Trier();
     QSqlQueryModel *chercher(QString information);
+    QSqlQueryModel * fillCustomerIDInProject();
+    void loadData(int i);
 };
 #endif // PROJECT_H
