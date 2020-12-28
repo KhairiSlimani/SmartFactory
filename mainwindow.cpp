@@ -3232,10 +3232,46 @@ void MainWindow::on_sort_clicked()
 
 void MainWindow::on_search_textChanged(const QString &arg1)
 {
-    int s =arg1.toInt();
-    ui->billListView->setModel(b.searchList(s));
-   if (arg1=="")
-        ui->billListView->setModel(b.afficherList());
+
+      QRegExp re("\\d*");
+    if (re.exactMatch(arg1))
+       {
+        int searched_id =arg1.toInt();
+         ui->billListView->setModel(b.searchList(searched_id));
+         if (arg1=="")
+                ui->billListView->setModel(b.afficherList());
+       }
+
+    else
+    {
+      ui->billListView->setModel(b.searchListByShipperName(arg1));
+      if (arg1=="")
+             ui->billListView->setModel(b.afficherList());
+    }
+
+}
+
+//search orders
+
+
+void MainWindow::on_searchOrder_textChanged(const QString &arg1)
+{
+
+      QRegExp re("\\d*");
+    if (re.exactMatch(arg1))
+       {
+        int searched_id =arg1.toInt();
+         ui->orderListView->setModel(o.searchList(searched_id));
+         if (arg1=="")
+                ui->orderListView->setModel(o.afficherList());
+       }
+
+    else
+    {
+      ui->orderListView->setModel(o.searchListByOrderDate(arg1));
+      if (arg1=="")
+             ui->orderListView->setModel(o.afficherList());
+    }
 
 }
 

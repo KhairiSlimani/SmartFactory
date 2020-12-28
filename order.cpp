@@ -39,7 +39,6 @@ order::order()
           QSqlQuery qry;
 
            qry.prepare("insert into ORDERTAB ("
-                       "ORDERNUMBER, "
                        "PRODUCTCODE,"
                        "QUANTITYORDERED,"
                        "STATUS,"
@@ -50,9 +49,9 @@ order::order()
                        "REQUIREDDATE,"
                        "CUSTOMERID,"
                        "COMMENTS) "
-                       "values(?,?,?,?,?,?,?,?,?,?,?)");
+                       "values(?,?,?,?,?,?,?,?,?,?)");
 
-           qry.addBindValue(getOrderNumber());
+
            qry.addBindValue(getProductCode());
            qry.addBindValue(getQuantityOrdered());
            qry.addBindValue(getStatus());
@@ -232,6 +231,37 @@ QString order::getEmailFromClient(int i)
 
 }
 
+QSqlQueryModel * order::searchList(int id)
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry ;
+
+qry.prepare("select orderNumber from ordertab where (orderNumber=:id) ");
+qry.bindValue(":id",id);
+qry.exec();
+
+model->setQuery(qry);
+
+
+
+return model;
+}
+/// problems
+QSqlQueryModel * order::searchListByOrderDate(QString commentSearched)
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry ;
+
+qry.prepare("select comments from orderTab where comments=:commentSearched ");
+qry.bindValue(":commentSearched",commentSearched);
+qry.exec();
+
+model->setQuery(qry);
+
+
+
+return model;
+}
 
 
 

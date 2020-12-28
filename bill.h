@@ -25,6 +25,8 @@ public:
     bool edit(int id);
     QSqlQueryModel * afficherOrderedList();
     QSqlQueryModel * searchList(int id);
+    QSqlQueryModel * searchListByShipperName(QString shipperNameSearched);
+
     void printPDF();
     ////
     void loadData(int i );

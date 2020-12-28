@@ -293,6 +293,7 @@ private slots:
 
      void on_signOut_23_clicked();
 
+     void on_searchOrder_textChanged(const QString &arg1);
      ////////end meriam's declaration
      //start of chedi declaration
      void showContextMenuProduct(const QPoint &pos);

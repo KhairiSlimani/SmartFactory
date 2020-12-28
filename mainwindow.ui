@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>19</number>
+     <number>34</number>
     </property>
     <widget class="QWidget" name="LoginPage">
      <widget class="QLabel" name="loginTitle">
@@ -18598,7 +18598,7 @@ background:red;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">#frame_3
+         <string notr="true">#frame_11
 {
 	border:2px solid rgb(85, 170, 255);
 }</string>
@@ -18642,7 +18642,7 @@ background:red;
           <string>Add Order</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="searchLineEdit_2">
+        <widget class="QLineEdit" name="searchOrder">
          <property name="geometry">
           <rect>
            <x>330</x>
@@ -18760,7 +18760,7 @@ border-radius:10px;</string>
          <rect>
           <x>410</x>
           <y>50</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -18801,7 +18801,7 @@ border-radius:10px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">#frame_6
+         <string notr="true">#frame_12
 {
 	border:2px solid rgb(85, 170, 255);
 }</string>
@@ -19217,7 +19217,7 @@ border-radius:10px;</string>
          <rect>
           <x>410</x>
           <y>50</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -20027,7 +20027,7 @@ border-radius:10px;</string>
          <rect>
           <x>390</x>
           <y>40</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -20530,7 +20530,7 @@ border-radius:10px;</string>
          <rect>
           <x>400</x>
           <y>50</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -20731,7 +20731,7 @@ border-radius:10px;</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="BillList">
        <attribute name="title">
@@ -20815,7 +20815,7 @@ border-radius:10px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">#frame_4
+         <string notr="true">#frame_13
 {
 	border:2px solid rgb(85, 170, 255);
 }</string>
@@ -20977,7 +20977,7 @@ border-radius:10px;</string>
          <rect>
           <x>400</x>
           <y>50</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -21314,7 +21314,7 @@ border-radius:10px;</string>
          <rect>
           <x>400</x>
           <y>50</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -21844,7 +21844,7 @@ border-radius:10px;</string>
          <rect>
           <x>390</x>
           <y>40</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -21935,7 +21935,7 @@ border-radius:10px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">#frame_13
+         <string notr="true">#frame_14
 {
 	border:2px solid rgb(85, 170, 255);
 }</string>
@@ -22227,7 +22227,7 @@ border-radius:10px;</string>
          <rect>
           <x>410</x>
           <y>60</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -22517,7 +22517,7 @@ border-radius:10px;</string>
          <rect>
           <x>400</x>
           <y>40</y>
-          <width>131</width>
+          <width>71</width>
           <height>21</height>
          </rect>
         </property>
@@ -22551,6 +22551,9 @@ border-radius:10px;</string>
           <width>571</width>
           <height>361</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-color: rgb(6, 118, 255);</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout"/>
        </widget>
@@ -27488,7 +27491,7 @@ QPushButton:hover
      <x>0</x>
      <y>0</y>
      <width>799</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

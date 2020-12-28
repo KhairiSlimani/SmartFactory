@@ -137,7 +137,8 @@ QSqlQueryModel * bill::searchList(int id)
 {
 QSqlQueryModel * model=new QSqlQueryModel();
 QSqlQuery qry ;
-qry.prepare("select BILLNUMBER from bill where BILLNUMBER=:id");
+
+qry.prepare("select billnumber from bill where (BILLNUMBER=:id) ");
 qry.bindValue(":id",id);
 qry.exec();
 
@@ -147,6 +148,24 @@ model->setQuery(qry);
 
 return model;
 }
+
+QSqlQueryModel * bill::searchListByShipperName(QString shipperNameSearched)
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry ;
+
+qry.prepare("select shippername from bill where (SHIPPERNAME=:shipperNameSearched) ");
+qry.bindValue(":shipperNameSearched",shipperNameSearched);
+qry.exec();
+
+model->setQuery(qry);
+
+
+
+return model;
+}
+
+
 
 void bill::loadData(int i )
 {
