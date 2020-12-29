@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>34</number>
+     <number>21</number>
     </property>
     <widget class="QWidget" name="LoginPage">
      <widget class="QLabel" name="loginTitle">
@@ -4932,50 +4932,11 @@ border-radius: 14px;
 }</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_SortCustomers">
-       <property name="geometry">
-        <rect>
-         <x>360</x>
-         <y>110</y>
-         <width>111</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#pushButton_SortCustomers
-{
-background-color: transparent;
-border-width: 2px;
-border-color: rgb(85,170,255);
-border-style: solid;
-border-radius: 10px;
-padding: 3px;
-padding-left: 5px;
-padding-right: 5px;
-}
-
-#pushButton_SortCustomers:hover
-{
-background:rgb(85,170,255);
-}</string>
-       </property>
-       <property name="text">
-        <string>Sort Customers</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="pushButton_AddNewCustomer">
        <property name="geometry">
         <rect>
-         <x>348</x>
-         <y>150</y>
+         <x>350</x>
+         <y>160</y>
          <width>141</width>
          <height>23</height>
         </rect>
@@ -5024,7 +4985,7 @@ background: rgb(85,170,255);
        <property name="geometry">
         <rect>
          <x>380</x>
-         <y>200</y>
+         <y>210</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -5058,6 +5019,62 @@ background: rgb(85,170,255);
        <property name="text">
         <string>statistics</string>
        </property>
+      </widget>
+      <widget class="QComboBox" name="comboBoxSortCustomers">
+       <property name="geometry">
+        <rect>
+         <x>340</x>
+         <y>100</y>
+         <width>161</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#comboBoxSortCustomers
+{
+background-color: transparent;
+border-width: 2px;
+border-color: rgb(85,170,255);
+border-style: solid;
+border-radius: 7px;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+#comboBoxSortCustomers:hover
+{
+background: rgb(85,170,255);
+}</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Sort Customers By:</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ID</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>First Name</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Credit Limit</string>
+        </property>
+       </item>
       </widget>
      </widget>
     </widget>
@@ -11526,50 +11543,11 @@ background:rgb(85,170,255);
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="pushButton_SortProject">
-       <property name="geometry">
-        <rect>
-         <x>360</x>
-         <y>110</y>
-         <width>101</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#pushButton_SortProject
-{
-background-color: transparent;
-border-width: 2px;
-border-color: rgb(85,170,255);
-border-style: solid;
-border-radius: 8px;
-padding: 3px;
-padding-left: 5px;
-padding-right: 5px;
-}
-
-#pushButton_SortProject:hover
-{
-background:rgb(85,170,255);
-}</string>
-       </property>
-       <property name="text">
-        <string>Sort Projects</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="pushButton_AddNewProject">
        <property name="geometry">
         <rect>
-         <x>334</x>
-         <y>150</y>
+         <x>335</x>
+         <y>160</y>
          <width>151</width>
          <height>23</height>
         </rect>
@@ -11632,6 +11610,62 @@ border: 2px rgb(85,170,255);
 border-radius: 14px;
 }</string>
        </property>
+      </widget>
+      <widget class="QComboBox" name="comboBoxSortProject">
+       <property name="geometry">
+        <rect>
+         <x>340</x>
+         <y>110</y>
+         <width>141</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#comboBoxSortProject
+{
+background-color: transparent;
+border-width: 2px;
+border-color: rgb(85,170,255);
+border-style: solid;
+border-radius: 7;
+padding: 3px;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+#comboBoxSortProject:hover
+{
+background:rgb(85,170,255);
+}</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Sort Projects By:</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ID</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Budget</string>
+        </property>
+       </item>
       </widget>
      </widget>
     </widget>
@@ -27491,7 +27525,7 @@ QPushButton:hover
      <x>0</x>
      <y>0</y>
      <width>799</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

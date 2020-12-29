@@ -112,7 +112,7 @@ QSqlQuery Project::Lire(QString itemText)
 
 
 
-QSqlQueryModel* Project::Trier()
+QSqlQueryModel* Project::Trier_Budget()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
     QSqlQuery qry ;
@@ -122,6 +122,29 @@ QSqlQueryModel* Project::Trier()
     model->setQuery(qry);
     return model;
 }
+
+QSqlQueryModel* Project::Trier_ID()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery qry ;
+    qry.prepare(" SELECT ID FROM PROJET ORDER BY ID DESC");
+    qry.exec();
+
+    model->setQuery(qry);
+    return model;
+}
+
+QSqlQueryModel* Project::Trier_Name()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery qry ;
+    qry.prepare(" SELECT ID FROM PROJET ORDER BY NAME DESC");
+    qry.exec();
+
+    model->setQuery(qry);
+    return model;
+}
+
 
 
 

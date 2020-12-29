@@ -136,11 +136,32 @@ bool Customer::Effacer(QString itemText)
 }
 
 
-QSqlQueryModel* Customer::Trier()
+QSqlQueryModel* Customer::Trier_CreditLimit()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
     QSqlQuery qry ;
     qry.prepare(" SELECT ID FROM CLIENT ORDER BY CREDITLIMIT DESC");
+    qry.exec();
+
+    model->setQuery(qry);
+    return model;
+}
+QSqlQueryModel* Customer::Trier_ID()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery qry ;
+    qry.prepare(" SELECT ID FROM CLIENT ORDER BY ID DESC");
+    qry.exec();
+
+    model->setQuery(qry);
+    return model;
+}
+
+QSqlQueryModel* Customer::Trier_FirstName()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery qry ;
+    qry.prepare(" SELECT ID FROM CLIENT ORDER BY FIRSTNAME DESC");
     qry.exec();
 
     model->setQuery(qry);

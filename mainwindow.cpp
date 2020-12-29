@@ -68,7 +68,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_PhoneNumberCustomerInput->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));//input must be from 7 to 15 dgits
     ui->lineEdit_BankAccountCustomerInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));//leading digit must be 1 to 9 (prevents leading zeroes)
     ui->lineEdit_CreditLimitCustomerInput->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*")));
-    //ui->lineEdit_IDCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));//input must be a code ascii character
     ui->lineEdit_CompanyCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_WebsiteCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_AdressCustomerInput->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
@@ -2191,14 +2190,39 @@ void MainWindow::on_pushButton_Send_clicked()
     msg=ui->plainTextEdit->toPlainText();
     smtp->sendMail("p.florallo@gmail.com",ui->lineEdit_Email->text(),ui->lineEdit_Subject->text(),msg);
 }
-
-void MainWindow::on_pushButton_SortCustomers_clicked()
+void MainWindow::on_comboBoxSortCustomers_currentTextChanged(const QString &arg1)
 {
-    ui->listView_3->setModel(C.Trier());
+     QString information =arg1;
+    if(information=="ID")
+    {
 
-    QMessageBox::information(nullptr, QObject::tr("Ok"),
-                             QObject::tr("Sort of list of clients successful.\n"
-                                         "Click Cancel to exit."), QMessageBox::Cancel);
+        ui->listView_3->setModel(C.Trier_ID());
+
+        QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                 QObject::tr("Sort of list of clients by ID successful.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+
+    if(information=="First Name")
+    {
+
+        ui->listView_3->setModel(C.Trier_FirstName());
+
+        QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                 QObject::tr("Sort of list of clients by first name successful.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+
+    if(information=="Credit Limit")
+    {
+
+        ui->listView_3->setModel(C.Trier_CreditLimit());
+
+        QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                 QObject::tr("Sort of list of clients by credit limit successful.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+
 
 }
 
@@ -2677,6 +2701,41 @@ void MainWindow::on_pushButton_SaveEditProject_clicked()
     }
 }
 
+void MainWindow::on_comboBoxSortProject_currentTextChanged(const QString &arg1)
+{
+    QString information =arg1;
+   if(information=="ID")
+   {
+
+       ui->listView_4->setModel(P.Trier_ID());
+
+       QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                QObject::tr("Sort of list of Projects by ID successful.\n"
+                                            "Click Cancel to exit."), QMessageBox::Cancel);
+   }
+
+   if(information=="Name")
+   {
+
+       ui->listView_4->setModel(P.Trier_Name());
+
+       QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                QObject::tr("Sort of list of Projects by name successful.\n"
+                                            "Click Cancel to exit."), QMessageBox::Cancel);
+   }
+
+   if(information=="Budget")
+   {
+
+       ui->listView_4->setModel(P.Trier_Budget());
+
+       QMessageBox::information(nullptr, QObject::tr("Ok"),
+                                QObject::tr("Sort of list of projects by budgets successful.\n"
+                                            "Click Cancel to exit."), QMessageBox::Cancel);
+   }
+
+}
+
 void MainWindow::on_pushButton_CancelAddProject_clicked()
 {
     ui->stackedWidget->setCurrentIndex(18);
@@ -2692,13 +2751,6 @@ void MainWindow::on_pushButton_Return_2_clicked()
     ui->stackedWidget->setCurrentIndex(18);
 }
 
-void MainWindow::on_pushButton_SortProject_clicked()
-{
-    ui->listView_4->setModel(P.Trier());
-    QMessageBox::information(nullptr, QObject::tr("Ok"),
-                             QObject::tr("Sort of list of clients successful.\n"
-                                         "Click Cancel to exit."), QMessageBox::Cancel);
-}
 
 void MainWindow::on_lineEdit_SearchProject_textChanged(const QString &arg1)
 {
@@ -5120,3 +5172,7 @@ void MainWindow::on_pushButton_16_clicked()
 {
     ui->stackedWidget->setCurrentIndex(11);
 }
+
+
+
+

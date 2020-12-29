@@ -49,7 +49,9 @@ public:
     QSqlQueryModel* AfficherListe();
     bool Effacer(QString);
     QSqlQuery Lire(QString itemText);
-    QSqlQueryModel* Trier();
+    QSqlQueryModel* Trier_Budget();
+    QSqlQueryModel* Trier_ID();
+    QSqlQueryModel* Trier_Name();
     QSqlQueryModel *chercher(QString information);
     QSqlQueryModel * fillCustomerIDInProject();
     void loadData(int i);

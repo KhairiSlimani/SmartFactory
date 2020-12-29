@@ -142,8 +142,6 @@ private slots:
 
     void on_pushButton_Send_clicked();
 
-    void on_pushButton_SortCustomers_clicked();
-
     void on_lineEdit_SearchCustomer_textChanged(const QString &arg1);
 
     void on_CustomersButton_clicked();
@@ -184,8 +182,6 @@ private slots:
     void on_pushButton_CancelEditProject_clicked();
 
     void on_pushButton_Return_2_clicked();
-
-    void on_pushButton_SortProject_clicked();
 
     void on_lineEdit_SearchProject_textChanged(const QString &arg1);
 
@@ -507,6 +503,10 @@ private slots:
      void on_signOut_65_clicked();
 
      void on_pushButton_16_clicked();
+
+     void on_comboBoxSortCustomers_currentTextChanged(const QString &arg1);
+
+     void on_comboBoxSortProject_currentTextChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

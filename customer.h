@@ -67,6 +67,9 @@ public:
     QSqlQuery Lire(QString itemText);
     QSqlQueryModel *chercher(QString itemText);
     QSqlQuery stat();
+    QSqlQueryModel* Trier_CreditLimit();
+    QSqlQueryModel* Trier_ID();
+    QSqlQueryModel* Trier_FirstName();
 
 };
 
