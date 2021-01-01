@@ -64,6 +64,7 @@ public:
 public slots:
     void appendMessage(const QString &from, const QString &message);
 
+
 private slots:
     void on_signInButton_clicked();
     void on_goToSignUpButton_clicked();
@@ -517,6 +518,21 @@ private slots:
      void on_sortButton_3_clicked();
 
      void on_sortButton_2_clicked();
+
+     void on_sort_totalAmount_clicked();
+
+     void on_sort_releaseDate_clicked();
+
+     void on_sort_shipperName_clicked();
+
+     void on_sort_order_clicked();
+
+     void on_sort_discount_clicked();
+
+     void on_sort_orderDate_clicked();
+
+     void on_sort_orderID_clicked();
+
 
 private:
     Ui::MainWindow *ui;

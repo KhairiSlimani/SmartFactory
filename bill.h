@@ -24,8 +24,11 @@ public:
     bool supprimer(int id);
     bool edit(int id);
     QSqlQueryModel * afficherOrderedList();
-    QSqlQueryModel * searchList(int id);
-    QSqlQueryModel * searchListByShipperName(QString shipperNameSearched);
+    QSqlQueryModel * searchList(QString ch);
+
+    QSqlQueryModel * afficherOrderedListByShipperName();
+    QSqlQueryModel * afficherOrderedListByReleaseDate();
+    QSqlQueryModel * afficherOrderedListByTotalAmount();
 
     void printPDF();
     ////

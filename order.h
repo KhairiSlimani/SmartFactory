@@ -33,8 +33,11 @@ class order
         QSqlQueryModel * fillCustomerIDInOrder();
         QString getEmailFromClient(int i);
 
-        QSqlQueryModel * searchListByOrderDate(QString orderDate);
-        QSqlQueryModel * searchList(int id);
+        QSqlQueryModel * afficherOrderedListByDiscount();
+        QSqlQueryModel * afficherOrderedListByOrderID();
+        QSqlQueryModel * afficherOrderedListByOrderDate();
+
+        QSqlQueryModel * searchList(QString ch);
 
          void setOrderNumber(QString ch) {orderNumber=ch;};
          void setProductCode(QString ch) {productCode=ch;};

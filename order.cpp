@@ -173,7 +173,6 @@ order::order()
     QString ch = QVariant(i).toString();
      QSqlQuery qry("select * from ORDERTAB where ORDERNUMBER = "+ch+";");
 
-
          while (qry.next())
           {
 
@@ -190,6 +189,7 @@ order::order()
             comments=qry.value(10).toString();
 
             }
+         qDebug()<<"order date"<<orderDate;
 
  }
 
@@ -217,27 +217,41 @@ order::order()
 QString order::getEmailFromClient(int i)
 {
     //not finished
-    QSqlQuery qry ;
-    QString ii = QVariant(i).toString(),ch;
+    QString ii = QVariant(i).toString(),ch,ch1;
+
+    QSqlQuery qry1("SELECT customerID FROM ordertab where (ordernumber='"+ii+"');") ;
+
     qDebug()<<ii;
-    qry.prepare(" SELECT EMAIL FROM client c where (c.id= '"+ii+"');");
-    //qry.exec();
-    qry.next();
-    ch=qry.value(0).toString();
+
+    while(qry1.next())
+    {
+        ch1=qry1.value(0).toString();
+    }
+
+    QSqlQuery qry("SELECT EMAIL FROM client where (id= '"+ch1+"');") ;
+
+    qDebug()<<ii;
+
+    while(qry.next())
+    {
+        ch=qry.value(0).toString();
+    }
 
     qDebug()<<ch;
 
     return ch ;
 
+
+
 }
 
-QSqlQueryModel * order::searchList(int id)
+QSqlQueryModel * order::searchList(QString ch)
 {
 QSqlQueryModel * model=new QSqlQueryModel();
 QSqlQuery qry ;
 
-qry.prepare("select orderNumber from ordertab where (orderNumber=:id) ");
-qry.bindValue(":id",id);
+qry.prepare("select orderNumber from ordertab where (orderNumber=:id) OR (PRODUCTCODE=:id) OR (customerID=:id) OR (status=:id)");
+qry.bindValue(":id",ch);
 qry.exec();
 
 model->setQuery(qry);
@@ -246,19 +260,39 @@ model->setQuery(qry);
 
 return model;
 }
-/// problems
-QSqlQueryModel * order::searchListByOrderDate(QString commentSearched)
+
+QSqlQueryModel * order::afficherOrderedListByDiscount()
 {
 QSqlQueryModel * model=new QSqlQueryModel();
 QSqlQuery qry ;
-
-qry.prepare("select comments from orderTab where comments=:commentSearched ");
-qry.bindValue(":commentSearched",commentSearched);
+qry.prepare(" SELECT ORDERNUMBER FROM orderTab ORDER BY DISCOUNT DESC");
 qry.exec();
 
 model->setQuery(qry);
 
+return model;
+}
 
+QSqlQueryModel * order::afficherOrderedListByOrderID()
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry ;
+qry.prepare(" SELECT ORDERNUMBER FROM orderTab ORDER BY ORDERNUMBER DESC");
+qry.exec();
+
+model->setQuery(qry);
+
+return model;
+}
+
+QSqlQueryModel * order::afficherOrderedListByOrderDate()
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry ;
+qry.prepare(" SELECT ORDERNUMBER FROM orderTab ORDER BY ORDERDATE DESC");
+qry.exec();
+
+model->setQuery(qry);
 
 return model;
 }

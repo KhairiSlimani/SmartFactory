@@ -108,16 +108,38 @@ bool bill::edit(int id)
     return qry.exec();
 }
 
-QSqlQueryModel * bill::afficherOrderedList()
+QSqlQueryModel * bill::afficherOrderedListByTotalAmount()
 {
 QSqlQueryModel * model=new QSqlQueryModel();
 QSqlQuery qry ;
-qry.prepare(" SELECT BILLNUMBER FROM BILL ORDER BY BILLNUMBER DESC");
+qry.prepare(" SELECT BILLNUMBER FROM BILL ORDER BY TotalAmount DESC");
 qry.exec();
 
 model->setQuery(qry);
 
+return model;
+}
 
+QSqlQueryModel * bill::afficherOrderedListByReleaseDate()
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry ;
+qry.prepare(" SELECT BILLNUMBER FROM BILL ORDER BY releaseDate DESC");
+qry.exec();
+
+model->setQuery(qry);
+
+return model;
+}
+
+QSqlQueryModel * bill::afficherOrderedListByShipperName()
+{
+QSqlQueryModel * model=new QSqlQueryModel();
+QSqlQuery qry ;
+qry.prepare(" SELECT BILLNUMBER FROM BILL ORDER BY shipperName DESC");
+qry.exec();
+
+model->setQuery(qry);
 
 return model;
 }
@@ -133,38 +155,18 @@ QSqlQueryModel * bill::fillOrderIDInBill()
     return model;
 }
 
-QSqlQueryModel * bill::searchList(int id)
+QSqlQueryModel * bill::searchList(QString ch)
 {
 QSqlQueryModel * model=new QSqlQueryModel();
-QSqlQuery qry ;
+QSqlQuery qry;
 
-qry.prepare("select billnumber from bill where (BILLNUMBER=:id) ");
-qry.bindValue(":id",id);
+qry.prepare("select billnumber from bill where (BILLNUMBER=:id) OR (ORDERID=:id) OR (totalamount=:id)");
+qry.bindValue(":id",ch);
 qry.exec();
 
 model->setQuery(qry);
-
-
-
 return model;
 }
-
-QSqlQueryModel * bill::searchListByShipperName(QString shipperNameSearched)
-{
-QSqlQueryModel * model=new QSqlQueryModel();
-QSqlQuery qry ;
-
-qry.prepare("select shippername from bill where (SHIPPERNAME=:shipperNameSearched) ");
-qry.bindValue(":shipperNameSearched",shipperNameSearched);
-qry.exec();
-
-model->setQuery(qry);
-
-
-
-return model;
-}
-
 
 
 void bill::loadData(int i )
@@ -194,9 +196,9 @@ void bill::printPDF(){
     QPrinter printer;
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setOutputFileName("C:/Users/meriam/Documents/facture.pdf");
-    QPainter painter,painter2;
+    QPainter painter;
     QImage image(":/images/images/facture.jpg");
-    if (! painter.begin(&printer)) { // failed to open file
+   if (! painter.begin(&printer)) { // failed to open file
         qWarning("failed to open file, is it writable?");
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Critical);
