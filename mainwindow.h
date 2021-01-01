@@ -508,6 +508,16 @@ private slots:
 
      void on_comboBoxSortProject_currentTextChanged(const QString &arg1);
 
+     void on_accessButton_2_clicked();
+
+     void on_accessButton_3_clicked();
+
+     void on_accessButton_4_clicked();
+
+     void on_sortButton_3_clicked();
+
+     void on_sortButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPropertyAnimation *animation;

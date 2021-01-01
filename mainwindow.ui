@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>17</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="LoginPage">
      <widget class="QLabel" name="loginTitle">
@@ -320,9 +320,9 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="pageTitle2">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>80</y>
-        <width>451</width>
+        <x>310</x>
+        <y>70</y>
+        <width>361</width>
         <height>51</height>
        </rect>
       </property>
@@ -418,50 +418,10 @@ p, li { white-space: pre-wrap; }
        <string>Sign Up</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="jobTitleBox">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>280</y>
-        <width>141</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <item>
-       <property name="text">
-        <string>HR Agent</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Depot Employee</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Project and Services Employee</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Laboratory Employee</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Stock Employee</string>
-       </property>
-      </item>
-     </widget>
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>400</x>
+        <x>360</x>
         <y>290</y>
         <width>61</width>
         <height>16</height>
@@ -478,6 +438,36 @@ p, li { white-space: pre-wrap; }
       <property name="text">
        <string>Job Title</string>
       </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>280</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>HR Agent</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Laboratory Employee</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Project &amp; Services Employee</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Stock Employee</string>
+       </property>
+      </item>
      </widget>
     </widget>
     <widget class="QWidget" name="page">
@@ -538,10 +528,10 @@ p, li { white-space: pre-wrap; }
      <widget class="QFrame" name="frame_3">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>140</y>
-        <width>241</width>
-        <height>191</height>
+        <x>500</x>
+        <y>130</y>
+        <width>271</width>
+        <height>241</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -568,7 +558,7 @@ p, li { white-space: pre-wrap; }
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>10</pointsize>
+         <pointsize>11</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -589,7 +579,7 @@ p, li { white-space: pre-wrap; }
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>10</pointsize>
+         <pointsize>11</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -630,7 +620,7 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_6">
         <property name="geometry">
          <rect>
-          <x>60</x>
+          <x>70</x>
           <y>10</y>
           <width>141</width>
           <height>16</height>
@@ -661,7 +651,7 @@ p, li { white-space: pre-wrap; }
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>10</pointsize>
+         <pointsize>11</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -673,16 +663,16 @@ p, li { white-space: pre-wrap; }
       <widget class="QLabel" name="viewID">
        <property name="geometry">
         <rect>
-         <x>110</x>
+         <x>90</x>
          <y>40</y>
-         <width>151</width>
+         <width>181</width>
          <height>31</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>10</pointsize>
+         <pointsize>11</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -697,16 +687,16 @@ p, li { white-space: pre-wrap; }
       <widget class="QLabel" name="viewPassword">
        <property name="geometry">
         <rect>
-         <x>110</x>
+         <x>90</x>
          <y>80</y>
-         <width>151</width>
+         <width>181</width>
          <height>31</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>10</pointsize>
+         <pointsize>11</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -721,16 +711,16 @@ p, li { white-space: pre-wrap; }
       <widget class="QLabel" name="viewJobTitle">
        <property name="geometry">
         <rect>
-         <x>110</x>
+         <x>90</x>
          <y>120</y>
-         <width>151</width>
+         <width>181</width>
          <height>31</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>9</pointsize>
+         <pointsize>11</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -748,7 +738,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>496</x>
         <y>76</y>
-        <width>91</width>
+        <width>51</width>
         <height>21</height>
        </rect>
       </property>
@@ -764,10 +754,10 @@ p, li { white-space: pre-wrap; }
      <widget class="QFrame" name="frame_5">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>140</y>
-        <width>241</width>
-        <height>191</height>
+        <x>210</x>
+        <y>130</y>
+        <width>271</width>
+        <height>241</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -787,7 +777,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>241</width>
+         <width>271</width>
          <height>31</height>
         </rect>
        </property>
@@ -814,7 +804,7 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_7">
         <property name="geometry">
          <rect>
-          <x>60</x>
+          <x>70</x>
           <y>10</y>
           <width>141</width>
           <height>16</height>
@@ -837,8 +827,8 @@ p, li { white-space: pre-wrap; }
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>60</y>
-         <width>241</width>
+         <y>80</y>
+         <width>271</width>
          <height>31</height>
         </rect>
        </property>
@@ -872,8 +862,8 @@ p, li { white-space: pre-wrap; }
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>120</y>
-         <width>241</width>
+         <y>200</y>
+         <width>271</width>
          <height>31</height>
         </rect>
        </property>
@@ -903,13 +893,118 @@ p, li { white-space: pre-wrap; }
         <string>Chat</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="accessButton_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>40</y>
+         <width>271</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#accessButton_2
+{
+	background:transparent;
+	border-radius:15px;
+}
+
+#accessButton_2:hover
+{
+	color:red;
+}
+
+</string>
+       </property>
+       <property name="text">
+        <string>Access </string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="accessButton_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>120</y>
+         <width>271</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#accessButton_3
+{
+	background:transparent;
+	border-radius:15px;
+}
+
+#accessButton_3:hover
+{
+	color:red;
+}
+
+</string>
+       </property>
+       <property name="text">
+        <string>Access </string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="accessButton_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>160</y>
+         <width>271</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#accessButton_4
+{
+	background:transparent;
+	border-radius:15px;
+}
+
+#accessButton_4:hover
+{
+	color:red;
+}
+
+</string>
+       </property>
+       <property name="text">
+        <string>Access </string>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="date">
       <property name="geometry">
        <rect>
-        <x>600</x>
+        <x>560</x>
         <y>72</y>
-        <width>91</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -962,7 +1057,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>496</x>
         <y>40</y>
-        <width>91</width>
+        <width>51</width>
         <height>21</height>
        </rect>
       </property>
@@ -978,7 +1073,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="time">
       <property name="geometry">
        <rect>
-        <x>600</x>
+        <x>560</x>
         <y>36</y>
         <width>151</width>
         <height>31</height>
@@ -1076,7 +1171,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>600</x>
         <y>70</y>
-        <width>91</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -1440,7 +1535,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>580</x>
         <y>60</y>
-        <width>91</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -1478,7 +1573,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>360</x>
-         <y>120</y>
+         <y>80</y>
          <width>91</width>
          <height>31</height>
         </rect>
@@ -1528,7 +1623,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>330</x>
-         <y>170</y>
+         <y>130</y>
          <width>151</width>
          <height>31</height>
         </rect>
@@ -1596,7 +1691,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>330</x>
-         <y>220</y>
+         <y>280</y>
          <width>151</width>
          <height>31</height>
         </rect>
@@ -1623,6 +1718,73 @@ border:2px solid rgb(85, 170, 255);
        </property>
        <property name="text">
         <string>Statistic By Job Title</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="sortButton_2">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>230</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>7</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#sortButton_2
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+#sortButton_2:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Sort Employees By First Name</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="sortButton_3">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>180</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#sortButton_3
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+#sortButton_3:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Sort Employees By ID</string>
        </property>
       </widget>
      </widget>
@@ -1741,7 +1903,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>340</y>
+         <y>350</y>
          <width>51</width>
          <height>51</height>
         </rect>
@@ -1767,7 +1929,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>590</x>
         <y>60</y>
-        <width>91</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -1840,7 +2002,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>220</x>
         <y>120</y>
-        <width>521</width>
+        <width>541</width>
         <height>321</height>
        </rect>
       </property>
@@ -1860,7 +2022,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>280</y>
+         <y>230</y>
          <width>61</width>
          <height>16</height>
         </rect>
@@ -1877,32 +2039,10 @@ border:2px solid rgb(85, 170, 255);
         <string>Hire Date</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="idLineEdit_3">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>20</y>
-         <width>171</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#idLineEdit_3
-{
-		border-radius:15px;
-		border:2px solid rgb(85, 170, 255);
-}</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="salaryLineEdit">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>120</y>
          <width>171</width>
          <height>31</height>
@@ -1924,8 +2064,8 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QPushButton" name="cancelButton">
        <property name="geometry">
         <rect>
-         <x>410</x>
-         <y>270</y>
+         <x>280</x>
+         <y>280</y>
          <width>71</width>
          <height>31</height>
         </rect>
@@ -1959,7 +2099,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>230</y>
+         <y>180</y>
          <width>61</width>
          <height>16</height>
         </rect>
@@ -1979,8 +2119,8 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="firstNameLineEdit">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>70</y>
+         <x>20</x>
+         <y>20</y>
          <width>171</width>
          <height>31</height>
         </rect>
@@ -2001,7 +2141,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="adressLineEdit">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>20</y>
          <width>171</width>
          <height>31</height>
@@ -2023,7 +2163,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="phoneNumberLineEdit">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>70</y>
          <width>171</width>
          <height>31</height>
@@ -2041,12 +2181,15 @@ border:2px solid rgb(85, 170, 255);
 		border:2px solid rgb(85, 170, 255);
 }</string>
        </property>
+       <property name="maxLength">
+        <number>8</number>
+       </property>
       </widget>
       <widget class="QPushButton" name="addButton">
        <property name="geometry">
         <rect>
-         <x>330</x>
-         <y>270</y>
+         <x>190</x>
+         <y>280</y>
          <width>71</width>
          <height>31</height>
         </rect>
@@ -2079,7 +2222,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLabel" name="label_14">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>290</x>
          <y>230</y>
          <width>61</width>
          <height>16</height>
@@ -2100,9 +2243,9 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QComboBox" name="jobTitleBox_2">
        <property name="geometry">
         <rect>
-         <x>380</x>
+         <x>350</x>
          <y>220</y>
-         <width>131</width>
+         <width>181</width>
          <height>31</height>
         </rect>
        </property>
@@ -2113,12 +2256,7 @@ border:2px solid rgb(85, 170, 255);
        </item>
        <item>
         <property name="text">
-         <string>Depot Employee</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Project and Services Employee</string>
+         <string>Project &amp; Services Employee</string>
         </property>
        </item>
        <item>
@@ -2136,7 +2274,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>180</y>
+         <y>130</y>
          <width>61</width>
          <height>16</height>
         </rect>
@@ -2156,8 +2294,8 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="lastNameLineEdit">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>120</y>
+         <x>20</x>
+         <y>70</y>
          <width>171</width>
          <height>31</height>
         </rect>
@@ -2179,7 +2317,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>220</y>
+         <y>170</y>
          <width>110</width>
          <height>31</height>
         </rect>
@@ -2189,7 +2327,7 @@ border:2px solid rgb(85, 170, 255);
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>270</y>
+         <y>220</y>
          <width>110</width>
          <height>31</height>
         </rect>
@@ -2198,7 +2336,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="emailLineEdit">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>170</y>
          <width>171</width>
          <height>31</height>
@@ -2220,8 +2358,8 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QRadioButton" name="femaleRadioButton">
        <property name="geometry">
         <rect>
-         <x>169</x>
-         <y>175</y>
+         <x>160</x>
+         <y>125</y>
          <width>61</width>
          <height>18</height>
         </rect>
@@ -2236,8 +2374,8 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QRadioButton" name="maleRadioButton">
        <property name="geometry">
         <rect>
-         <x>101</x>
-         <y>175</y>
+         <x>100</x>
+         <y>125</y>
          <width>44</width>
          <height>18</height>
         </rect>
@@ -2369,8 +2507,8 @@ border:2px solid rgb(85, 170, 255);
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>140</y>
-        <width>521</width>
+        <y>120</y>
+        <width>541</width>
         <height>311</height>
        </rect>
       </property>
@@ -2389,7 +2527,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="adressLineEdit_2">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>20</y>
          <width>171</width>
          <height>31</height>
@@ -2446,7 +2584,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="lastNameLineEdit_2">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>120</y>
          <width>171</width>
          <height>31</height>
@@ -2468,7 +2606,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="salaryLineEdit_2">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>120</y>
          <width>171</width>
          <height>31</height>
@@ -2490,7 +2628,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLabel" name="label_15">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>290</x>
          <y>230</y>
          <width>61</width>
          <height>16</height>
@@ -2510,11 +2648,11 @@ border:2px solid rgb(85, 170, 255);
       </widget>
       <widget class="QLineEdit" name="idLineEdit_4">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>20</y>
          <width>171</width>
          <height>31</height>
@@ -2536,7 +2674,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLabel" name="label_23">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>280</y>
          <width>61</width>
          <height>16</height>
@@ -2557,7 +2695,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="phoneNumberLineEdit_2">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>70</y>
          <width>171</width>
          <height>31</height>
@@ -2579,9 +2717,9 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QComboBox" name="jobTitleBox_3">
        <property name="geometry">
         <rect>
-         <x>380</x>
+         <x>350</x>
          <y>220</y>
-         <width>131</width>
+         <width>181</width>
          <height>31</height>
         </rect>
        </property>
@@ -2592,12 +2730,7 @@ border:2px solid rgb(85, 170, 255);
        </item>
        <item>
         <property name="text">
-         <string>Depot Employee</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Project and Services Employee</string>
+         <string>Project &amp; Services Employee</string>
         </property>
        </item>
        <item>
@@ -2614,7 +2747,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLabel" name="label_61">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>180</y>
          <width>61</width>
          <height>16</height>
@@ -2635,7 +2768,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="firstNameLineEdit_2">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>70</y>
          <width>171</width>
          <height>31</height>
@@ -2657,7 +2790,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QWidget" name="layoutWidget_3">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>90</x>
          <y>169</y>
          <width>131</width>
          <height>31</height>
@@ -2683,7 +2816,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLabel" name="label_24">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>230</y>
          <width>61</width>
          <height>16</height>
@@ -2704,7 +2837,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QDateEdit" name="hireDateEdit_2">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>90</x>
          <y>270</y>
          <width>110</width>
          <height>31</height>
@@ -2751,7 +2884,7 @@ border:2px solid rgb(85, 170, 255);
        </property>
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>90</x>
          <y>220</y>
          <width>110</width>
          <height>31</height>
@@ -2761,7 +2894,7 @@ border:2px solid rgb(85, 170, 255);
       <widget class="QLineEdit" name="emailLineEdit_2">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>350</x>
          <y>170</y>
          <width>171</width>
          <height>31</height>
@@ -2804,7 +2937,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>590</x>
         <y>60</y>
-        <width>91</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -3256,7 +3389,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>590</x>
         <y>60</y>
-        <width>91</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -3912,7 +4045,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>594</x>
         <y>60</y>
-        <width>91</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -4150,7 +4283,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>594</x>
         <y>60</y>
-        <width>91</width>
+        <width>81</width>
         <height>31</height>
        </rect>
       </property>
@@ -4381,7 +4514,7 @@ border:2px solid rgb(85, 170, 255);
        <rect>
         <x>594</x>
         <y>40</y>
-        <width>91</width>
+        <width>81</width>
         <height>31</height>
        </rect>
       </property>

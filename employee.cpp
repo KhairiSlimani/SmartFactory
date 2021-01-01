@@ -109,13 +109,38 @@ QSqlQueryModel * Employee :: sort()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
     QSqlQuery query ;
-    query.prepare("select id from Employee order by salary desc");
+    query.prepare("SELECT ID FROM EMPLOYEE ORDER BY SALARY DESC");
     query.exec();
-
+    query.next();
     model->setQuery(query);
 
     return model;
 }
+
+QSqlQueryModel * Employee :: sortID()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery query ;
+    query.prepare("SELECT ID FROM EMPLOYEE ORDER BY ID DESC");
+    query.exec();
+    query.next();
+    model->setQuery(query);
+
+    return model;
+}
+
+QSqlQueryModel * Employee :: sortFirstName()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery query ;
+    query.prepare("SELECT ID FROM EMPLOYEE ORDER BY FIRSTNAME DESC");
+    query.exec();
+    query.next();
+    model->setQuery(query);
+
+    return model;
+}
+
 
 bool Employee::searchID(QString info)
 {

@@ -184,7 +184,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Place Holder
     ui->searchLineEdit->setPlaceholderText("  Enter Employee ID...");
-    ui->idLineEdit_3->setPlaceholderText("  Enter ID");
     ui->firstNameLineEdit->setPlaceholderText("  Enter First Name");
     ui->lastNameLineEdit->setPlaceholderText("  Enter Last Name");
     ui->phoneNumberLineEdit->setPlaceholderText("  Enter Phone Number");
@@ -194,10 +193,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->subjectLineEdit->setPlaceholderText("Subject");
 
     //Controle De Saisie
-    ui->idLineEdit_3->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->firstNameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->lastNameLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->phoneNumberLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{7,15}")));
+    ui->phoneNumberLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
     ui->adressLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->salaryLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
     ui->idLineEdit_4->setValidator(new QRegExpValidator(QRegExp("[0-9]{7}")));
@@ -205,7 +203,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lastNameLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->phoneNumberLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
     ui->adressLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
-    ui->salaryLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]")));
+    ui->salaryLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
 
     //************************************************************************************************************************
 
@@ -509,6 +507,7 @@ void MainWindow::showTime()
     ui->date2->setText(datetimetext);
     ui->date3->setText(datetimetext);
     ui->date4->setText(datetimetext);
+    ui->date_8->setText(datetimetext);
     ui->date_1->setText(datetimetext);
     ui->date_10->setText(datetimetext);
     ui->date_11->setText(datetimetext);
@@ -733,42 +732,73 @@ void MainWindow::on_signInButton_clicked()
                 if(view.value(2).toString() == "HR Agent")
                 {
                     ui->access1Button->setText("Employees");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
+
                 }
                 else if(view.value(2).toString() == "Depot Employee")
                 {
                     ui->access1Button->setText("Depots");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "Project and Services Employee")
                 {
                     ui->access1Button->setText("Project and Services");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "Laboratory Employee")
                 {
                     ui->access1Button->setText("Laboratories");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "Stock Employee")
                 {
                     ui->access1Button->setText("Stocks");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 if(view.value(2).toString() == "HR Agent")
                 {
                     ui->access1Button->setText("Employees");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "Depot Employee")
                 {
                     ui->access1Button->setText("Depots");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "Project and Services Employee")
                 {
                     ui->access1Button->setText("Project and Services");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "Laboratory Employee")
                 {
                     ui->access1Button->setText("Laboratories");
+                    ui->accessButton_2->hide();
+                    ui->accessButton_3->hide();
+                    ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "CEO")
                 {
                     ui->access1Button->setText("Employees");
+                    ui->accessButton_2->setText("Project and Services");
+                    ui->accessButton_3->setText("Laboratories");
+                    ui->accessButton_4->setText("Stock");
                 }
 
                  ui->viewID->setText(view.value(0).toString());
@@ -823,14 +853,16 @@ void MainWindow::on_SignUpButton_clicked()
      {
          id = ui->idLineEdit_2->text();
          password = ui->passwordLineEdit_2->text();
-         jobTitle = ui->jobTitleBox->currentText();
+         jobTitle = ui->comboBox->currentText();
 
          Profile P(id,password,jobTitle);
 
          bool test_2 = P.searchIDSignUp(id);
          if(test_2)
          {
+             qDebug()<<jobTitle;
              bool test_3=P.searchJobTitleSignUp(id,jobTitle);
+             qDebug()<<test_3;
              if(test_3)
              {
                  bool test_4=P.search(id);
@@ -986,6 +1018,62 @@ void MainWindow::on_access1Button_clicked()
 
 
 }
+
+void MainWindow::on_accessButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(11);
+
+    //animation
+
+    animation1=new QPropertyAnimation(ui->billButton,"geometry");
+    animation1->setDuration(5000);
+    animation1->setStartValue(ui->billButton->geometry());
+    animation1->setEndValue(ui->orderButton->geometry());
+    animation1->start();
+
+    animation1=new QPropertyAnimation(ui->orderButton,"geometry");
+    animation1->setDuration(5000);
+    animation1->setStartValue(ui->orderButton->geometry());
+    animation1->setEndValue(ui->billButton->geometry());
+    animation1->start();
+
+    animation1=new QPropertyAnimation(ui->CustomersButton,"geometry");
+    animation1->setDuration(5000);
+    animation1->setStartValue(ui->CustomersButton->geometry());
+    animation1->setEndValue(ui->ProjectsButton->geometry());
+    animation1->start();
+
+    animation1=new QPropertyAnimation(ui->ProjectsButton,"geometry");
+    animation1->setDuration(5000);
+    animation1->setStartValue(ui->ProjectsButton->geometry());
+    animation1->setEndValue(ui->CustomersButton->geometry());
+    animation1->start();
+
+}
+
+void MainWindow::on_accessButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(37);
+
+    animation1=new QPropertyAnimation(ui->pushButton_menusupplier,"geometry");
+    animation1->setDuration(5000);
+    animation1->setStartValue(ui->pushButton_menusupplier->geometry());
+    animation1->setEndValue(ui->pushButton_menuMaterial->geometry());
+    animation1->start();
+
+    animation1=new QPropertyAnimation(ui->pushButton_menuMaterial,"geometry");
+    animation1->setDuration(5000);
+    animation1->setStartValue(ui->pushButton_menuMaterial->geometry());
+    animation1->setEndValue(ui->pushButton_menusupplier->geometry());
+    animation1->start();
+
+}
+
+void MainWindow::on_accessButton_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(21);
+}
+
 
 void MainWindow::on_access2Button_clicked()
 {
@@ -1178,12 +1266,6 @@ void MainWindow::on_addButton_clicked()
     QString email;
 
 
-    if(ui->idLineEdit_3->text().isEmpty())
-    {
-        ui->idLineEdit_3->setStyleSheet("border: 2px solid red;");
-        test=false;
-    }
-
     if(ui->phoneNumberLineEdit->text().isEmpty())
     {
         ui->phoneNumberLineEdit->setStyleSheet("border: 2px solid red;");
@@ -1240,13 +1322,9 @@ void MainWindow::on_addButton_clicked()
     if(test)
     {
         Employee EE;
-        bool testID = EE.searchID(ui->idLineEdit_3->text());
 
-        if(testID == false)
-        {
             phoneNumber = ui->phoneNumberLineEdit->text().toInt();
             salary = ui->salaryLineEdit->text().toFloat();
-            id = ui->idLineEdit_3->text();
             firstName = ui->firstNameLineEdit->text();
             lastName = ui->lastNameLineEdit->text();
             adresse = ui->adressLineEdit->text();
@@ -1263,8 +1341,8 @@ void MainWindow::on_addButton_clicked()
                 QMessageBox :: information(nullptr, QObject :: tr("Add Employee"),
                                            QObject::tr("Employee Added"),QMessageBox::Cancel);
 
+                loadData();
                 ui->stackedWidget->setCurrentIndex(4);
-                ui->idLineEdit_3->clear();
                 ui->firstNameLineEdit->clear();
                 ui->lastNameLineEdit->clear();
                 ui->adressLineEdit->clear();
@@ -1279,13 +1357,6 @@ void MainWindow::on_addButton_clicked()
 
             }
 
-        }
-        else
-        {
-            QMessageBox::warning(this, tr("Warning"),tr("This ID is already exist!"), QMessageBox::Ok);
-            ui->idLineEdit_3->setStyleSheet("border: 2px solid red;");
-        }
-
     }
     else
     {
@@ -1298,7 +1369,6 @@ void MainWindow::on_cancelButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
     loadData();
-    ui->idLineEdit_3->clear();
     ui->firstNameLineEdit->clear();
     ui->lastNameLineEdit->clear();
     ui->adressLineEdit->clear();
@@ -1397,6 +1467,8 @@ void MainWindow::on_saveButton_2_clicked()
             QMessageBox :: information(nullptr, QObject :: tr("Update Employee"),
                                        QObject::tr("Employee Updated"),QMessageBox::Cancel);
 
+            loadData();
+            ui->stackedWidget->setCurrentIndex(4);
             ui->idLineEdit_4->clear();
             ui->firstNameLineEdit_2->clear();
             ui->lastNameLineEdit_2->clear();
@@ -1491,7 +1563,7 @@ void MainWindow::sendEmailToEmployee()
     Employee E;
     view=E.read(info);
 
-    mail=view.value(8).toString();
+    mail=view.value(10).toString();
 
     ui->stackedWidget->setCurrentIndex(8);
 }
@@ -1503,7 +1575,7 @@ void MainWindow::on_sendMailButton_clicked()
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
     msg=ui->plainTextEdit->toPlainText();
-
+    qDebug()<<mail;
     smtp->sendMail("human.resources.florallo@gmail.com",mail,ui->subjectLineEdit->text(),msg);
 
     //QMessageBox :: information(nullptr, QObject :: tr("Send Mail"),
@@ -1601,14 +1673,14 @@ void MainWindow::viewEmployee()
           ui->viewID_2->setText(view.value(0).toString());
           ui->viewFirstName->setText(view.value(1).toString());
           ui->viewLastName->setText(view.value(2).toString());
-          ui->viewBirthDate->setText(view.value(5).toString());
+          ui->viewBirthDate->setText(view.value(4).toString());
           ui->viewSex->setText(view.value(3).toString());
-          ui->viewAdress->setText(view.value(4).toString());
-          ui->viewPhoneNumber->setText(view.value(9).toString());
-          ui->viewSalary->setText(view.value(10).toString());
-          ui->viewHireDate->setText(view.value(6).toString());
-          ui->viewJobTitle_2->setText(view.value(7).toString());
-          ui->viewEmail->setText(view.value(8).toString());
+          ui->viewAdress->setText(view.value(6).toString());
+          ui->viewPhoneNumber->setText(view.value(7).toString());
+          ui->viewSalary->setText(view.value(8).toString());
+          ui->viewHireDate->setText(view.value(5).toString());
+          ui->viewJobTitle_2->setText(view.value(9).toString());
+          ui->viewEmail->setText(view.value(10).toString());
 
 
     ui->stackedWidget->setCurrentIndex(7);
@@ -1626,10 +1698,10 @@ void MainWindow::editEmployee()
           ui->idLineEdit_4->setText(view.value(0).toString());
           ui->firstNameLineEdit_2->setText(view.value(1).toString());
           ui->lastNameLineEdit_2->setText(view.value(2).toString());
-          ui->adressLineEdit_2->setText(view.value(4).toString());
-          ui->phoneNumberLineEdit_2->setText(view.value(9).toString());
-          ui->salaryLineEdit_2->setText(view.value(10).toString());
-          ui->emailLineEdit_2->setText(view.value(8).toString());
+          ui->adressLineEdit_2->setText(view.value(6).toString());
+          ui->phoneNumberLineEdit_2->setText(view.value(7).toString());
+          ui->salaryLineEdit_2->setText(view.value(8).toString());
+          ui->emailLineEdit_2->setText(view.value(10).toString());
           if(view.value(3).toString()=="male")
           {
               ui->maleRadioButton_2->setChecked(true);
@@ -5173,6 +5245,18 @@ void MainWindow::on_pushButton_16_clicked()
     ui->stackedWidget->setCurrentIndex(12);
 }
 
+void MainWindow::on_sortButton_3_clicked()
+{
+    Employee E;
+    QSqlQueryModel *model=new QSqlQueryModel();
+    model=E.sortID();
+    ui->listView->setModel(model);
+}
 
-
-
+void MainWindow::on_sortButton_2_clicked()
+{
+    Employee E;
+    QSqlQueryModel *model=new QSqlQueryModel();
+    model=E.sortFirstName();
+    ui->listView->setModel(model);
+}

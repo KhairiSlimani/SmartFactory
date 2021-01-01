@@ -83,7 +83,7 @@ bool Profile::searchIDSignUp(QString info)
 bool Profile::searchJobTitleSignUp(QString id,QString jobTitle)
 {
     QSqlQuery query;
-    query.prepare("select'"+id+"'from Employee where JobTitle='"+jobTitle+"'");
+    query.prepare("select'"+id+"'from EMPLOYEE where JOBTITLE='"+jobTitle+"'");
     query.exec();
     if(query.next())
     {

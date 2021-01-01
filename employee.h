@@ -16,7 +16,6 @@ protected:
     float salary;
     QString id,firstName,lastName,sex,adresse,birthDate,hireDate,jobTitle,email;
 
-
 public:
     //Constructors
     Employee();
@@ -55,6 +54,8 @@ public:
     QSqlQueryModel * loadData();
     QSqlQueryModel * search(QString);
     QSqlQueryModel * sort();
+    QSqlQueryModel * sortID();
+    QSqlQueryModel * sortFirstName();
     bool searchID(QString);
 };
 
