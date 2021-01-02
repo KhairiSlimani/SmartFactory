@@ -21,6 +21,7 @@ CONFIG += c++11
 SOURCES += \
     arduino.cpp \
     arduino_alcohol.cpp \
+    arduino_temperature.cpp \
     bill.cpp \
     chatconnection.cpp \
     client.cpp \
@@ -44,6 +45,7 @@ SOURCES += \
 HEADERS += \
     arduino.h \
     arduino_alcohol.h \
+    arduino_temperature.h \
     bill.h \
     chatconnection.h \
     client.h \
@@ -65,6 +67,7 @@ HEADERS += \
 
 FORMS += \
     arduino_alcohol.ui \
+    arduino_temperature.ui \
     deleteconfirmation.ui \
     mainwindow.ui
 

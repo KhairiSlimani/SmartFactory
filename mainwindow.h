@@ -532,7 +532,23 @@ private slots:
      void on_sort_orderDate_clicked();
 
      void on_sort_orderID_clicked();
+     //// nessrine'work
 
+     void showContextMenuSupplier(const QPoint &pos);
+     void showContextMenuMaterial(const QPoint &pos);
+     void deleteSupplier();
+     void viewSupplier();
+     void editSupplier();
+     void SendMail();
+
+
+     void deleteMaterial();
+     void viewMaterial();
+     void editMaterial();
+
+
+     void on_print_clicked();
+    //void update_label2();//arduino nesrine
 
 private:
     Ui::MainWindow *ui;

@@ -187,8 +187,9 @@ return test;
    QChart* material::statmat()
    {
 
+
        QPieSeries *series = new QPieSeries();
-          QSqlQuery query("SELECT ID, QUANTITY FROM MATERIAL;");
+          QSqlQuery query("SELECT NAME, QUANTITY FROM MATERIAL;");
           while(query.next())
           {
               series->append(query.value(0).toString(),query.value(1).toInt());

@@ -15,7 +15,7 @@ public:
     QSerialPort* getserial(); //accesseur
     QString getArduino_port_name();
     int write_to_arduino2(QByteArray d);//write yesmine & meriam
-
+      QByteArray read_from_arduino2();//nessrine
 private:
     QSerialPort* serial;
     static const quint16 arduino_uno_vendor_id = 9025;

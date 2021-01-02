@@ -206,7 +206,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->salaryLineEdit_2->setValidator(new QRegExpValidator(QRegExp("[0-9]+")));
 
     //************************************************************************************************************************
-
+  //nersrine's work//
+    //Supplier list
+    ui->listViewSupplier->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->listViewSupplier, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenuSupplier(QPoint)));
+     //Material List
+     ui->listViewMateriel->setContextMenuPolicy(Qt::CustomContextMenu);
+     connect(ui->listViewMateriel, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenuMaterial(QPoint)));
 
     ///meriam's work ///
 
@@ -318,18 +324,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     // travail de nesrine
 
+    animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
+          animation->setDuration(5000);
+          animation->setStartValue(ui->pushButton_statMateriel->geometry());
+          animation->setEndValue(ui->pushButton_statMateriel->geometry());
+          animation->start();
 
-       animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
-       animation->setDuration(5000);
-       animation->setStartValue(ui->pushButton_statMateriel->geometry());
-       animation->setEndValue(ui->pushButton_statMateriel->geometry());
-       animation->start();
+          animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
+          animation->setDuration(5000);
+          animation->setStartValue(ui->pushButton_statMateriel->geometry());
+          animation->setEndValue(ui->pushButton_statMateriel->geometry());
+          animation->start();
 
-       animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
-       animation->setDuration(5000);
-       animation->setStartValue(ui->pushButton_statMateriel->geometry());
-       animation->setEndValue(ui->pushButton_statMateriel->geometry());
-       animation->start();
 
 
     //controle de saisie de fournisseurs de la modification
@@ -387,6 +393,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     ////
     QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));*/
+    //nesrine's Work
+   /* switch (ret) {
+    case (0): qDebug()<<"arduino is avaible and connected to :"<<a.getarduino_port_name();
+        break;
+    case(1):qDebug()<<"arduino is not availble but not connect to :"<< a.getarduino_port_name();
+        break;
+    case(-1): qDebug()<<"arduino is not available  ";
+    }
+    QObject::connect(a.getserial(),SIGNAL(readyRead()),this,SLOT(update_label2()));*/
+
 
 
 }
@@ -438,7 +454,34 @@ void MainWindow::update_label()
 
 }
 /////
+/// \brief MainWindow::showTime
+///
+//arduino nesrine
+/*void MainWindow::update_label2()
+{
 
+
+        if( !data.contains('n') && !data.contains('r') )
+{    data = A.read_from_arduino2();
+    float nb = data.toFloat();
+    bool ok;
+    if(data.toHex().toInt(&ok,16)==1)// serialWrite("1")  condition
+       {
+            D.setModal(true);
+            D.exec();
+       }
+               else
+       {
+            D.hide();
+       }
+    qDebug() << nb << endl;
+
+}
+   // qDebug() << data << endl;
+
+
+
+}*/
 void MainWindow::showTime()
 {
     QTime time=QTime::currentTime();
@@ -542,6 +585,37 @@ void MainWindow::showTime()
     ui->date_35->setText(datetimetext);
 
 }
+//nessrine
+void MainWindow::showContextMenuMaterial(const QPoint &pos)
+{
+    // Handle global position
+    QPoint globalPos = ui->listViewMateriel->mapToGlobal(pos);
+
+    // Create menu and insert some actions
+    QMenu myMenu;
+    myMenu.addAction("Delete",  this, SLOT(deleteMaterial()));
+    myMenu.addAction("View", this, SLOT(viewMaterial()));
+    myMenu.addAction("Edit", this, SLOT(editMaterial()));
+
+    // Show context menu at handling position
+    myMenu.exec(globalPos);
+}
+void MainWindow::showContextMenuSupplier(const QPoint &pos)
+{
+    // Handle global position
+    QPoint globalPos = ui->listViewSupplier->mapToGlobal(pos);
+
+    // Create menu and insert some actions
+    QMenu myMenu;
+    myMenu.addAction("Delete",  this, SLOT(deleteSupplier()));
+    myMenu.addAction("View", this, SLOT(viewSupplier()));
+    myMenu.addAction("Edit", this, SLOT(editSupplier()));
+    myMenu.addAction("Send Email", this, SLOT(SendMail()));
+
+    // Show context menu at handling position
+    myMenu.exec(globalPos);
+}
+
 
 void MainWindow::showContextMenuCustomers(const QPoint &pos)
 {
@@ -4401,7 +4475,7 @@ void MainWindow::on_pushButtonADD_clicked()
 
 }
 
-void MainWindow::on_pushButton_5_clicked()
+/*void MainWindow::on_pushButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(41);
     QString i = ui->listViewSupplier->currentIndex().data().toString();
@@ -4416,9 +4490,9 @@ void MainWindow::on_pushButton_5_clicked()
     ui->viewtitle->setText(s.gettitle());
     ui->viewhomepage->setText(s.getpagacc());
 
-}
+}*/
 
-void MainWindow::on_pushButton_clicked()
+/*void MainWindow::on_pushButton_clicked()
 {
     QString i = ui->listViewSupplier->currentIndex().data().toString();
     s.loadData(i);
@@ -4432,8 +4506,7 @@ void MainWindow::on_pushButton_clicked()
     ui->lineEdit_editcontTitle->setText(s.gettitle());
     ui->lineEdit_EditHomepage->setText(s.getpagacc());
     ui->stackedWidget->setCurrentIndex(40);
-}
-
+}*/
 
 void MainWindow::on_pushButton_Add_clicked()
 {
@@ -4705,74 +4778,13 @@ void MainWindow::on_pushButton_statMateriel_clicked()
 {
     material m;
 
-   QChartView * chartView=new QChartView(m.statmat());
-      chartView ->setParent(ui->horizontalFrame);
+    QChartView * chartView=new QChartView(m.statmat());
+    chartView ->setParent(ui->horizontalFrame_2);
+
       ui->stackedWidget->setCurrentIndex(47);
 }
 
-void MainWindow::on_pushButton_matEditList_clicked()
-{
-    QString i = ui->listViewMateriel->currentIndex().data().toString();
-    m.loadData(i);
-    ui->editID->setText(m.getid());
-    ui->editDescription->setText(m.getDescription());
-    ui->editName->setText(m.getName());
-    ui->editSupplierID->setText(m.getSupplierID());
-    ui->editQuantity->setText(m.getQuantity());
-    ui->editPrice->setText(m.getprice());
-    ui->editUnit->setText(m.getUnit());
-    ui->editCurrency->setText(m.getcurrency());
-    ui->stackedWidget->setCurrentIndex(45);
-}
 
-void MainWindow::on_pushButton_DeleteMatList_clicked()
-{
-   // deleteconfirmation d;
-    DeleteConfirmation d;
-       QMessageBox msg;
-
-
-
-    d.exec();
-
-   if(d.getConfirm()==1)
-    {
-       bool test= m.deleteMaterial(ui->listViewMateriel->currentIndex().data().toString());
-
-       //refresh affichage
-       ui->listViewMateriel->setModel(m.afficherList());
-
-       if(test==true)
-           {
-
-            msg.setText("material deleted ");
-            msg.exec();
-           }
-
-   }
-   else
-   {
-
-        msg.setText("error ");
-        msg.exec();
-   }
-}
-
-void MainWindow::on_pushButton_11_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(46);
-    QString i = ui->listViewMateriel->currentIndex().data().toString();
-    m.loadData(i);
-    ui->lineEdit_ViewMaterialID->setText(m.getid());
-    ui->lineEdit_ViewMatDes->setText(m.getDescription());
-    ui->lineEdit_ViewMatName->setText(m.getName());
-    ui->lineEdit_ViewMatSuppID->setText(m.getSupplierID());
-    ui->lineEdit_ViewMatQuantite->setText(m.getQuantity());
-    ui->lineEdit_ViewMatPrice->setText(m.getprice());
-    ui->lineEdit_ViewMatUnit->setText(m.getUnit());
-    ui->lineEdit_ViewMatcurrency->setText(m.getcurrency());
-
-}
 
 void MainWindow::on_pushButton_10_clicked()
 {
@@ -4837,37 +4849,7 @@ void MainWindow::on_pushButton_14_clicked()
     //return view material
 }
 
-void MainWindow::on_pushButton_9_clicked()
-{
 
-    DeleteConfirmation d;
-       QMessageBox msg;
-
-    d.exec();
-
-   if(d.getConfirm()==1)
-    {
-       bool test= s.deletesupplier(ui->listViewSupplier->currentIndex().data().toString());
-
-       //refresh affichage
-       ui->listViewSupplier->setModel(s.afficherList2());
-
-       if(test==true)
-           {
-
-            msg.setText("supplier deleted ");
-            msg.exec();
-           }
-
-   }
-   else
-   {
-
-        msg.setText("error ");
-        msg.exec();
-   }
-
-}
 
 void MainWindow::on_pushButton_Home_clicked()
 {
@@ -4930,11 +4912,7 @@ void MainWindow::on_pushButton_ViewReturn_clicked()
      ui->stackedWidget->setCurrentIndex(38);
 }
 
-void MainWindow::on_pushButton_6_clicked()
-{
-     ui->stackedWidget->setCurrentIndex(42);
-     //send mail supplier liste
-}
+
 
 void MainWindow::on_pushButton_7_clicked()
 {
@@ -4956,11 +4934,13 @@ void MainWindow::on_pushButton_8_clicked()
 
 void MainWindow::on_pushButton_menusupplier_clicked()
 {
+    ui->listViewSupplier->setModel(s.afficherList2());
     ui->stackedWidget->setCurrentIndex(38);
 }
 
 void MainWindow::on_pushButton_menuMaterial_clicked()
 {
+     ui->listViewMateriel->setModel(m.afficherList());
      ui->stackedWidget->setCurrentIndex(43);
 }
 
@@ -5333,4 +5313,235 @@ void MainWindow::on_sort_orderID_clicked()
 }
 ///// end meriam second part
 ///
+/////nesrine
+
+void MainWindow::on_print_clicked()
+{
+    QPrinter printer;
+    printer.setPrinterName("my_printer_Supplier");
+    QPrintDialog dialog(&printer,this);
+    if ( dialog.exec()== QDialog::Rejected) return ;
+    QString id;
+    QString campName;
+    QString title;
+    QString adress;
+    QString ville;
+    QString pays;
+    QString telephone;
+    QString fax;
+    QString pagacc;
+
+    id= ui->viewID->text();
+    campName=ui->viewcampname->text();
+    title=ui->viewtitle->text();
+    adress=ui->viewadress->text();
+    ville=ui->viewville->text();
+    pays=ui->viewpays->text();
+    telephone=ui->viewphone->text();
+    fax=ui->viewfax->text();
+    pagacc=ui->viewhomepage->text();
+
+
+    QPainter painter(this);
+    painter.begin(&printer);
+    Suppliers s(id,campName,title,adress,ville,pays,telephone,fax,pagacc);
+
+    /*  QString text = "Id :" + id + "\n"
+                        + " Company name : " + campName + "\n"
+                        + " Title: " + title + "\n"
+            + " Adress: " + adress + "\n"
+            + " City : " + ville + "\n"
+            + " Country: " + pays + "\n"
+            + " Phone number : " + telephone + "\n"
+            + " Fax : " + fax + "\n"
+            + " Home page : " + pagacc  ;
+*/
+    QFont font = painter.font();
+    font.setPointSize(font.pointSize() * 2);
+    painter.setFont(font);
+    QImage image(":/floralloLogo.png");
+    painter.setPen(Qt::cyan);
+    painter.drawImage(480,-20,image);
+    painter.drawText(230,90,"Supplier inforamtion  : ");
+
+    painter.setPen(Qt::darkBlue);
+
+    painter.drawText(130,160,"id : ");
+    painter.drawText(130,185,"Campany name : ");
+
+    painter.drawText(130,210,"Title : ");
+    painter.drawText(130,235,"Adress : ");
+    painter.drawText(130,260,"City : ");
+    painter.drawText(130,285,"Country: ");
+    painter.drawText(130,310,"Phone number : ");
+    painter.drawText(130,335,"Fax : ");
+    painter.drawText(130,360,"Home page : ");
+
+
+    painter.setPen(Qt::black);
+
+    painter.drawText(300,160,id);
+    painter.drawText(300,185,campName);
+    painter.drawText(300,210,title);
+    painter.drawText(300,235,adress);
+    painter.drawText(300,260,ville);
+    painter.drawText(300,285,pays);
+    painter.drawText(300,310,telephone);
+    painter.drawText(300,335,fax);
+    painter.drawText(300,360,pagacc);
+
+
+
+
+    painter.end();
+}
+void MainWindow::editSupplier()
+{
+
+
+    QString i = ui->listViewSupplier->currentIndex().data().toString();
+    s.loadData(i);
+    ui->lineEdit_editSID->setText(s.getid());
+    ui->lineEdit_editCname->setText(s.getcampName());
+    ui->lineEdit_editAdress->setText(s.getadress());
+    ui->lineEdit_EDitCIty->setText(s.getville());
+    ui->lineEdit_editCountry->setText(s.getpays());
+    ui->lineEdit_editFAX->setText(s.getfax());
+    ui->lineEdit_editPhone->setText(s.gettelephone());
+    ui->lineEdit_editcontTitle->setText(s.gettitle());
+    ui->lineEdit_EditHomepage->setText(s.getpagacc());
+    ui->stackedWidget->setCurrentIndex(40);
+
+
+}
+void MainWindow::viewSupplier()
+{
+
+
+    ui->stackedWidget->setCurrentIndex(41);
+    QString i = ui->listViewSupplier->currentIndex().data().toString();
+    s.loadData(i);
+    ui->viewID->setText(s.getid());
+    ui->viewcampname->setText(s.getcampName());
+    ui->viewadress->setText(s.getadress());
+    ui->viewville->setText(s.getville());
+    ui->viewpays->setText(s.getpays());
+    ui->viewfax->setText(s.getfax());
+    ui->viewphone->setText(s.gettelephone());
+    ui->viewtitle->setText(s.gettitle());
+    ui->viewhomepage->setText(s.getpagacc());
+}
+void MainWindow::deleteSupplier()
+{
+ DeleteConfirmation d;
+       QMessageBox msg;
+
+    d.exec();
+
+   if(d.getConfirm()==1)
+    {
+       bool test= s.deletesupplier(ui->listViewSupplier->currentIndex().data().toString());
+
+       //refresh affichage
+       ui->listViewSupplier->setModel(s.afficherList2());
+
+       if(test==true)
+           {
+
+            msg.setText("supplier deleted ");
+            msg.exec();
+           }
+
+   }
+   else
+   {
+
+        msg.setText("error ");
+        msg.exec();
+   }
+}
+void MainWindow::SendMail()
+{
+
+ ui->stackedWidget->setCurrentIndex(42);
+
+}
+void MainWindow::deleteMaterial()
+{
+
+    DeleteConfirmation d;
+       QMessageBox msg;
+
+
+
+    d.exec();
+
+   if(d.getConfirm()==1)
+    {
+       bool test= m.deleteMaterial(ui->listViewMateriel->currentIndex().data().toString());
+
+       //refresh affichage
+       ui->listViewMateriel->setModel(m.afficherList());
+
+       if(test==true)
+           {
+
+            msg.setText("material deleted ");
+            msg.exec();
+           }
+
+   }
+   else
+   {
+
+        msg.setText("error ");
+        msg.exec();
+   }
+
+
+
+}
+void MainWindow::viewMaterial()
+{
+
+    ui->stackedWidget->setCurrentIndex(46);
+    QString i = ui->listViewMateriel->currentIndex().data().toString();
+    m.loadData(i);
+    ui->lineEdit_ViewMaterialID->setText(m.getid());
+    ui->lineEdit_ViewMatDes->setText(m.getDescription());
+    ui->lineEdit_ViewMatName->setText(m.getName());
+    ui->lineEdit_ViewMatSuppID->setText(m.getSupplierID());
+    ui->lineEdit_ViewMatQuantite->setText(m.getQuantity());
+    ui->lineEdit_ViewMatPrice->setText(m.getprice());
+    ui->lineEdit_ViewMatUnit->setText(m.getUnit());
+    ui->lineEdit_ViewMatcurrency->setText(m.getcurrency());
+
+
+}
+
+void MainWindow::editMaterial()
+{
+
+
+    QString i = ui->listViewMateriel->currentIndex().data().toString();
+    m.loadData(i);
+    ui->editID->setText(m.getid());
+    ui->editDescription->setText(m.getDescription());
+    ui->editName->setText(m.getName());
+    ui->editSupplierID->setText(m.getSupplierID());
+    ui->editQuantity->setText(m.getQuantity());
+    ui->editPrice->setText(m.getprice());
+    ui->editUnit->setText(m.getUnit());
+    ui->editCurrency->setText(m.getcurrency());
+    ui->stackedWidget->setCurrentIndex(45);
+
+
+
+
+
+}
+
+
+
+
 

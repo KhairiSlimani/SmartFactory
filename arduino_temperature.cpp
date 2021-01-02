@@ -12,3 +12,10 @@ Arduino_Temperature::~Arduino_Temperature()
 {
     delete ui;
 }
+
+void Arduino_Temperature::on_pushButton_clicked()
+{
+    confirmAlert=1;
+        close();
+
+}

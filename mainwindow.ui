@@ -17,7 +17,7 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
       <width>791</width>
       <height>501</height>
@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>34</number>
+     <number>38</number>
     </property>
     <widget class="QWidget" name="LoginPage">
      <widget class="QLabel" name="loginTitle">
@@ -23448,26 +23448,11 @@ QPushButton:hover
          <string>Add New supplier</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEditSearchSuppliers">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>30</y>
-          <width>151</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background:white ;
-border:1px solid black;
-border-radius:10px;</string>
-        </property>
-       </widget>
        <widget class="QPushButton" name="pushButton_Home">
         <property name="geometry">
          <rect>
           <x>400</x>
-          <y>280</y>
+          <y>130</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -23487,110 +23472,6 @@ QPushButton:hover
         </property>
         <property name="text">
          <string>Home</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton">
-        <property name="geometry">
-         <rect>
-          <x>390</x>
-          <y>160</y>
-          <width>91</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton
-{
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);
-}
-
-QPushButton:hover
-{
-	background:rgb(85, 170, 255);
-}</string>
-        </property>
-        <property name="text">
-         <string>Edit supplier</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_5">
-        <property name="geometry">
-         <rect>
-          <x>400</x>
-          <y>190</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton
-{
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);
-}
-
-QPushButton:hover
-{
-	background:rgb(85, 170, 255);
-}</string>
-        </property>
-        <property name="text">
-         <string>View </string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_9">
-        <property name="geometry">
-         <rect>
-          <x>400</x>
-          <y>220</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton
-{
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);
-}
-
-QPushButton:hover
-{
-	background:rgb(85, 170, 255);
-}</string>
-        </property>
-        <property name="text">
-         <string>Delete</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_6">
-        <property name="geometry">
-         <rect>
-          <x>400</x>
-          <y>250</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton
-{
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);
-}
-
-QPushButton:hover
-{
-	background:rgb(85, 170, 255);
-}</string>
-        </property>
-        <property name="text">
-         <string>Send Mail</string>
         </property>
        </widget>
        <widget class="QListView" name="listViewSupplier">
@@ -23793,7 +23674,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -23818,7 +23699,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -23842,7 +23723,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -23866,7 +23747,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -23890,7 +23771,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -23914,7 +23795,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -23938,7 +23819,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -23962,7 +23843,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24183,7 +24064,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24411,7 +24292,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24436,7 +24317,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24461,7 +24342,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24486,7 +24367,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24511,7 +24392,6 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24536,7 +24416,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24561,7 +24441,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24586,7 +24466,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -24611,7 +24491,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25055,7 +24935,7 @@ QPushButton:hover
         <rect>
          <x>200</x>
          <y>110</y>
-         <width>491</width>
+         <width>541</width>
          <height>281</height>
         </rect>
        </property>
@@ -25110,7 +24990,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25137,7 +25017,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25164,7 +25044,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25191,7 +25071,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25218,7 +25098,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25245,7 +25125,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25272,7 +25152,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25299,7 +25179,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25326,7 +25206,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -25476,6 +25356,32 @@ padding-right: 5px;</string>
         </property>
         <property name="text">
          <string>Fax</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="print">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>200</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	border-radius:15px;
+	background:transparent;
+	border:2px solid rgb(85, 170, 255);
+}
+
+QPushButton:hover
+{
+	background:rgb(85, 170, 255);
+}</string>
+        </property>
+        <property name="text">
+         <string>Print</string>
         </property>
        </widget>
       </widget>
@@ -26011,63 +25917,11 @@ QPushButton:hover
          <string>Add New Material</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_matEditList">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>180</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton
-{
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);
-}
-
-QPushButton:hover
-{
-	background:rgb(85, 170, 255);
-}</string>
-        </property>
-        <property name="text">
-         <string>Edit </string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_DeleteMatList">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>210</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton
-{
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);
-}
-
-QPushButton:hover
-{
-	background:rgb(85, 170, 255);
-}</string>
-        </property>
-        <property name="text">
-         <string>Delete</string>
-        </property>
-       </widget>
        <widget class="QPushButton" name="pushButton_10">
         <property name="geometry">
          <rect>
           <x>350</x>
-          <y>270</y>
+          <y>190</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -26175,32 +26029,6 @@ QPushButton:hover
         </property>
         <property name="text">
          <string>Statistique</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_11">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>240</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton
-{
-	border-radius:15px;
-	background:transparent;
-	border:2px solid rgb(85, 170, 255);
-}
-
-QPushButton:hover
-{
-	background:rgb(85, 170, 255);
-}</string>
-        </property>
-        <property name="text">
-         <string>view</string>
         </property>
        </widget>
       </widget>
@@ -26359,7 +26187,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26383,7 +26211,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26407,7 +26235,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26431,7 +26259,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26455,7 +26283,6 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26479,7 +26306,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26503,7 +26330,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26579,7 +26406,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26919,7 +26746,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26943,7 +26770,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26967,7 +26794,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -26991,7 +26818,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27015,7 +26842,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27039,7 +26866,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27115,7 +26942,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27139,7 +26966,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27527,7 +27354,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27554,7 +27381,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27581,7 +27408,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27608,7 +27435,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27635,7 +27462,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27662,7 +27489,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27717,7 +27544,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27744,7 +27571,7 @@ font: 10pt &quot;Arial&quot;;
 
 background-color: rgb(85, 170, 255);
 border-width: 1.5px;
-border-color: blue;
+
 border-style: solid;
 border-radius: 7;
 padding: 3px;
@@ -27960,7 +27787,7 @@ QPushButton:hover
      <x>0</x>
      <y>0</y>
      <width>799</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
