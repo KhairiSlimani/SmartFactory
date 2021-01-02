@@ -80,17 +80,14 @@ bool Profile::searchIDSignUp(QString info)
     return false;
 }
 
-bool Profile::searchJobTitleSignUp(QString id,QString jobTitle)
+QSqlQuery Profile::searchJobTitleSignUp(QString id)
 {
     QSqlQuery query;
-    query.prepare("select'"+id+"'from EMPLOYEE where JOBTITLE='"+jobTitle+"'");
+    query.prepare("select * from Employee where id='"+id+"'");
     query.exec();
-    if(query.next())
-    {
-        return true;
-    }
+    query.next();
 
-    return false;
+    return query;
 }
 
 

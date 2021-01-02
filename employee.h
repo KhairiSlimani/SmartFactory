@@ -7,6 +7,9 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QListView>
+#include <QPieSeries>
+#include <QtCharts>
+#include <QChartView>
 #include "smtp.h"
 
 class Employee
@@ -57,6 +60,7 @@ public:
     QSqlQueryModel * sortID();
     QSqlQueryModel * sortFirstName();
     bool searchID(QString);
+    QChart * statistic();
 };
 
 #endif // EMPLOYEE_H

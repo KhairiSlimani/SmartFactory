@@ -353,10 +353,6 @@ private slots:
 
      void on_pushButtonADD_clicked();
 
-     void on_pushButton_5_clicked();
-
-     void on_pushButton_clicked();
-
      void on_pushButton_Add_clicked();
 
      void on_pushButton_Addcancel_clicked();
@@ -375,12 +371,6 @@ private slots:
 
      void on_pushButton_statMateriel_clicked();
 
-     void on_pushButton_matEditList_clicked();
-
-     void on_pushButton_DeleteMatList_clicked();
-
-     void on_pushButton_11_clicked();
-
      void on_pushButton_10_clicked();
 
      void on_pushButton_confirmMaterialEdit_clicked();
@@ -389,8 +379,6 @@ private slots:
 
      void on_pushButton_14_clicked();
 
-     void on_pushButton_9_clicked();
-
      void on_pushButton_Home_clicked();
 
      void on_pushButton_EditSaveSupplier_clicked();
@@ -398,8 +386,6 @@ private slots:
      void on_pushButton_Editcancel_clicked();
 
      void on_pushButton_ViewReturn_clicked();
-
-     void on_pushButton_6_clicked();
 
      void on_pushButton_7_clicked();
 
@@ -549,6 +535,8 @@ private slots:
 
      void on_print_clicked();
     //void update_label2();//arduino nesrine
+
+     void on_statisticButton_clicked();
 
 private:
     Ui::MainWindow *ui;

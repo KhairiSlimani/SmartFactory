@@ -546,6 +546,7 @@ void MainWindow::showTime()
     ui->date_5->setText(datetimetext);
     ui->date_6->setText(datetimetext);
     ui->date_7->setText(datetimetext);
+     ui->date_9->setText(datetimetext);
     ui->date_19->setText(datetimetext);
     ui->date_20->setText(datetimetext);
     ui->date_21->setText(datetimetext);
@@ -810,21 +811,16 @@ void MainWindow::on_signInButton_clicked()
             {
                 if(view.value(2).toString() == "HR Agent")
                 {
+                    qDebug() << view.value(2).toString();
                     ui->access1Button->setText("Employees");
                     ui->accessButton_2->hide();
                     ui->accessButton_3->hide();
                     ui->accessButton_4->hide();
 
                 }
-                else if(view.value(2).toString() == "Depot Employee")
+                else if(view.value(2).toString() == "Project & Services Employee")
                 {
-                    ui->access1Button->setText("Depots");
-                    ui->accessButton_2->hide();
-                    ui->accessButton_3->hide();
-                    ui->accessButton_4->hide();
-                }
-                else if(view.value(2).toString() == "Project and Services Employee")
-                {
+                    qDebug() << view.value(2).toString();
                     ui->access1Button->setText("Project and Services");
                     ui->accessButton_2->hide();
                     ui->accessButton_3->hide();
@@ -832,6 +828,7 @@ void MainWindow::on_signInButton_clicked()
                 }
                 else if(view.value(2).toString() == "Laboratory Employee")
                 {
+                    qDebug() << view.value(2).toString();
                     ui->access1Button->setText("Laboratories");
                     ui->accessButton_2->hide();
                     ui->accessButton_3->hide();
@@ -839,41 +836,18 @@ void MainWindow::on_signInButton_clicked()
                 }
                 else if(view.value(2).toString() == "Stock Employee")
                 {
+                    qDebug() << view.value(2).toString();
                     ui->access1Button->setText("Stocks");
-                    ui->accessButton_2->hide();
-                    ui->accessButton_3->hide();
-                    ui->accessButton_4->hide();
-                }
-                if(view.value(2).toString() == "HR Agent")
-                {
-                    ui->access1Button->setText("Employees");
-                    ui->accessButton_2->hide();
-                    ui->accessButton_3->hide();
-                    ui->accessButton_4->hide();
-                }
-                else if(view.value(2).toString() == "Depot Employee")
-                {
-                    ui->access1Button->setText("Depots");
-                    ui->accessButton_2->hide();
-                    ui->accessButton_3->hide();
-                    ui->accessButton_4->hide();
-                }
-                else if(view.value(2).toString() == "Project and Services Employee")
-                {
-                    ui->access1Button->setText("Project and Services");
-                    ui->accessButton_2->hide();
-                    ui->accessButton_3->hide();
-                    ui->accessButton_4->hide();
-                }
-                else if(view.value(2).toString() == "Laboratory Employee")
-                {
-                    ui->access1Button->setText("Laboratories");
                     ui->accessButton_2->hide();
                     ui->accessButton_3->hide();
                     ui->accessButton_4->hide();
                 }
                 else if(view.value(2).toString() == "CEO")
                 {
+                    qDebug() << view.value(2).toString();
+                    ui->accessButton_2->show();
+                    ui->accessButton_3->show();
+                    ui->accessButton_4->show();
                     ui->access1Button->setText("Employees");
                     ui->accessButton_2->setText("Project and Services");
                     ui->accessButton_3->setText("Laboratories");
@@ -933,16 +907,15 @@ void MainWindow::on_SignUpButton_clicked()
          id = ui->idLineEdit_2->text();
          password = ui->passwordLineEdit_2->text();
          jobTitle = ui->comboBox->currentText();
-
+         qDebug()<<jobTitle;
          Profile P(id,password,jobTitle);
 
          bool test_2 = P.searchIDSignUp(id);
          if(test_2)
          {
-             qDebug()<<jobTitle;
-             bool test_3=P.searchJobTitleSignUp(id,jobTitle);
-             qDebug()<<test_3;
-             if(test_3)
+
+             QSqlQuery view =P.searchJobTitleSignUp(id);
+             if(view.value(9).toString() == jobTitle)
              {
                  bool test_4=P.search(id);
                  if(test_4)
@@ -1007,15 +980,24 @@ void MainWindow::on_changeInformationButton_clicked()
 
 void MainWindow::on_deleteAccountButton_clicked()
 {
+    DeleteConfirmation D;
+    D.setModal(true);
+    D.exec();
 
-    QString info = ui->viewID->text();
-    Profile P;
-    bool test=P.Delete(info);
-
-    if(test)
+    if(D.getConfirm()==1)
     {
-         QMessageBox::information(this, tr("Delete Account"),tr("Account Deleted"), QMessageBox::Ok);
-         ui->stackedWidget->setCurrentIndex(0);
+
+
+        QString info = ui->viewID->text();
+        Profile P;
+        bool test=P.Delete(info);
+
+        if(test)
+        {
+            QMessageBox::information(this, tr("Delete Account"),tr("Account Deleted"), QMessageBox::Ok);
+            ui->stackedWidget->setCurrentIndex(0);
+        }
+
     }
 
 }
@@ -1036,11 +1018,7 @@ void MainWindow::on_access1Button_clicked()
     {
         ui->stackedWidget->setCurrentIndex(4);
     }
-    else if(ui->viewJobTitle->text() == "Depot Employee")
-    {
-        ui->stackedWidget->setCurrentIndex(22);
-    }
-    else if(ui->viewJobTitle->text() == "Project and Services Employee")
+    else if(ui->viewJobTitle->text() == "Project & Services Employee")
     {
         ui->stackedWidget->setCurrentIndex(11);
 
@@ -1727,18 +1705,26 @@ void MainWindow::showContextMenu(const QPoint &pos)
 
 void MainWindow::deleteEmployee()
 {
+    DeleteConfirmation D;
+    D.setModal(true);
+    D.exec();
 
-    QModelIndex index = ui->listView->currentIndex();
-    QString info = index.data(Qt::DisplayRole).toString();
-
-    Employee E;
-    bool test=E.Delete(info);
-
-    if(test)
+    if(D.getConfirm()==1)
     {
-         loadData();
-    }
+        QModelIndex index = ui->listView->currentIndex();
+        QString info = index.data(Qt::DisplayRole).toString();
 
+        Employee E;
+        bool test=E.Delete(info);
+
+        Profile P;
+        P.Delete(info);
+
+        if(test)
+        {
+            loadData();
+        }
+    }
 }
 
 void MainWindow::viewEmployee()
@@ -5541,7 +5527,11 @@ void MainWindow::editMaterial()
 
 }
 
-
-
-
-
+void MainWindow::on_statisticButton_clicked()
+{
+    Employee E;
+    QChartView * chartView=new QChartView(E.statistic());
+    chartView ->setParent(ui->statisticFrame);
+    chartView->setFixedSize(ui->statisticFrame->size());
+    ui->stackedWidget->setCurrentIndex(10);
+}

@@ -133,7 +133,7 @@ QSqlQueryModel * Employee :: sortFirstName()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
     QSqlQuery query ;
-    query.prepare("SELECT ID FROM EMPLOYEE ORDER BY FIRSTNAME DESC");
+    query.prepare("SELECT ID FROM EMPLOYEE ORDER BY FIRSTNAME ASC");
     query.exec();
     query.next();
     model->setQuery(query);
@@ -153,6 +153,50 @@ bool Employee::searchID(QString info)
     }
     return false;
 }
+
+QChart * Employee::statistic()
+{
+    int hr=0, project=0, laboratory=0, stock=0;
+
+    QSqlQuery query;
+    query.prepare("select jobtitle from Employee");
+    query.exec();
+
+    while(query.next())
+    {
+        if(query.value(0).toString() == "HR Agent")
+        {
+            hr++;
+        }
+        else if(query.value(0).toString() == "Laboratory Employee")
+        {
+            laboratory++;
+        }
+        else if(query.value(0).toString() == "Project & Services Employee")
+        {
+            project++;
+        }
+        else if(query.value(0).toString() == "Stock Employee")
+        {
+            stock++;
+        }
+    }
+
+    QPieSeries *series = new QPieSeries();
+
+    series->append("HR Agent",hr);
+    series->append("Laboratory Employee",laboratory);
+    series->append("Project & Services Employee",project);
+    series->append("Stock Employee",stock);
+
+    QChart * chart=new  QChart();
+    chart->addSeries(series);
+    chart->setTitle("Job Title Statistic");
+
+    return   chart;
+
+}
+
 
 
 

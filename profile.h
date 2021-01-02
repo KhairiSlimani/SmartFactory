@@ -38,7 +38,7 @@ public:
     bool Delete(QString);
     bool search(QString);
     bool searchIDSignUp(QString);
-    bool searchJobTitleSignUp(QString,QString);
+    QSqlQuery searchJobTitleSignUp(QString);
 
 
 };
