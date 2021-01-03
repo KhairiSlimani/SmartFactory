@@ -55,5 +55,6 @@ public:
     QSqlQueryModel *chercher(QString information);
     QSqlQueryModel * fillCustomerIDInProject();
     void loadData(int i);
+    QSqlQuery stat();
 };
 #endif // PROJECT_H

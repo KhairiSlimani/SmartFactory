@@ -538,6 +538,17 @@ private slots:
 
      void on_statisticButton_clicked();
 
+
+     void on_pushButton_clicked();
+
+     void on_pushButton_Return_3_clicked();
+
+     void on_profile_8_clicked();
+
+     void on_signOut_20_clicked();
+
+     void on_signOut_21_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPropertyAnimation *animation;

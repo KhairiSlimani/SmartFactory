@@ -146,8 +146,6 @@ QSqlQueryModel* Project::Trier_Name()
 }
 
 
-
-
 QSqlQueryModel * Project::chercher(QString information)
 {
     QSqlQueryModel *model=new QSqlQueryModel();
@@ -186,4 +184,13 @@ void Project::loadData(int i )
             CustomerID=query.value(6).toString();
         }
 
+}
+
+
+QSqlQuery Project::stat()
+{
+    QSqlQuery query;
+        query.prepare("select *from PROJET ");
+        query.exec();
+        return query;
 }

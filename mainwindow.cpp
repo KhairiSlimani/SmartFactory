@@ -521,6 +521,8 @@ void MainWindow::showTime()
     ui->time2_4->setText(time_text);
     ui->time3_4->setText(time_text);
     ui->time4_4->setText(time_text);
+    ui->time_37->setText(time_text);
+
 
     ui->time_20->setText(time_text);
     ui->time_28->setText(time_text);
@@ -532,6 +534,7 @@ void MainWindow::showTime()
     ui->time_34->setText(time_text);
     ui->time_35->setText(time_text);
     ui->time_36->setText(time_text);
+
 
 
 
@@ -584,6 +587,7 @@ void MainWindow::showTime()
     ui->date_33->setText(datetimetext);
     ui->date_34->setText(datetimetext);
     ui->date_35->setText(datetimetext);
+    ui->date_36->setText(datetimetext);
 
 }
 //nessrine
@@ -5534,4 +5538,47 @@ void MainWindow::on_statisticButton_clicked()
     chartView ->setParent(ui->statisticFrame);
     chartView->setFixedSize(ui->statisticFrame->size());
     ui->stackedWidget->setCurrentIndex(10);
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    QPieSeries *series = new QPieSeries();
+        QSqlQuery query;
+                query=P.stat();
+        while(query.next())
+        {
+            series->append(query.value(0).toString(),query.value(5).toFloat());
+        }
+
+        QChart * chart=new  QChart();
+        chart->addSeries(series);
+        chart->setTitle("Budget Of Projects");
+
+        QChartView * chartView=new QChartView(chart);
+        chartView ->setParent(ui->horizontalFrame_4);
+        chartView->setFixedSize(ui->horizontalFrame_4->size());
+        ui->stackedWidget->setCurrentIndex(48);
+}
+
+void MainWindow::on_pushButton_Return_3_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(18);
+}
+
+void MainWindow::on_profile_8_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+
+void MainWindow::on_signOut_20_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_signOut_21_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }
