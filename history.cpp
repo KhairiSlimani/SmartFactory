@@ -2,8 +2,8 @@
 
 historique::historique()
 {
-mFilename="C:/Users/Asus/Desktop/Smart  Factory/historique";
-mFilename1="C:/Users/Asus/Desktop/Smart  Factory/historique1";
+mFilename="C:/Users/khair/Desktop/Esprit/SmartFactory/historique";
+mFilename1="C:/Users/khair/Desktop/Esprit/SmartFactory/historique1";
 }
 QString historique::read()
 {

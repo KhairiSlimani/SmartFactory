@@ -2351,7 +2351,10 @@ void MainWindow::on_pushButton_Send_clicked()
 
     msg=ui->plainTextEdit->toPlainText();
     qDebug()<<mail;
-    smtp->sendMail("human.resources.florallo@gmail.com",mail,ui->subjectLineEdit->text(),msg);
+
+    mail=ui->lineEdit_Email->text();
+    qDebug()<<mail;
+    smtp->sendMail("human.resources.florallo@gmail.com",mail,ui->lineEdit_Subject->text(),msg);
 }
 void MainWindow::on_comboBoxSortCustomers_currentTextChanged(const QString &arg1)
 {
