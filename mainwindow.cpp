@@ -1083,7 +1083,7 @@ void MainWindow::on_access1Button_clicked()
     }
     else if(ui->viewJobTitle->text() == "Stock Employee")
     {
-        ui->stackedWidget->setCurrentIndex(21);
+        ui->stackedWidget->setCurrentIndex(22);
     }
     else if(ui->viewJobTitle->text() == "CEO")
     {
@@ -4009,18 +4009,6 @@ void MainWindow::on_pushButton_SortProduct_2_clicked()
 
 void MainWindow::on_pushButton_Search_2_clicked()
 {
-    QString itemText=ui->lineEdit_SearchCustomer_3->text();
-    if(P1.Chercher(itemText))
-    {
-        ui->tableView_2->setModel(P1.Afficher(itemText));
-        ui->stackedWidget->setCurrentIndex(23);
-    }
-    else
-    {
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-                              QObject::tr("PRODUCT Not Found.\n"
-                                          "Click Cancel to exit."), QMessageBox::Cancel);
-    }
 
 }
 
@@ -4079,7 +4067,7 @@ void MainWindow::on_pushButton_Print_4_clicked()
 
 void MainWindow::on_pushButton_Return_4_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(22);
+    ui->stackedWidget->setCurrentIndex(23);
 
 }
 
@@ -5622,4 +5610,36 @@ void MainWindow::on_signOut_20_clicked()
 void MainWindow::on_signOut_21_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ui->listView_5->setModel(P1.Trier_QIS());
+    QMessageBox::information(nullptr, QObject::tr("SORT "),
+                             QObject::tr("sort by Sell-price Done Successfully.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void MainWindow::on_pushButton_return2_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(23);
+
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    QString itemText=ui->lineEdit_SearchCustomer_3->text();
+    if(P1.Chercher(itemText))
+    {
+        ui->tableView_2->setModel(P1.Afficher(itemText));
+
+        ui->stackedWidget->setCurrentIndex(23);
+    }
+    else
+    {
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+                              QObject::tr("PRODUCT Not Found.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+
 }

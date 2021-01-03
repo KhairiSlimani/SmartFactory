@@ -117,6 +117,18 @@ QSqlQueryModel* produit::Trier()
     return model;
 }
 
+QSqlQueryModel* produit::Trier_QIS()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery qry ;
+    qry.prepare(" SELECT PRODUCTCODE FROM PRODUIT ORDER BY QUANTITYINSTOCK DESC");
+    qry.exec();
+
+    model->setQuery(qry);
+    return model;
+}
+
+
 
 QSqlQuery produit::stat()
 {
