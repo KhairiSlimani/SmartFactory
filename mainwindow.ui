@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>12</number>
+     <number>16</number>
     </property>
     <widget class="QWidget" name="LoginPage">
      <widget class="QLabel" name="loginTitle">

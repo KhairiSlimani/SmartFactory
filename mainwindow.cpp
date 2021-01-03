@@ -678,7 +678,7 @@ void MainWindow::DeleteCustomer()
         }
 
         QString textajouter;
-        textajouter="La suppréssion d'un client dans la base de donnees nommée "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
+        textajouter="La suppression d'un client dans la base de donnees nommée "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
         h.write(textajouter);
 
     }
@@ -2013,7 +2013,7 @@ void MainWindow::on_pushButton_SaveAddCustomer_clicked()
 
                 ui->listView_3->setModel(C.AfficherListe());
                 QString textajouter;
-                textajouter="L'ajout d'un client dans la base de donnees nommée "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
+                textajouter="L'ajout d'un client dans la base de donnees nommee "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
                 h.write(textajouter);
             }
             else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
@@ -2238,7 +2238,7 @@ void MainWindow::on_pushButton_SaveEditCustomer_clicked()
 
                 ui->listView_3->setModel(C.AfficherListe());
                 QString textajouter;
-                textajouter="La modification des informations d'un client dans la base de donnees nommée "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
+                textajouter="La modification des informations d'un client dans la base de donnees nommee "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
                 h.write(textajouter);
             }
             else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
@@ -2346,10 +2346,12 @@ void MainWindow::on_pushButton_Print_clicked()
 
 void MainWindow::on_pushButton_Send_clicked()
 {
-    smtp = new Smtp("p.florallo@gmail.com","nesrine123","smtp.gmail.com",465);
+    smtp = new Smtp("human.resources.florallo@gmail.com" , "khairiisthebest7", "smtp.gmail.com",465);
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
     msg=ui->plainTextEdit->toPlainText();
-    smtp->sendMail("p.florallo@gmail.com",ui->lineEdit_Email->text(),ui->lineEdit_Subject->text(),msg);
+    qDebug()<<mail;
+    smtp->sendMail("human.resources.florallo@gmail.com",mail,ui->subjectLineEdit->text(),msg);
 }
 void MainWindow::on_comboBoxSortCustomers_currentTextChanged(const QString &arg1)
 {

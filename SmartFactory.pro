@@ -30,7 +30,7 @@ SOURCES += \
     deleteconfirmation.cpp \
     depot.cpp \
     employee.cpp \
-    historique.cpp \
+    history.cpp \
     main.cpp \
     mainwindow.cpp \
     material.cpp \
@@ -55,7 +55,7 @@ HEADERS += \
     deleteconfirmation.h \
     depot.h \
     employee.h \
-    historique.h \
+    history.h \
     mainwindow.h \
     material.h \
     order.h \

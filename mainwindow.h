@@ -43,7 +43,7 @@
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 #include <QtCharts/QLegend>
-#include "historique.h"
+#include "history.h"
 
 
 

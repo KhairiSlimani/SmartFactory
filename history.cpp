@@ -1,9 +1,9 @@
-#include "historique.h"
+#include "history.h"
 
 historique::historique()
 {
-mFilename="C:/Users/Asus/Desktop/Project C++/historique";
-mFilename1="C:/Users/Asus/Desktop/Project C++/historique1";
+mFilename="C:/Users/Asus/Desktop/Smart  Factory/historique";
+mFilename1="C:/Users/Asus/Desktop/Smart  Factory/historique1";
 }
 QString historique::read()
 {
