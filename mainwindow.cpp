@@ -648,6 +648,15 @@ void MainWindow::DeleteCustomer()
     QModelIndex index = ui->listView_3->currentIndex();
     //Recuperation de l'id du client sur lequel mon curseur est positionné
     QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=C.Lire(itemText);
+    QString FirstName;
+    QString LastName;
+    while(view.next())
+    {
+          FirstName=view.value(1).toString();
+          LastName=view.value(2).toString();
+    }
 
     if(D.getConfirm()==1)
     {
@@ -667,6 +676,10 @@ void MainWindow::DeleteCustomer()
                                   QObject::tr("Deletion of Client failed.\n"
                                               "Click Cancel to exit."), QMessageBox::Cancel);
         }
+
+        QString textajouter;
+        textajouter="La suppréssion d'un client dans la base de donnees nommée "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
+        h.write(textajouter);
 
     }
 
@@ -1728,6 +1741,7 @@ void MainWindow::deleteEmployee()
         {
             loadData();
         }
+
     }
 }
 
@@ -1998,6 +2012,9 @@ void MainWindow::on_pushButton_SaveAddCustomer_clicked()
                                                      "Click Cancel to exit."), QMessageBox::Cancel);
 
                 ui->listView_3->setModel(C.AfficherListe());
+                QString textajouter;
+                textajouter="L'ajout d'un client dans la base de donnees nommée "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
+                h.write(textajouter);
             }
             else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
             {
@@ -2220,6 +2237,9 @@ void MainWindow::on_pushButton_SaveEditCustomer_clicked()
                                                      "Click Cancel to exit."), QMessageBox::Cancel);
 
                 ui->listView_3->setModel(C.AfficherListe());
+                QString textajouter;
+                textajouter="La modification des informations d'un client dans la base de donnees nommée "+(FirstName+" "+LastName)+" a ete effectuee avec succees";
+                h.write(textajouter);
             }
             else//if(test==false)->la requete n'est pas executée->QMessageBox::critical
             {
@@ -2494,6 +2514,13 @@ void MainWindow::deleteProject()
 
     QModelIndex index = ui->listView_4->currentIndex();
     QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery view;
+    view=P.Lire(itemText);
+    QString Name;
+    while(view.next())
+    {
+        Name=view.value(1).toString();
+    }
     if(D.getConfirm()==1)
     {
         //supprimer l'objet P de la table projet et on recupére la valeur de retour(query.exec()) dans la variable test
@@ -2512,6 +2539,9 @@ void MainWindow::deleteProject()
                                   QObject::tr("Deletion Project failed.\n"
                                               "Click Cancel to exit."), QMessageBox::Cancel);
         }
+        QString textajouter;
+        textajouter="La suppréssion d'un projet dans la base de donnees nommee: "+(Name)+" a ete effectuee avec succees";
+        h.write(textajouter);
 
     }
 
@@ -2695,6 +2725,9 @@ void MainWindow::on_pushButton_SaveAddProject_clicked()
                                      QObject::tr("Addition of new Project is successful.\n"
                                                  "Click Cancel to exit."), QMessageBox::Cancel);
             ui->listView_4->setModel(P.AfficherListe());
+            QString textajouter;
+            textajouter="L'ajout d'un projet dans la base de donnees nommee "+(P.getName())+" a ete effectuee avec succees";
+            h.write(textajouter);
 
         }
         else
@@ -2829,6 +2862,9 @@ void MainWindow::on_pushButton_SaveEditProject_clicked()
                                      QObject::tr("Edit Project is successful.\n"
                                                  "Click Cancel to exit."), QMessageBox::Cancel);
             ui->listView_4->setModel(P.AfficherListe());
+            QString textajouter;
+            textajouter="La modification des informations d'un projet dans la base de donnees nommee "+(P.getName())+" a ete effectuee avec succees";
+            h.write(textajouter);
 
         }
         else

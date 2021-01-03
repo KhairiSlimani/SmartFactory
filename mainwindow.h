@@ -43,6 +43,7 @@
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 #include <QtCharts/QLegend>
+#include "historique.h"
 
 
 
@@ -557,7 +558,6 @@ private:
     QString mail;
     QMediaPlayer *trashSound;
     Client client;
-    Project P;
     QString myNickName;
     QTextTableFormat tableFormat;
     Arduino A;
@@ -568,7 +568,9 @@ private:
 
 
     //declaration yasmine
+    Project P;
     Customer C;
+    historique h;
 
     //declaration meriam
 
