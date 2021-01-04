@@ -195,7 +195,7 @@ void bill::loadData(int i )
 void bill::printPDF(){
     QPrinter printer;
     printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName("C:/Users/meriam/Documents/facture.pdf");
+    printer.setOutputFileName("C:/Users/khair/Documents/facture.pdf");
     QPainter painter;
     QImage image(":/images/images/facture.jpg");
    if (! painter.begin(&printer)) { // failed to open file

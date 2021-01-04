@@ -11,14 +11,31 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     loadData();
     //debut travail de yasmine
     ui->listView_3->setModel(C.AfficherListe());
     //Time
     QTimer *timer=new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
     timer->start();
+    connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
+
+    int ret = A.connect_arduino();
+    switch (ret)
+    {
+        case(0): qDebug()<<"arduino is avaible and connected to: "<<A.getArduino_port_name();
+        break;
+
+        case(1): qDebug()<<"arduino is avaible but not connected to: "<<A.getArduino_port_name();
+        break;
+
+        case(-1): qDebug()<<"arduino is not avaible";
+        break;
+
+
+    }
+
+    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));
+
 
     //Customer's list
     ui->listView_3->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -374,25 +391,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     //arduino chedi+khairi
 
-    /*int ret = A.connect_arduino();
-    switch (ret)
-    {
-        case(0): qDebug()<<"arduino is avaible and connected to: "<<A.getArduino_port_name();
-        break;
-
-        case(1): qDebug()<<"arduino is avaible but not connected to: "<<A.getArduino_port_name();
-        break;
-
-        case(-1): qDebug()<<"arduino is not avaible";
-        break;
 
 
-    }
 
-    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update()));
-
-    ////
-    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));*/
+    //QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));*/
     //nesrine's Work
    /* switch (ret) {
     case (0): qDebug()<<"arduino is avaible and connected to :"<<a.getarduino_port_name();
@@ -413,37 +415,75 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::update()
+/*void MainWindow::update()
 {
+    bool ok;
     data = A.read_from_arduino();
 
-    if(data == "1")
-    {
-        ui->etat->setText("Warning there is a large amount of gas :(");
-    }
-    else
-    {
-        ui->etat->setText("No gas leak :)");
-    }
+    qDebug()<<data;
+    qDebug()<<"i am here";
 
-    ui->etat->setText(data);
+ if(data.toHex().toInt(&ok,16)== 1 )
+ {
+      ui->etat->setText("Warning there is a large amount of gas :(");
+ }
+ else if(data.toHex().toInt(&ok,16)== 0 )
+ {
+      ui->etat->setText("No gas leak :)");
+ }
 
+ else if(data.toHex().toInt(&ok,16)== 2)
+ {
+     qDebug() << "hello";
+      D.setModal(true);
+      D.exec();
+
+      if(D.getAlert()==2)
+      {
+           A.write_to_arduino("2");
+      }
+      else if(D.getAlert()==3)
+      {
+           D.hide();
+      }
+}
+
+else
+{
+    if( !data.contains('n') && !data.contains('r') )
+{    data = A.read_from_arduino2();
+float nb = data.toFloat();
+bool ok;
+if(data.toHex().toInt(&ok,16)==1)// serialWrite("1")  condition
+   {
+        D.setModal(true);
+        D.exec();
+   }
+           else
+   {
+        D.hide();
+   }
+qDebug() << nb << endl;
 
 }
+}
+
+}*/
 
 //meriam+yesmine arduino
 void MainWindow::update_label()
 {
     data1=A.read_from_arduino();
+    qDebug() << "data1: " << data1;
     bool ok;
-    if(data1.toHex().toInt(&ok,16)==1)
+    if(data1.toHex().toInt(&ok,16)==2)
     {
          D.setModal(true);
          D.exec();
 
-         if(D.getAlert()==1)
+         if(D.getAlert()=='2')
          {
-             A.write_to_arduino("1");
+             A.write_to_arduino("3");
          }
     }
             else
@@ -1821,6 +1861,19 @@ void MainWindow::on_profileButton_7_clicked()
 
 void MainWindow::on_pushButton_SaveAddCustomer_clicked()
 {
+    if(ui->lineEdit_FirstNameCustomerInput->text().isEmpty())
+    {
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid red;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+    else
+    {
+        ui->lineEdit_FirstNameCustomerInput->setStyleSheet("border: 2px solid black;"
+                                                          "padding: 1px;"
+                                                          "border-radius: 10px;");
+    }
+
 
     if(ui->lineEdit_LastNameCustomerInput->text().isEmpty())
     {
@@ -4401,7 +4454,7 @@ void MainWindow::on_pushButton_SaveEditWarehouse_clicked()
                                                    "Click Cancel to exit."), QMessageBox::Cancel);
              }
 
-             ui->stackedWidget->setCurrentIndex(27);
+             ui->stackedWidget->setCurrentIndex(29);
          }
 
 }
@@ -4469,14 +4522,17 @@ QMessageBox::information(nullptr, QObject::tr("Ok"),
                                     "Click Cancel to exit."), QMessageBox::Cancel);
 
 ui->listView_6->setModel(d.AfficherListe());
-ui->stackedWidget->setCurrentIndex(27);
+ui->stackedWidget->setCurrentIndex(29);
+ui->lineEdit_IDWarehouseInput->setText("");
+ui->lineEdit_TypeOfProductInput->setText("");
+ui->lineEdit_NameWarehouseManagerInput->setText("");
 }
 else//if(test==false)->la requete n'est pas executÃƒÂ©e->QMessageBox::critical
 {
 QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
                      QObject::tr("Addition of new warehouse failed.\n"
                                  "Click Cancel to exit."), QMessageBox::Cancel);
-ui->stackedWidget->setCurrentIndex(27);
+ui->stackedWidget->setCurrentIndex(29);
     }
 }
 
@@ -4783,6 +4839,8 @@ void MainWindow::on_lineEdit_SearchMaterial_textChanged(const QString &arg1)
     material m ;
     QString info =arg1;
     ui->listViewMateriel->setModel(m.search(info));
+    if (arg1=="")
+          ui->listViewMateriel->setModel(m.afficherList());
 }
 
 void MainWindow::on_pushButton_SortMaterial_clicked()
@@ -5171,7 +5229,7 @@ void MainWindow::on_returnstatmaterial_clicked()
 
 void MainWindow::on_pushButton_return2_3_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(21);
+    ui->stackedWidget->setCurrentIndex(23);
 
 }
 
@@ -5378,7 +5436,7 @@ void MainWindow::on_print_clicked()
     QFont font = painter.font();
     font.setPointSize(font.pointSize() * 2);
     painter.setFont(font);
-    QImage image(":/floralloLogo.png");
+    QImage image(":/images/images/floralloLogo.png");
     painter.setPen(Qt::cyan);
     painter.drawImage(480,-20,image);
     painter.drawText(230,90,"Supplier inforamtion  : ");
@@ -5440,7 +5498,7 @@ void MainWindow::viewSupplier()
     ui->stackedWidget->setCurrentIndex(41);
     QString i = ui->listViewSupplier->currentIndex().data().toString();
     s.loadData(i);
-    ui->viewID->setText(s.getid());
+    ui->viewID_3->setText(s.getid());
     ui->viewcampname->setText(s.getcampName());
     ui->viewadress->setText(s.getadress());
     ui->viewville->setText(s.getville());
@@ -5631,15 +5689,22 @@ void MainWindow::on_pushButton_6_clicked()
     QString itemText=ui->lineEdit_SearchCustomer_3->text();
     if(P1.Chercher(itemText))
     {
-        ui->tableView_2->setModel(P1.Afficher(itemText));
+        ui->listView_5->setModel(P1.Afficher(itemText));
 
         ui->stackedWidget->setCurrentIndex(23);
     }
     else
     {
+
         QMessageBox::critical(nullptr, QObject::tr("Error"),
                               QObject::tr("PRODUCT Not Found.\n"
                                           "Click Cancel to exit."), QMessageBox::Cancel);
     }
 
+}
+
+void MainWindow::on_lineEdit_SearchCustomer_3_textChanged(const QString &arg1)
+{
+    if(arg1=="")
+         ui->listView_5->setModel(P1.AfficherListe());
 }

@@ -556,6 +556,8 @@ private slots:
 
      void on_pushButton_6_clicked();
 
+     void on_lineEdit_SearchCustomer_3_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     QPropertyAnimation *animation;
