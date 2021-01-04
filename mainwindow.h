@@ -44,8 +44,8 @@
 #include <QtCharts/QPieSlice>
 #include <QtCharts/QLegend>
 #include "history.h"
-
-
+#include "arduino_temperature.h"
+#include "PopGas.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -593,6 +593,9 @@ private:
     //declaration chedi
     produit P1;
     depot DEPOT;
+    PopGas G;
+
+    Arduino_temperature T;
 
 
 };

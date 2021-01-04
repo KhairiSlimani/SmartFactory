@@ -19,24 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     timer->start();
     connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
 
-    int ret = A.connect_arduino();
-    switch (ret)
-    {
-        case(0): qDebug()<<"arduino is avaible and connected to: "<<A.getArduino_port_name();
-        break;
-
-        case(1): qDebug()<<"arduino is avaible but not connected to: "<<A.getArduino_port_name();
-        break;
-
-        case(-1): qDebug()<<"arduino is not avaible";
-        break;
-
-
-    }
-
-    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));
-
-
     //Customer's list
     ui->listView_3->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listView_3, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenuCustomers(QPoint)));
@@ -391,21 +373,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     //arduino chedi+khairi
 
-
-
-
-    //QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));*/
-    //nesrine's Work
-   /* switch (ret) {
-    case (0): qDebug()<<"arduino is avaible and connected to :"<<a.getarduino_port_name();
+    int ret = A.connect_arduino();
+    switch (ret)
+    {
+        case(0): qDebug()<<"arduino is avaible and connected to: "<<A.getArduino_port_name();
         break;
-    case(1):qDebug()<<"arduino is not availble but not connect to :"<< a.getarduino_port_name();
+
+        case(1): qDebug()<<"arduino is avaible but not connected to: "<<A.getArduino_port_name();
         break;
-    case(-1): qDebug()<<"arduino is not available  ";
+
+        case(-1): qDebug()<<"arduino is not avaible";
+        break;
+
+
     }
-    QObject::connect(a.getserial(),SIGNAL(readyRead()),this,SLOT(update_label2()));*/
 
-
+    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));
 
 }
 
@@ -415,113 +398,56 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*void MainWindow::update()
-{
-    bool ok;
-    data = A.read_from_arduino();
-
-    qDebug()<<data;
-    qDebug()<<"i am here";
-
- if(data.toHex().toInt(&ok,16)== 1 )
- {
-      ui->etat->setText("Warning there is a large amount of gas :(");
- }
- else if(data.toHex().toInt(&ok,16)== 0 )
- {
-      ui->etat->setText("No gas leak :)");
- }
-
- else if(data.toHex().toInt(&ok,16)== 2)
- {
-     qDebug() << "hello";
-      D.setModal(true);
-      D.exec();
-
-      if(D.getAlert()==2)
-      {
-           A.write_to_arduino("2");
-      }
-      else if(D.getAlert()==3)
-      {
-           D.hide();
-      }
-}
-
-else
-{
-    if( !data.contains('n') && !data.contains('r') )
-{    data = A.read_from_arduino2();
-float nb = data.toFloat();
-bool ok;
-if(data.toHex().toInt(&ok,16)==1)// serialWrite("1")  condition
-   {
-        D.setModal(true);
-        D.exec();
-   }
-           else
-   {
-        D.hide();
-   }
-qDebug() << nb << endl;
-
-}
-}
-
-}*/
-
 //meriam+yesmine arduino
 void MainWindow::update_label()
 {
-    data1=A.read_from_arduino();
-    qDebug() << "data1: " << data1;
-    bool ok;
-    if(data1.toHex().toInt(&ok,16)==2)
+    data = A.read_from_arduino();
+
+    //khairi+chedi
+    qDebug()<<data;
+
+    if(data == "ON" )
+    {
+        G.setModal(true);
+        G.exec();
+    }
+    //END OF khairi+chedi
+
+
+    //Mariem + Yassmin
+    if(data == "MH")
     {
          D.setModal(true);
          D.exec();
-
-         if(D.getAlert()=='2')
-         {
-             A.write_to_arduino("3");
-         }
     }
-            else
+
+    if(D.getAlert() == 1)
     {
-         D.hide();
+        A.write_to_arduino("3");
     }
-     qDebug() << "data" << data1;
+    //END OF Mariem + Yassmin
+
+
+    //Nessrin
+    if( !data.contains('n') && !data.contains('r') )
+    {
+        float nb = data.toFloat();
+        if(data=="Nessrine")// serialWrite("1")  condition
+        {
+            T.setModal(true);
+            T.exec();
+        }
+        else
+        {
+            T.hide();
+        }
+        qDebug() << nb << endl;
+
+    }
+
 
 }
-/////
-/// \brief MainWindow::showTime
-///
-//arduino nesrine
-/*void MainWindow::update_label2()
-{
 
-
-        if( !data.contains('n') && !data.contains('r') )
-{    data = A.read_from_arduino2();
-    float nb = data.toFloat();
-    bool ok;
-    if(data.toHex().toInt(&ok,16)==1)// serialWrite("1")  condition
-       {
-            D.setModal(true);
-            D.exec();
-       }
-               else
-       {
-            D.hide();
-       }
-    qDebug() << nb << endl;
-
-}
-   // qDebug() << data << endl;
-
-
-
-}*/
 void MainWindow::showTime()
 {
     QTime time=QTime::currentTime();

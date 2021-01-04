@@ -36,6 +36,7 @@ SOURCES += \
     material.cpp \
     order.cpp \
     peermanager.cpp \
+    popgas.cpp \
     produit.cpp \
     profile.cpp \
     project.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     material.h \
     order.h \
     peermanager.h \
+    popgas.h \
     produit.h \
     profile.h \
     project.h \
@@ -71,7 +73,8 @@ FORMS += \
     arduino_alcohol.ui \
     arduino_temperature.ui \
     deleteconfirmation.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    popgas.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
