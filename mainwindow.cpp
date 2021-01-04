@@ -323,20 +323,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // travail de nesrine
 
-    animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
-          animation->setDuration(5000);
-          animation->setStartValue(ui->pushButton_statMateriel->geometry());
-          animation->setEndValue(ui->pushButton_statMateriel->geometry());
-          animation->start();
-
-          animation=new QPropertyAnimation(ui->pushButton_statMateriel,"geometry");
-          animation->setDuration(5000);
-          animation->setStartValue(ui->pushButton_statMateriel->geometry());
-          animation->setEndValue(ui->pushButton_statMateriel->geometry());
-          animation->start();
-
-
-
     //controle de saisie de fournisseurs de la modification
     ui->lineEdit_editSID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]+")));
     ui->lineEdit_Addcontacttitle->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
@@ -425,25 +411,23 @@ void MainWindow::update_label()
     {
         A.write_to_arduino("3");
     }
+
+
     //END OF Mariem + Yassmin
 
 
     //Nessrin
-    if( !data.contains('n') && !data.contains('r') )
-    {
+
         float nb = data.toFloat();
-        if(data=="Nessrine")// serialWrite("1")  condition
+        if(data=="Ne")// serialWrite("1")  condition
         {
             T.setModal(true);
             T.exec();
         }
-        else
-        {
-            T.hide();
-        }
+
         qDebug() << nb << endl;
 
-    }
+
 
 
 }
@@ -1049,6 +1033,18 @@ void MainWindow::on_access1Button_clicked()
     }
     else if(ui->viewJobTitle->text() == "Stock Employee")
     {
+        animation1=new QPropertyAnimation(ui->ProductsButton,"geometry");
+        animation1->setDuration(5000);
+        animation1->setStartValue(ui->ProductsButton->geometry());
+        animation1->setEndValue(ui->WarehouseButton->geometry());
+        animation1->start();
+
+        animation1=new QPropertyAnimation(ui->WarehouseButton,"geometry");
+        animation1->setDuration(5000);
+        animation1->setStartValue(ui->WarehouseButton->geometry());
+        animation1->setEndValue(ui->ProductsButton->geometry());
+        animation1->start();
+
         ui->stackedWidget->setCurrentIndex(22);
     }
     else if(ui->viewJobTitle->text() == "CEO")

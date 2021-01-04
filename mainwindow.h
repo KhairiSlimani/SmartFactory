@@ -45,7 +45,7 @@
 #include <QtCharts/QLegend>
 #include "history.h"
 #include "arduino_temperature.h"
-#include "PopGas.h"
+#include "popgas.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
